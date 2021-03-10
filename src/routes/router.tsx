@@ -1,10 +1,12 @@
 import { Switch, Route } from "react-router-dom";
-import Practices from "../components/screens/practices";
+import Dashboard from "../components/dashboard";
 
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/practices" component={Practices}></Route>
+      <Route path="/practices" component={Dashboard}></Route>
+      <Route path="/doctors" component={Dashboard}></Route>
+      <Route path="/patients" component={Dashboard}></Route>
       <Route path="/login"></Route>
     </Switch>
   );

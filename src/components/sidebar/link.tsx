@@ -1,5 +1,5 @@
 import { Box, Link } from "@chakra-ui/layout";
-import { Link as RouterLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 interface SidebarLinkProps {
   label: string;
@@ -10,7 +10,7 @@ const SidebarLink = ({ label, route }: SidebarLinkProps) => {
   return (
     <Box display="flex">
       <Link
-        as={RouterLink}
+        as={NavLink}
         to={route}
         background="transparent"
         color="white"
@@ -25,6 +25,7 @@ const SidebarLink = ({ label, route }: SidebarLinkProps) => {
         mx={10}
         borderRadius={10}
         fontSize={16}
+        exact
       >
         {label}
       </Link>

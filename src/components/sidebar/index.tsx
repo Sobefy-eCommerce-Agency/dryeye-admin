@@ -1,5 +1,4 @@
 import { Box, Flex, Grid } from "@chakra-ui/layout";
-import { BrowserRouter as Router } from "react-router-dom";
 import SidebarLink from "./link";
 import Logo from "../../assets/images/logo.webp";
 import { Image } from "@chakra-ui/image";
@@ -17,11 +16,9 @@ const Sidebar = () => {
         <Image h="70px" src={Logo} />
       </Flex>
       <Grid gridRowGap={4}>
-        <Router>
-          <SidebarLink label="Practices" route="/practices" />
-          <SidebarLink label="Doctors" route="/doctors" />
-          <SidebarLink label="Patients" route="/patients" />
-        </Router>
+        <SidebarLink label="Practices" route="/practices" />
+        <SidebarLink label="Doctors" route="/doctors" />
+        <SidebarLink label="Patients" route="/patients" />
       </Grid>
     </Box>
   );
