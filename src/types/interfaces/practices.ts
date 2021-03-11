@@ -7,6 +7,7 @@ export type Practice = {
   email: string;
   website: string;
   address: string;
+  street_number: string;
   route: string;
   county: string;
   state: string;
@@ -21,7 +22,6 @@ export type Practice = {
   facebook_url: string;
   instagram_url: string;
   twitter_url: string;
-  street_number: string;
   monday_op_hours: string;
   tuesday_op_hours: string;
   wednesday_op_hours: string;

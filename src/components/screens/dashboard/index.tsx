@@ -10,17 +10,21 @@ import {
   InputGroup,
   InputLeftElement,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Practice } from "../../../types/interfaces/practices";
-import { RoleType } from "../../../types/commons/commons";
+import { RoleType, ActionType } from "../../../types/commons/commons";
 import DashboardTable from "../../table/table";
+import Form from "../../form/form";
 
 type Practices = Practice[] | [];
 
 const Dashboard = ({ match }: RouteComponentProps) => {
   const userRole: RoleType = "administrator";
   const [results, setResult] = useState<Practices>([]);
+  const [action, setAction] = useState<ActionType>("idle");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Get entity configuration
   const filteredEntities = entities.filter(
@@ -70,7 +74,14 @@ const Dashboard = ({ match }: RouteComponentProps) => {
           </Flex>
         ) : null}
         {create ? (
-          <Button onClick={() => console.log("clicking")}>Add practice</Button>
+          <Button
+            onClick={() => {
+              setAction("create");
+              onOpen();
+            }}
+          >
+            Add practice
+          </Button>
         ) : null}
       </Flex>
       <DashboardTable
@@ -78,6 +89,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
         results={results}
         permissions={currentEntityPermissions}
       />
+      <Form isOpen={isOpen} onClose={onClose} action={action} />
     </Box>
   );
 };

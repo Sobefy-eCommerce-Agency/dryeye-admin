@@ -1,10 +1,24 @@
-import { EntityType } from "../commons/commons";
+import {
+  EntityType,
+  InputType,
+  MaskType,
+  FieldGroupType,
+} from "../commons/commons";
 
 export interface Column {
   column: string;
   label: string;
   type: "text" | "number" | "date" | "boolean";
   sort: boolean;
+}
+
+export interface FieldSet {
+  id: string;
+  label: string;
+  placeholder: string;
+  type: InputType;
+  mask?: MaskType;
+  group: FieldGroupType;
 }
 
 export interface Entity {
@@ -18,4 +32,5 @@ export interface Entity {
     delete: string;
   };
   columns: Column[];
+  fieldSet: FieldSet[];
 }
