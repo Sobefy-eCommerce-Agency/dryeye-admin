@@ -1,19 +1,21 @@
-const roles = {
-  administrator: {
+import { Role } from "../types/interfaces/roles";
+
+const roles: Role[] = [
+  {
+    role: "administrator",
     entities: [
       {
-        entity: "patients",
+        id: "practices",
         actions: {
-          list: true,
           view: true,
           create: true,
           update: true,
-          delete: true,
+          remove: true,
           search: true,
         },
       },
     ],
   },
-};
+];
 
 export default roles;

@@ -26,6 +26,13 @@ const SidebarLink = ({ label, route }: SidebarLinkProps) => {
         borderRadius={10}
         fontSize={16}
         exact
+        sx={{
+          "&.active": {
+            color: "brand.primary",
+            background: "white",
+            fontWeight: "semibold",
+          },
+        }}
       >
         {label}
       </Link>
