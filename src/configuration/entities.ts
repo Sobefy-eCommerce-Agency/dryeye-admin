@@ -3,7 +3,7 @@ import { Entity } from "../types/interfaces/entities";
 const entities: Entity[] = [
   {
     id: "practices",
-    label: "Practices",
+    label: "Medical Practices",
     route: "/practices",
     data: {
       get: "practices",
@@ -59,6 +59,13 @@ const entities: Entity[] = [
         group: "addressInformation",
       },
       {
+        id: "address",
+        label: "Address",
+        placeholder: "Address",
+        type: "addressAutocomplete",
+        group: "addressInformation",
+      },
+      {
         id: "phone",
         label: "Phone",
         placeholder: "Phone",
@@ -78,13 +85,6 @@ const entities: Entity[] = [
         label: "Website",
         placeholder: "Website",
         type: "text",
-        group: "addressInformation",
-      },
-      {
-        id: "address",
-        label: "Address",
-        placeholder: "Address",
-        type: "addressAutocomplete",
         group: "addressInformation",
       },
       {
@@ -158,6 +158,11 @@ const entities: Entity[] = [
         group: "openingHours",
       },
     ],
+    fieldSetGroups: [
+      { id: "addressInformation", label: "Address Information" },
+      { id: "socialMedia", label: "Social Media" },
+      { id: "openingHours", label: "Opening Hours" },
+    ],
   },
   {
     id: "doctors",
@@ -171,6 +176,7 @@ const entities: Entity[] = [
     },
     columns: [],
     fieldSet: [],
+    fieldSetGroups: [],
   },
   {
     id: "patients",
@@ -184,6 +190,7 @@ const entities: Entity[] = [
     },
     columns: [],
     fieldSet: [],
+    fieldSetGroups: [],
   },
 ];
 

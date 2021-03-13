@@ -21,6 +21,11 @@ export interface FieldSet {
   group: FieldGroupType;
 }
 
+export interface FieldSetGroup {
+  id: string;
+  label: string;
+}
+
 export interface Entity {
   id: EntityType;
   label: string;
@@ -33,4 +38,5 @@ export interface Entity {
   };
   columns: Column[];
   fieldSet: FieldSet[];
+  fieldSetGroups: FieldSetGroup[];
 }

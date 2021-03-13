@@ -4,16 +4,16 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Column } from "../../types/interfaces/entities";
 import { Practice } from "../../types/interfaces/practices";
 
-type Practices = Practice[] | [];
-
 const DashboardTable = ({
   columns,
   results,
   permissions,
+  onDelete,
 }: {
   columns: Column[];
-  results: Practices;
+  results: Practice[] | [];
   permissions: any;
+  onDelete(data: object, name: string): void;
 }) => {
   const {
     actions: { view, update, remove },
@@ -43,7 +43,18 @@ const DashboardTable = ({
                 <MenuList>
                   {view ? <MenuItem>View</MenuItem> : null}
                   {update ? <MenuItem>Edit</MenuItem> : null}
-                  {remove ? <MenuItem>Delete</MenuItem> : null}
+                  {remove ? (
+                    <MenuItem
+                      onClick={() =>
+                        onDelete(
+                          { practice: result.practice, doctor: result.doctor },
+                          result.name
+                        )
+                      }
+                    >
+                      Delete
+                    </MenuItem>
+                  ) : null}
                 </MenuList>
               </Menu>
             </Td>
