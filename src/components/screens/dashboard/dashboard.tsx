@@ -53,8 +53,6 @@ const Dashboard = ({ match }: RouteComponentProps) => {
     label,
     columns,
     data: { get },
-    fieldSet,
-    fieldSetGroups,
   } = currentEntity;
   // Get entity permissions
   const filteredRoles = roles.filter((role) => role.role === userRole);

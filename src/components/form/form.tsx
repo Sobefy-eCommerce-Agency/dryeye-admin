@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -18,6 +19,7 @@ import { Entity } from "../../types/interfaces/entities";
 import FieldForm from "./fieldForm";
 import { PracticesSchema } from "../../configuration/validationSchemas";
 import { buildPostPracticePayload } from "../utils/buildPayload";
+import { AddressComponent } from "../../types/interfaces/practices";
 interface FormProps {
   isOpen: boolean;
   onClose(): void;
@@ -75,6 +77,11 @@ const ModalForm = ({
   entity,
   onSubmit,
 }: FormProps) => {
+  const [
+    addressComponent,
+    setAddressComponent,
+  ] = useState<AddressComponent | null>(null);
+
   const title = action === "create" ? "Add" : "Edit";
   const { fieldSet, fieldSetGroups } = entity;
 
@@ -91,10 +98,15 @@ const ModalForm = ({
           <Formik
             initialValues={initialValues}
             onSubmit={(values, actions) => {
-              const data = buildPostPracticePayload(values);
-              onSubmit(data, data.name);
+              const additionalData = addressComponent;
+              if (additionalData) {
+                const data = buildPostPracticePayload(values, additionalData);
+                if (data) {
+                  onSubmit(data, data.name);
+                }
+              }
             }}
-            validationSchema={PracticesSchema}
+            validationSchema={PracticesSchema(addressComponent)}
           >
             {(props) => (
               <FormStyled>
@@ -116,15 +128,17 @@ const ModalForm = ({
                       </Text>
                       <SimpleGrid columns={3} columnGap={6} rowGap={6}>
                         {fieldSet.map((fieldConfig) => {
-                          if (fieldConfig.group === group.id) {
+                          const { group: fieldConfigGroup, id } = fieldConfig;
+                          if (fieldConfigGroup === group.id) {
                             return (
-                              <Field key={fieldConfig.id} name={fieldConfig.id}>
+                              <Field key={id} name={id}>
                                 {({ field, form, meta }: FieldProps) => (
                                   <FieldForm
                                     fieldConfig={fieldConfig}
                                     form={form}
                                     field={field}
                                     meta={meta}
+                                    setAddressComponent={setAddressComponent}
                                   />
                                 )}
                               </Field>

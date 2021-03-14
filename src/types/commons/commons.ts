@@ -15,3 +15,12 @@ export type FieldGroupType =
   | "addressInformation"
   | "socialMedia"
   | "openingHours";
+export type addressComponentField =
+  | "street_number"
+  | "route"
+  | "locality"
+  | "administrative_area_level_2"
+  | "administrative_area_level_1"
+  | "country"
+  | "postal_code";
+export type addressComponentNameLength = "short_name" | "long_name";
