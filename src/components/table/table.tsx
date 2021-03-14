@@ -6,12 +6,12 @@ import { Practice } from "../../types/interfaces/practices";
 
 const DashboardTable = ({
   columns,
-  results,
+  entityData,
   permissions,
   onDelete,
 }: {
   columns: Column[];
-  results: Practice[] | [];
+  entityData: Practice[] | [];
   permissions: any;
   onDelete(data: object, name: string): void;
 }) => {
@@ -24,8 +24,8 @@ const DashboardTable = ({
   ));
 
   const listRows =
-    results.length > 0
-      ? results.map((result: Practice) => (
+    entityData.length > 0
+      ? entityData.map((result: Practice) => (
           <Tr key={result.practice}>
             {columns.map((column) => {
               const columnKey = column.column;

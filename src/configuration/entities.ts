@@ -5,12 +5,6 @@ const entities: Entity[] = [
     id: "practices",
     label: "Medical Practices",
     route: "/practices",
-    data: {
-      get: "practices",
-      create: "/practices",
-      update: "/practices",
-      delete: "/practices",
-    },
     columns: [
       {
         column: "name",
@@ -163,34 +157,101 @@ const entities: Entity[] = [
       { id: "socialMedia", label: "Social Media" },
       { id: "openingHours", label: "Opening Hours" },
     ],
+    lang: {
+      dashboard: {
+        title: "Medical Practices",
+        searchBar: "Search for medical practices",
+        addEntityButton: "Add medical practice",
+      },
+      form: {
+        createEntityTitle: "Create medical practice",
+        createEntityButton: "Create",
+        updateEntityTitle: (name) => `Update practice ${name}`,
+        updateEntityButton: "Save",
+      },
+      dialogs: {
+        deleteEntityTitle: "Delete practice",
+        deleteEntityDescription:
+          "Are you sure? You can't undo this action afterwards.",
+      },
+      userFeedback: {
+        entityCreatedTitle: "Practice created.",
+        entityCreatedDescription: (name) =>
+          `The practice ${name} has been created.`,
+        entityUpdatedTitle: "Practice updated.",
+        entityUpdatedDescription: (name) =>
+          `The practice ${name} has been created.`,
+        entityDeletedTitle: "Practice deleted.",
+        entityDeletedDescription: (name) =>
+          `The practice ${name} has been deleted.`,
+      },
+    },
   },
   {
     id: "doctors",
     label: "Doctors",
     route: "/doctors",
-    data: {
-      get: "doctors",
-      create: "",
-      update: "",
-      delete: "",
-    },
     columns: [],
     fieldSet: [],
     fieldSetGroups: [],
+    lang: {
+      dashboard: {
+        title: "",
+        searchBar: "",
+        addEntityButton: "",
+      },
+      form: {
+        createEntityTitle: "",
+        createEntityButton: "",
+        updateEntityTitle: (name) => ``,
+        updateEntityButton: "",
+      },
+      dialogs: {
+        deleteEntityTitle: "",
+        deleteEntityDescription: "",
+      },
+      userFeedback: {
+        entityCreatedTitle: "",
+        entityCreatedDescription: (name) => ``,
+        entityUpdatedTitle: "",
+        entityUpdatedDescription: (name) => ``,
+        entityDeletedTitle: "",
+        entityDeletedDescription: (name) => ``,
+      },
+    },
   },
   {
     id: "patients",
     label: "Patients",
     route: "/patients",
-    data: {
-      get: "",
-      create: "",
-      update: "",
-      delete: "",
-    },
     columns: [],
     fieldSet: [],
     fieldSetGroups: [],
+    lang: {
+      dashboard: {
+        title: "",
+        searchBar: "",
+        addEntityButton: "",
+      },
+      form: {
+        createEntityTitle: "",
+        createEntityButton: "",
+        updateEntityTitle: (name) => ``,
+        updateEntityButton: "",
+      },
+      dialogs: {
+        deleteEntityTitle: "",
+        deleteEntityDescription: "",
+      },
+      userFeedback: {
+        entityCreatedTitle: "",
+        entityCreatedDescription: (name) => ``,
+        entityUpdatedTitle: "",
+        entityUpdatedDescription: (name) => ``,
+        entityDeletedTitle: "",
+        entityDeletedDescription: (name) => ``,
+      },
+    },
   },
 ];
 

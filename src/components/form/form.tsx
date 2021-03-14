@@ -15,7 +15,7 @@ import {
 import { Field, FieldProps, Form, Formik } from "formik";
 import styled from "@emotion/styled";
 import { ActionType } from "../../types/commons/commons";
-import { Entity } from "../../types/interfaces/entities";
+import { Entity, FormLang } from "../../types/interfaces/entities";
 import FieldForm from "./fieldForm";
 import { PracticesSchema } from "../../configuration/validationSchemas";
 import { buildPostPracticePayload } from "../utils/buildPayload";
@@ -26,6 +26,7 @@ interface FormProps {
   action: ActionType;
   entity: Entity;
   onSubmit(data: object, name: string): void;
+  lang: FormLang;
 }
 
 const FormStyled = styled(Form)`
@@ -76,14 +77,27 @@ const ModalForm = ({
   action,
   entity,
   onSubmit,
+  lang,
 }: FormProps) => {
   const [
     addressComponent,
     setAddressComponent,
   ] = useState<AddressComponent | null>(null);
 
-  const title = action === "create" ? "Add" : "Edit";
   const { fieldSet, fieldSetGroups } = entity;
+
+  // Destruct lang
+  const {
+    createEntityTitle,
+    createEntityButton,
+    updateEntityTitle,
+    updateEntityButton,
+  } = lang;
+
+  // Configure lang
+  const title = action === "create" ? createEntityTitle : updateEntityTitle("");
+  const buttonLabel =
+    action === "create" ? createEntityButton : updateEntityButton;
 
   return (
     <Modal
@@ -163,7 +177,7 @@ const ModalForm = ({
                       background: "brand.primaryLight",
                     }}
                   >
-                    Save
+                    {buttonLabel}
                   </Button>
                 </ModalFooter>
               </FormStyled>

@@ -1,30 +1,37 @@
 import axios from "axios";
 
-const PracticesInstance = axios.create({
+const DryEyeInstance = axios.create({
   baseURL: "https://api.dryeyerescue.com",
   headers: {
     "content-type": "application/json",
   },
 });
 
-const Api = {
-  getPractices: () =>
-    PracticesInstance({
+const PracticesApi = {
+  get: () =>
+    DryEyeInstance({
       method: "GET",
       url: "/practices",
     }),
-  postPractice: (data: object) =>
-    PracticesInstance({
+  create: (data: object) =>
+    DryEyeInstance({
       method: "POST",
       url: "/practices",
       data,
     }),
-  deletePractice: (data: object) =>
-    PracticesInstance({
+  delete: (data: object) =>
+    DryEyeInstance({
       method: "DELETE",
       url: "/practices",
       data,
     }),
 };
 
-export default Api;
+const getEntityAPI = (id: string) => {
+  switch (id) {
+    case "practices":
+      return PracticesApi;
+  }
+};
+
+export default getEntityAPI;

@@ -24,7 +24,7 @@ import { Practice } from "../../../types/interfaces/practices";
 import { RoleType, ActionType } from "../../../types/commons/commons";
 import DashboardTable from "../../table/table";
 import ModalForm from "../../form/form";
-import Api from "../../../configuration/axiosInstances";
+import getEntityAPI from "../../../configuration/axiosInstances";
 
 type ActiveElement = {
   data?: object;
@@ -33,7 +33,7 @@ type ActiveElement = {
 
 const Dashboard = ({ match }: RouteComponentProps) => {
   const userRole: RoleType = "administrator";
-  const [results, setResult] = useState<Practice[] | []>([]);
+  const [entityData, setEntityData] = useState<Practice[] | []>([]);
   const [action, setAction] = useState<ActionType>("idle");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -49,75 +49,90 @@ const Dashboard = ({ match }: RouteComponentProps) => {
     (entity) => entity.route === match.path
   );
   const currentEntity = filteredEntities[0];
+  const { columns, id, lang } = currentEntity;
+
+  // Get entity lang
   const {
-    label,
-    columns,
-    data: { get },
-  } = currentEntity;
+    dashboard: { title, searchBar, addEntityButton },
+    userFeedback: {
+      entityCreatedTitle,
+      entityCreatedDescription,
+      entityDeletedTitle,
+      entityDeletedDescription,
+    },
+    dialogs: { deleteEntityTitle, deleteEntityDescription },
+    form,
+  } = lang;
+
   // Get entity permissions
   const filteredRoles = roles.filter((role) => role.role === userRole);
   const currentRole = filteredRoles[0];
   const { entities: roleEntities } = currentRole;
   const filteredEntityPermissions = roleEntities.filter(
-    (entity) => entity.id === currentEntity.id
+    (entity) => entity.id === id
   );
   const currentEntityPermissions = filteredEntityPermissions[0];
   const {
     actions: { create, search },
   } = currentEntityPermissions;
 
+  // Entity API
+  const EntityAPI = getEntityAPI(id);
+
   // Fetch context
   useEffect(() => {
-    getPractices();
+    getEntityData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Fetch actions
-  const getPractices = () => {
-    Api.getPractices().then((response) => {
+  const getEntityData = () => {
+    EntityAPI?.get().then((response) => {
       const { data } = response;
       if (data) {
-        setResult(data);
+        setEntityData(data);
       }
     });
   };
-  const createPractice = (data: object, name: string) => {
-    Api.postPractice(data).then((response) => {
+  const createEntity = (data: object, name: string) => {
+    EntityAPI?.create(data).then((response) => {
       const { data } = response;
       if (data) {
         const toast = createStandaloneToast();
         onClose();
         toast({
-          title: "Practice created.",
-          description: `The practice ${name} has been created.`,
+          title: entityCreatedTitle,
+          description: entityCreatedDescription(name),
           status: "success",
           duration: 4000,
           isClosable: true,
         });
-        getPractices();
+        getEntityData();
       }
     });
   };
-  const deletePractice = (data: object, name: string) => {
+
+  const deleteEntityMessage = (data: object, name: string) => {
     setActiveElement({ data, name });
     onOpenAlert();
   };
 
-  const fetchDeletePractice = () => {
+  const deleteEntity = () => {
     const { data, name } = activeElement;
     if (data && name) {
-      Api.deletePractice(data).then((response) => {
+      EntityAPI?.delete(data).then((response) => {
         const { data } = response;
         if (data) {
           const toast = createStandaloneToast();
           onClose();
           toast({
-            title: "Practice deleted.",
-            description: `The practice ${name} has been deleted.`,
+            title: entityDeletedTitle,
+            description: entityDeletedDescription(name),
             status: "success",
             duration: 4000,
             isClosable: true,
           });
-          getPractices();
+          getEntityData();
         }
       });
     }
@@ -126,7 +141,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
   return (
     <Box m={10} fontWeight="semibold">
       <Text fontSize="3xl" mb={10}>
-        {label}
+        {title}
       </Text>
       <Flex justifyContent="space-between" mb={8}>
         {search ? (
@@ -136,7 +151,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
                 pointerEvents="none"
                 children={<SearchIcon color="gray.300" />}
               />
-              <Input type="search" placeholder="Search for practices" />
+              <Input type="search" placeholder={searchBar} />
             </InputGroup>
           </Flex>
         ) : null}
@@ -152,22 +167,23 @@ const Dashboard = ({ match }: RouteComponentProps) => {
               background: "brand.primaryLight",
             }}
           >
-            Add practice
+            {addEntityButton}
           </Button>
         ) : null}
       </Flex>
       <DashboardTable
         columns={columns}
-        results={results}
+        entityData={entityData}
         permissions={currentEntityPermissions}
-        onDelete={(data, name) => deletePractice(data, name)}
+        onDelete={(data, name) => deleteEntityMessage(data, name)}
       />
       <ModalForm
         isOpen={isOpen}
         onClose={onClose}
         action={action}
         entity={currentEntity}
-        onSubmit={(data, name) => createPractice(data, name)}
+        onSubmit={(data, name) => createEntity(data, name)}
+        lang={form}
       />
       <AlertDialog
         isOpen={isOpenAlert}
@@ -178,11 +194,9 @@ const Dashboard = ({ match }: RouteComponentProps) => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete Customer
+              {deleteEntityTitle}
             </AlertDialogHeader>
-            <AlertDialogBody>
-              Are you sure? You can't undo this action afterwards.
-            </AlertDialogBody>
+            <AlertDialogBody>{deleteEntityDescription}</AlertDialogBody>
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onCloseAlert}>
                 Cancel
@@ -190,7 +204,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
               <Button
                 colorScheme="red"
                 onClick={() => {
-                  fetchDeletePractice();
+                  deleteEntity();
                   onCloseAlert();
                 }}
                 ml={3}
