@@ -4,15 +4,18 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Column } from "../../types/interfaces/entities";
 import { Practice } from "../../types/interfaces/practices";
 import { ActionType } from "../../types/commons/commons";
+import { Doctors } from "../../types/interfaces/doctors";
 
 interface DashboardTableProps {
   columns: Column[];
-  entityData: Practice[] | null;
+  entityData: Practice[] | Doctors[] | null;
   permissions: any;
-  onDelete(data: object, name: string): void;
+  onDelete(): void;
   setAction: React.Dispatch<React.SetStateAction<ActionType | null>>;
   onOpen(): void;
-  setActiveData: React.Dispatch<React.SetStateAction<Practice | null>>;
+  setActiveData: React.Dispatch<
+    React.SetStateAction<Practice | Doctors | null>
+  >;
 }
 
 const DashboardTable = ({
@@ -34,7 +37,7 @@ const DashboardTable = ({
 
   const listRows =
     entityData && entityData.length > 0
-      ? entityData.map((result: Practice) => (
+      ? entityData.map((result: Practice | Doctors) => (
           <Tr key={result.practice}>
             {columns.map((column) => {
               const columnKey = column.column;
@@ -64,12 +67,10 @@ const DashboardTable = ({
                   ) : null}
                   {remove ? (
                     <MenuItem
-                      onClick={() =>
-                        onDelete(
-                          { practice: result.practice, doctor: result.doctor },
-                          result.name
-                        )
-                      }
+                      onClick={() => {
+                        setActiveData(result);
+                        onDelete();
+                      }}
                     >
                       Delete
                     </MenuItem>

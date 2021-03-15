@@ -33,7 +33,7 @@ export type Practice = {
 
 export type AddressComponent = {
   [x: string]: string | number | undefined;
-  address: string;
+  address?: string;
   street_number?: string;
   route?: string;
   county?: string;

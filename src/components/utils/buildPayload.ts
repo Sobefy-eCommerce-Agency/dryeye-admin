@@ -1,29 +1,59 @@
 import { ActionType, EntityType } from "../../types/commons/commons";
+import { Doctors } from "../../types/interfaces/doctors";
 import { AddressComponent, Practice } from "../../types/interfaces/practices";
 
 export const buildEntityPayload = (
   id: EntityType,
   action: ActionType,
-  data: Practice | {},
-  additionalData: AddressComponent
+  data: Practice | Doctors,
+  additionalData: AddressComponent | null
 ) => {
   switch (id) {
     case "practices":
       if (data) {
-        if (action === "create") {
+        if (action === "create" || action === "edit") {
           const payload = {
             ...data,
             ...additionalData,
           };
           return payload;
         }
-        const payload = {
-          ...data,
-          ...additionalData,
+        const { doctor, practice } = data;
+        return {
+          doctor,
+          practice,
         };
-        return payload;
       }
       return null;
+
+    case "doctors":
+      if (data) {
+        if (action === "create") {
+          const { owner, createdAt, ...rest } = data;
+          const payload = {
+            customer: owner,
+            ...rest,
+          };
+          return payload;
+        }
+        if (action === "edit") {
+          const { doctor, owner, firstName, lastName, practice } = data;
+          return {
+            doctor,
+            customer: owner,
+            firstName,
+            lastName,
+            practice,
+          };
+        }
+        const { doctor, owner } = data;
+        return {
+          doctor,
+          customer: owner,
+        };
+      }
+      return null;
+
     default:
       return null;
   }

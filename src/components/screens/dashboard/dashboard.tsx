@@ -25,15 +25,14 @@ import { RoleType, ActionType } from "../../../types/commons/commons";
 import DashboardTable from "../../table/table";
 import ModalForm from "../../form/form";
 import getEntityAPI from "../../../configuration/axiosInstances";
-
-type ActiveElement = {
-  data?: object;
-  name?: string;
-};
+import { Doctors } from "../../../types/interfaces/doctors";
+import { buildEntityPayload } from "../../utils/buildPayload";
 
 const Dashboard = ({ match }: RouteComponentProps) => {
   const userRole: RoleType = "administrator";
-  const [entityData, setEntityData] = useState<Practice[] | null>(null);
+  const [entityData, setEntityData] = useState<Practice[] | Doctors[] | null>(
+    null
+  );
   const [action, setAction] = useState<ActionType>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -42,8 +41,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
     onClose: onCloseAlert,
   } = useDisclosure();
   const cancelRef = useRef(null);
-  const [activeElement, setActiveElement] = useState<ActiveElement>({});
-  const [activeData, setActiveData] = useState<Practice | null>(null);
+  const [activeData, setActiveData] = useState<Practice | Doctors | null>(null);
 
   // Get entity configuration
   const filteredEntities = entities.filter(
@@ -85,7 +83,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
   useEffect(() => {
     getEntityData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   // Fetch actions
   const getEntityData = () => {
@@ -135,29 +133,26 @@ const Dashboard = ({ match }: RouteComponentProps) => {
     });
   };
 
-  const deleteEntityMessage = (data: object, name: string) => {
-    setActiveElement({ data, name });
-    onOpenAlert();
-  };
-
   const deleteEntity = () => {
-    const { data, name } = activeElement;
-    if (data && name) {
-      EntityAPI?.delete(data).then((response) => {
-        const { data } = response;
-        if (data) {
-          const toast = createStandaloneToast();
-          onClose();
-          toast({
-            title: entityDeletedTitle,
-            description: entityDeletedDescription(name),
-            status: "success",
-            duration: 4000,
-            isClosable: true,
-          });
-          getEntityData();
-        }
-      });
+    if (activeData) {
+      const payload = buildEntityPayload(id, "delete", activeData, null);
+      if (payload) {
+        EntityAPI?.delete(payload).then((response) => {
+          const { data } = response;
+          if (data) {
+            const toast = createStandaloneToast();
+            onClose();
+            toast({
+              title: entityDeletedTitle,
+              description: entityDeletedDescription(data.name),
+              status: "success",
+              duration: 4000,
+              isClosable: true,
+            });
+            getEntityData();
+          }
+        });
+      }
     }
   };
 
@@ -205,7 +200,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
         columns={columns}
         entityData={entityData}
         permissions={currentEntityPermissions}
-        onDelete={(data, name) => deleteEntityMessage(data, name)}
+        onDelete={() => onOpenAlert()}
         setAction={setAction}
         setActiveData={setActiveData}
         onOpen={onOpen}

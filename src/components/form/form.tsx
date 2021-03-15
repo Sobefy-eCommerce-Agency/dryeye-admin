@@ -17,20 +17,21 @@ import styled from "@emotion/styled";
 import { ActionType } from "../../types/commons/commons";
 import { Entity } from "../../types/interfaces/entities";
 import FieldForm from "./fieldForm";
-import { PracticesSchema } from "../../configuration/validationSchemas";
+import { getSchema } from "../../configuration/validationSchemas";
 import { buildEntityPayload } from "../utils/buildPayload";
 import { AddressComponent, Practice } from "../../types/interfaces/practices";
 import {
   GetInitialAddressComponents,
   GetInitialValues,
 } from "../utils/initialValues";
+import { Doctors } from "../../types/interfaces/doctors";
 interface FormProps {
   isOpen: boolean;
   onClose(): void;
   action: ActionType;
   entity: Entity;
   onSubmit(data: object): void;
-  entityData: Practice | null;
+  entityData: Practice | Doctors | null;
 }
 
 const FormStyled = styled(Form)`
@@ -58,7 +59,11 @@ const ModalForm = ({
     lang: { form },
   } = entity;
 
-  const initialAddressComponents = GetInitialAddressComponents(
+  const initialAddressComponents = entityData
+    ? GetInitialAddressComponents(id, action, entityData)
+    : null;
+
+  const initialValues: Practice | Doctors | {} = GetInitialValues(
     id,
     action,
     entityData
@@ -93,22 +98,20 @@ const ModalForm = ({
       <ModalOverlay>
         <ModalContent background="gray.50">
           <Formik
-            initialValues={GetInitialValues(id, action, entityData)}
-            onSubmit={(values: Practice | {}) => {
+            initialValues={initialValues}
+            onSubmit={(values: Practice | Doctors) => {
               const additionalData = addressComponent;
-              if (additionalData) {
-                const data = buildEntityPayload(
-                  id,
-                  action,
-                  values,
-                  additionalData
-                );
-                if (data) {
-                  onSubmit(data);
-                }
+              const data = buildEntityPayload(
+                id,
+                action,
+                values,
+                additionalData
+              );
+              if (data) {
+                onSubmit(data);
               }
             }}
-            validationSchema={PracticesSchema(addressComponent)}
+            validationSchema={getSchema(id, addressComponent)}
           >
             {(props) => (
               <FormStyled>

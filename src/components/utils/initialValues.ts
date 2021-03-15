@@ -1,11 +1,13 @@
 import { ActionType, EntityType } from "../../types/commons/commons";
+import { Doctors } from "../../types/interfaces/doctors";
 import { Practice } from "../../types/interfaces/practices";
 
 export const GetInitialValues = (
   entity: EntityType,
   action: ActionType,
-  entityData: Practice | null
+  entityData: Practice | Doctors | null
 ) => {
+  console.log(entity);
   switch (entity) {
     case "practices":
       if (action === "edit" && entityData) {
@@ -44,6 +46,17 @@ export const GetInitialValues = (
         saturday_op_hours: "",
         sunday_op_hours: "",
       };
+    case "doctors":
+      if (action === "edit" && entityData) {
+        const { doctor, createdAt, ...rest } = entityData;
+        return { ...rest };
+      }
+      return {
+        firstName: "",
+        lastName: "",
+        practice: "",
+        owner: "",
+      };
     default:
       return {};
   }
@@ -52,7 +65,7 @@ export const GetInitialValues = (
 export const GetInitialAddressComponents = (
   entity: EntityType,
   action: ActionType,
-  entityData: Practice | null
+  entityData: Practice | Doctors
 ) => {
   switch (entity) {
     case "practices":
@@ -80,7 +93,9 @@ export const GetInitialAddressComponents = (
         return { ...rest };
       }
       return null;
-    default:
+    case "doctors":
+      return null;
+    case "patients":
       return null;
   }
 };

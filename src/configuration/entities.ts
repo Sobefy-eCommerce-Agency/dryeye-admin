@@ -41,7 +41,7 @@ const entities: Entity[] = [
       {
         id: "doctor",
         label: "Doctor",
-        placeholder: "Enter the customer ID",
+        placeholder: "Enter the owner ID",
         type: "text",
         group: "addressInformation",
       },
@@ -191,32 +191,90 @@ const entities: Entity[] = [
     id: "doctors",
     label: "Doctors",
     route: "/doctors",
-    columns: [],
-    fieldSet: [],
-    fieldSetGroups: [],
+    columns: [
+      {
+        column: "firstName",
+        label: "First Name",
+        type: "text",
+        sort: true,
+      },
+      {
+        column: "lastName",
+        label: "Last Name",
+        type: "text",
+        sort: true,
+      },
+      {
+        column: "owner",
+        label: "Created by",
+        type: "text",
+        sort: true,
+      },
+      {
+        column: "practice",
+        label: "Practice",
+        type: "text",
+        sort: true,
+      },
+    ],
+    fieldSet: [
+      {
+        id: "firstName",
+        label: "First name",
+        placeholder: "Doctor's first name",
+        type: "text",
+        group: "general",
+      },
+      {
+        id: "lastName",
+        label: "Last name",
+        placeholder: "Doctor's last name",
+        type: "text",
+        group: "general",
+      },
+      {
+        id: "owner",
+        label: "Owner",
+        placeholder: "Owner ID",
+        type: "text",
+        group: "general",
+      },
+      {
+        id: "practice",
+        label: "Practice",
+        placeholder: "Practice ID",
+        type: "text",
+        group: "general",
+      },
+    ],
+    fieldSetGroups: [{ id: "general", label: "General" }],
     lang: {
       dashboard: {
-        title: "",
-        searchBar: "",
-        addEntityButton: "",
+        title: "Doctors",
+        searchBar: "Search for doctors",
+        addEntityButton: "Add doctor",
       },
       form: {
-        createEntityTitle: "",
-        createEntityButton: "",
-        updateEntityTitle: (name) => ``,
-        updateEntityButton: "",
+        createEntityTitle: "Create doctor",
+        createEntityButton: "Create",
+        updateEntityTitle: (name) => `Update doctor ${name}`,
+        updateEntityButton: "Save",
       },
       dialogs: {
-        deleteEntityTitle: "",
-        deleteEntityDescription: "",
+        deleteEntityTitle: "Delete doctor",
+        deleteEntityDescription:
+          "Are you sure? You can't undo this action afterwards.",
       },
       userFeedback: {
-        entityCreatedTitle: "",
-        entityCreatedDescription: (name) => ``,
-        entityUpdatedTitle: "",
-        entityUpdatedDescription: (name) => ``,
-        entityDeletedTitle: "",
-        entityDeletedDescription: (name) => ``,
+        entityCreatedTitle: "Doctor created.",
+        entityCreatedDescription: (name) =>
+          `The doctor ${name} has been created.`,
+        entityUpdatedTitle: "Doctor updated.",
+        entityUpdatedDescription: (name) =>
+          `The doctor ${name} has been updated.`,
+        entityDeletedTitle: "Doctor deleted",
+        entityDeletedDescription: (name) =>
+          `The doctor ${name} has been deleted.`,
       },
     },
   },
@@ -229,9 +287,9 @@ const entities: Entity[] = [
     fieldSetGroups: [],
     lang: {
       dashboard: {
-        title: "",
-        searchBar: "",
-        addEntityButton: "",
+        title: "Doctors",
+        searchBar: "Search for doctors",
+        addEntityButton: "Add doctor",
       },
       form: {
         createEntityTitle: "",
