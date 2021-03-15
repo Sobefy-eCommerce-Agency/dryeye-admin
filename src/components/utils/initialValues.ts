@@ -1,13 +1,13 @@
 import { ActionType, EntityType } from "../../types/commons/commons";
 import { Doctors } from "../../types/interfaces/doctors";
+import { Patients } from "../../types/interfaces/patients";
 import { Practice } from "../../types/interfaces/practices";
 
 export const GetInitialValues = (
   entity: EntityType,
   action: ActionType,
-  entityData: Practice | Doctors | null
+  entityData: Practice | Doctors | Patients | null
 ) => {
-  console.log(entity);
   switch (entity) {
     case "practices":
       if (action === "edit" && entityData) {
@@ -56,6 +56,23 @@ export const GetInitialValues = (
         lastName: "",
         practice: "",
         owner: "",
+      };
+    case "patients":
+      if (action === "edit" && entityData) {
+        const { createdAt, ...rest } = entityData;
+        return { ...rest };
+      }
+      return {
+        user: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        address: "",
+        address2: "",
+        city: "",
+        state: "",
+        zip: "",
       };
     default:
       return {};

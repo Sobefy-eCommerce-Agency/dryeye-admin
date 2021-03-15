@@ -37,7 +37,6 @@ export const buildEntityPayload = (
           return payload;
         }
         if (action === "edit") {
-          console.log(data);
           const { doctor, owner, firstName, lastName, practice } = data;
           return {
             doctor,
@@ -55,6 +54,26 @@ export const buildEntityPayload = (
       }
       return null;
 
+    case "patients":
+      if (data) {
+        if (action === "create") {
+          const { owner, createdAt, ...rest } = data;
+          const payload = {
+            customer: owner,
+            ...rest,
+          };
+          return payload;
+        }
+        if (action === "edit") {
+          return data;
+        }
+        const { patient, user } = data;
+        return {
+          patient,
+          user,
+        };
+      }
+      return null;
     default:
       return null;
   }

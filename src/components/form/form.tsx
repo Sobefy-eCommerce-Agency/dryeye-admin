@@ -25,13 +25,14 @@ import {
   GetInitialValues,
 } from "../utils/initialValues";
 import { Doctors } from "../../types/interfaces/doctors";
+import { Patients } from "../../types/interfaces/patients";
 interface FormProps {
   isOpen: boolean;
   onClose(): void;
   action: ActionType;
   entity: Entity;
   onSubmit(data: object): void;
-  entityData: Practice | Doctors | null;
+  entityData: Practice | Doctors | Patients | null;
 }
 
 const FormStyled = styled(Form)`
@@ -63,7 +64,7 @@ const ModalForm = ({
     ? GetInitialAddressComponents(id, action, entityData)
     : null;
 
-  const initialValues: Practice | Doctors | {} = GetInitialValues(
+  const initialValues: Practice | Doctors | Patients | {} = GetInitialValues(
     id,
     action,
     entityData

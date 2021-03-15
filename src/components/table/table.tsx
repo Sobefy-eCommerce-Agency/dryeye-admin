@@ -5,6 +5,7 @@ import { Column } from "../../types/interfaces/entities";
 import { Practice } from "../../types/interfaces/practices";
 import { ActionType } from "../../types/commons/commons";
 import { Doctors } from "../../types/interfaces/doctors";
+import { Patients } from "../../types/interfaces/patients";
 
 interface DashboardTableProps {
   columns: Column[];
@@ -14,7 +15,7 @@ interface DashboardTableProps {
   setAction: React.Dispatch<React.SetStateAction<ActionType | null>>;
   onOpen(): void;
   setActiveData: React.Dispatch<
-    React.SetStateAction<Practice | Doctors | null>
+    React.SetStateAction<Practice | Doctors | Patients | null>
   >;
 }
 

@@ -1,6 +1,4 @@
 import axios from "axios";
-import { Doctors } from "../types/interfaces/doctors";
-import { Practice } from "../types/interfaces/practices";
 
 const DryEyeInstance = axios.create({
   baseURL: "https://api.dryeyerescue.com",
@@ -61,12 +59,40 @@ const DoctorsApi = {
     }),
 };
 
+const PatientsApi = {
+  get: () =>
+    DryEyeInstance({
+      method: "GET",
+      url: "/patients",
+    }),
+  create: (data: object) =>
+    DryEyeInstance({
+      method: "POST",
+      url: "/patients",
+      data,
+    }),
+  update: (data: object) =>
+    DryEyeInstance({
+      method: "PUT",
+      url: "/patients/update",
+      data,
+    }),
+  delete: (data: object) =>
+    DryEyeInstance({
+      method: "DELETE",
+      url: "/patients/delete",
+      data,
+    }),
+};
+
 const getEntityAPI = (id: string) => {
   switch (id) {
     case "practices":
       return PracticesApi;
     case "doctors":
       return DoctorsApi;
+    case "patients":
+      return PatientsApi;
   }
 };
 

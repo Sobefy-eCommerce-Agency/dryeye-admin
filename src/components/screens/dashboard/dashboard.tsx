@@ -27,12 +27,13 @@ import ModalForm from "../../form/form";
 import getEntityAPI from "../../../configuration/axiosInstances";
 import { Doctors } from "../../../types/interfaces/doctors";
 import { buildEntityPayload } from "../../utils/buildPayload";
+import { Patients } from "../../../types/interfaces/patients";
 
 const Dashboard = ({ match }: RouteComponentProps) => {
   const userRole: RoleType = "administrator";
-  const [entityData, setEntityData] = useState<Practice[] | Doctors[] | null>(
-    null
-  );
+  const [entityData, setEntityData] = useState<
+    Practice[] | Doctors[] | Patients[] | null
+  >(null);
   const [action, setAction] = useState<ActionType>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
@@ -41,7 +42,9 @@ const Dashboard = ({ match }: RouteComponentProps) => {
     onClose: onCloseAlert,
   } = useDisclosure();
   const cancelRef = useRef(null);
-  const [activeData, setActiveData] = useState<Practice | Doctors | null>(null);
+  const [activeData, setActiveData] = useState<
+    Practice | Doctors | Patients | null
+  >(null);
 
   // Get entity configuration
   const filteredEntities = entities.filter(

@@ -36,5 +36,18 @@ export const getSchema = (
         firstName: Yup.string().required("Required"),
         lastName: Yup.string().required("Required"),
       });
+    case "patients":
+      return Yup.object().shape({
+        user: Yup.string().required("Required"),
+        firstName: Yup.string().required("Required"),
+        lastName: Yup.string().required("Required"),
+        phone: Yup.string().required("Required"),
+        email: Yup.string().required("Required"),
+        address: Yup.string().required("Required"),
+        address2: Yup.string().required("Required"),
+        city: Yup.string().required("Required"),
+        state: Yup.string().required("Required"),
+        zip: Yup.string().required("Required"),
+      });
   }
 };
