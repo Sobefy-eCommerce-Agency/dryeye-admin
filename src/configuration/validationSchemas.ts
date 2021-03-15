@@ -2,6 +2,7 @@ import * as Yup from "yup";
 import { AddressComponent } from "../types/interfaces/practices";
 
 export const PracticesSchema = (addressComponent: AddressComponent | null) => {
+  console.log(addressComponent);
   return Yup.object().shape({
     doctor: Yup.string().required("Required"),
     name: Yup.string().required("Required"),

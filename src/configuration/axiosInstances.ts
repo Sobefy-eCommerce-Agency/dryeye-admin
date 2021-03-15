@@ -19,6 +19,12 @@ const PracticesApi = {
       url: "/practices",
       data,
     }),
+  update: (data: object) =>
+    DryEyeInstance({
+      method: "PUT",
+      url: "/practices",
+      data,
+    }),
   delete: (data: object) =>
     DryEyeInstance({
       method: "DELETE",

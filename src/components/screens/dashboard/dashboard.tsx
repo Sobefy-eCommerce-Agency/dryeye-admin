@@ -33,8 +33,8 @@ type ActiveElement = {
 
 const Dashboard = ({ match }: RouteComponentProps) => {
   const userRole: RoleType = "administrator";
-  const [entityData, setEntityData] = useState<Practice[] | []>([]);
-  const [action, setAction] = useState<ActionType>("idle");
+  const [entityData, setEntityData] = useState<Practice[] | null>(null);
+  const [action, setAction] = useState<ActionType>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenAlert,
@@ -43,6 +43,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
   } = useDisclosure();
   const cancelRef = useRef(null);
   const [activeElement, setActiveElement] = useState<ActiveElement>({});
+  const [activeData, setActiveData] = useState<Practice | null>(null);
 
   // Get entity configuration
   const filteredEntities = entities.filter(
@@ -57,11 +58,12 @@ const Dashboard = ({ match }: RouteComponentProps) => {
     userFeedback: {
       entityCreatedTitle,
       entityCreatedDescription,
+      entityUpdatedTitle,
+      entityUpdatedDescription,
       entityDeletedTitle,
       entityDeletedDescription,
     },
     dialogs: { deleteEntityTitle, deleteEntityDescription },
-    form,
   } = lang;
 
   // Get entity permissions
@@ -94,15 +96,36 @@ const Dashboard = ({ match }: RouteComponentProps) => {
       }
     });
   };
-  const createEntity = (data: object, name: string) => {
+
+  const createEntity = (data: object) => {
     EntityAPI?.create(data).then((response) => {
       const { data } = response;
       if (data) {
         const toast = createStandaloneToast();
+        const name = data.name;
         onClose();
         toast({
           title: entityCreatedTitle,
           description: entityCreatedDescription(name),
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+        getEntityData();
+      }
+    });
+  };
+
+  const updateEntity = (requestData: any) => {
+    EntityAPI?.update(requestData).then((response) => {
+      const { data } = response;
+      if (data) {
+        const toast = createStandaloneToast();
+        const name = requestData.name || "";
+        onClose();
+        toast({
+          title: entityUpdatedTitle,
+          description: entityUpdatedDescription(name),
           status: "success",
           duration: 4000,
           isClosable: true,
@@ -136,6 +159,13 @@ const Dashboard = ({ match }: RouteComponentProps) => {
         }
       });
     }
+  };
+
+  const handleSubmit = (data: object) => {
+    if (action === "create") {
+      createEntity(data);
+    }
+    updateEntity(data);
   };
 
   return (
@@ -176,15 +206,21 @@ const Dashboard = ({ match }: RouteComponentProps) => {
         entityData={entityData}
         permissions={currentEntityPermissions}
         onDelete={(data, name) => deleteEntityMessage(data, name)}
+        setAction={setAction}
+        setActiveData={setActiveData}
+        onOpen={onOpen}
       />
-      <ModalForm
-        isOpen={isOpen}
-        onClose={onClose}
-        action={action}
-        entity={currentEntity}
-        onSubmit={(data, name) => createEntity(data, name)}
-        lang={form}
-      />
+      {isOpen ? (
+        <ModalForm
+          isOpen={isOpen}
+          onClose={onClose}
+          action={action}
+          entity={currentEntity}
+          onSubmit={(data) => handleSubmit(data)}
+          entityData={activeData}
+        />
+      ) : null}
+
       <AlertDialog
         isOpen={isOpenAlert}
         leastDestructiveRef={cancelRef}

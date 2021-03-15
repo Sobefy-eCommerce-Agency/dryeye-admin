@@ -15,18 +15,22 @@ import {
 import { Field, FieldProps, Form, Formik } from "formik";
 import styled from "@emotion/styled";
 import { ActionType } from "../../types/commons/commons";
-import { Entity, FormLang } from "../../types/interfaces/entities";
+import { Entity } from "../../types/interfaces/entities";
 import FieldForm from "./fieldForm";
 import { PracticesSchema } from "../../configuration/validationSchemas";
-import { buildPostPracticePayload } from "../utils/buildPayload";
-import { AddressComponent } from "../../types/interfaces/practices";
+import { buildEntityPayload } from "../utils/buildPayload";
+import { AddressComponent, Practice } from "../../types/interfaces/practices";
+import {
+  GetInitialAddressComponents,
+  GetInitialValues,
+} from "../utils/initialValues";
 interface FormProps {
   isOpen: boolean;
   onClose(): void;
   action: ActionType;
   entity: Entity;
-  onSubmit(data: object, name: string): void;
-  lang: FormLang;
+  onSubmit(data: object): void;
+  entityData: Practice | null;
 }
 
 const FormStyled = styled(Form)`
@@ -39,52 +43,31 @@ const FormStyled = styled(Form)`
   flex-direction: column;
 `;
 
-const initialValues = {
-  practice: "",
-  doctor: "",
-  name: "",
-  phone: "",
-  email: "",
-  website: "",
-  address: "",
-  facebook_url: "",
-  instagram_url: "",
-  twitter_url: "",
-  monday_op_hours: "",
-  tuesday_op_hours: "",
-  wednesday_op_hours: "",
-  thursday_op_hours: "",
-  friday_op_hours: "",
-  saturday_op_hours: "",
-  sunday_op_hours: "",
-  street_number: "",
-  route: "",
-  county: "",
-  state: "",
-  state_short: "",
-  city: "",
-  country: "",
-  country_short: "",
-  zip: "",
-  latitude: "",
-  longitude: "",
-  createdAt: -1,
-};
-
 const ModalForm = ({
   isOpen,
   onClose,
   action,
   entity,
   onSubmit,
-  lang,
+  entityData,
 }: FormProps) => {
+  const {
+    id,
+    fieldSet,
+    fieldSetGroups,
+    lang: { form },
+  } = entity;
+
+  const initialAddressComponents = GetInitialAddressComponents(
+    id,
+    action,
+    entityData
+  );
+
   const [
     addressComponent,
     setAddressComponent,
-  ] = useState<AddressComponent | null>(null);
-
-  const { fieldSet, fieldSetGroups } = entity;
+  ] = useState<AddressComponent | null>(initialAddressComponents);
 
   // Destruct lang
   const {
@@ -92,7 +75,7 @@ const ModalForm = ({
     createEntityButton,
     updateEntityTitle,
     updateEntityButton,
-  } = lang;
+  } = form;
 
   // Configure lang
   const title = action === "create" ? createEntityTitle : updateEntityTitle("");
@@ -110,13 +93,18 @@ const ModalForm = ({
       <ModalOverlay>
         <ModalContent background="gray.50">
           <Formik
-            initialValues={initialValues}
-            onSubmit={(values, actions) => {
+            initialValues={GetInitialValues(id, action, entityData)}
+            onSubmit={(values: Practice | {}) => {
               const additionalData = addressComponent;
               if (additionalData) {
-                const data = buildPostPracticePayload(values, additionalData);
+                const data = buildEntityPayload(
+                  id,
+                  action,
+                  values,
+                  additionalData
+                );
                 if (data) {
-                  onSubmit(data, data.name);
+                  onSubmit(data);
                 }
               }
             }}

@@ -1,6 +1,6 @@
 export type EntityType = "practices" | "doctors" | "patients";
 export type RoleType = "administrator" | "editor" | "viewOnly";
-export type ActionType = "idle" | "view" | "create" | "edit" | "delete";
+export type ActionType = "view" | "create" | "edit" | "delete" | null;
 export type InputType =
   | "text"
   | "number"

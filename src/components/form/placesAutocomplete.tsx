@@ -44,6 +44,7 @@ const AddressAutocomplete = ({
       origin: center,
     },
     debounce: 0,
+    defaultValue: field.value,
   });
 
   const ref = useOnclickOutside(() => {

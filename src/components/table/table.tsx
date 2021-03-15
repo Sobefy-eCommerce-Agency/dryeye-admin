@@ -3,18 +3,27 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Column } from "../../types/interfaces/entities";
 import { Practice } from "../../types/interfaces/practices";
+import { ActionType } from "../../types/commons/commons";
+
+interface DashboardTableProps {
+  columns: Column[];
+  entityData: Practice[] | null;
+  permissions: any;
+  onDelete(data: object, name: string): void;
+  setAction: React.Dispatch<React.SetStateAction<ActionType | null>>;
+  onOpen(): void;
+  setActiveData: React.Dispatch<React.SetStateAction<Practice | null>>;
+}
 
 const DashboardTable = ({
   columns,
   entityData,
   permissions,
   onDelete,
-}: {
-  columns: Column[];
-  entityData: Practice[] | [];
-  permissions: any;
-  onDelete(data: object, name: string): void;
-}) => {
+  setAction,
+  onOpen,
+  setActiveData,
+}: DashboardTableProps) => {
   const {
     actions: { view, update, remove },
   } = permissions;
@@ -24,7 +33,7 @@ const DashboardTable = ({
   ));
 
   const listRows =
-    entityData.length > 0
+    entityData && entityData.length > 0
       ? entityData.map((result: Practice) => (
           <Tr key={result.practice}>
             {columns.map((column) => {
@@ -42,7 +51,17 @@ const DashboardTable = ({
                 </MenuButton>
                 <MenuList>
                   {view ? <MenuItem>View</MenuItem> : null}
-                  {update ? <MenuItem>Edit</MenuItem> : null}
+                  {update ? (
+                    <MenuItem
+                      onClick={() => {
+                        setAction("edit");
+                        onOpen();
+                        setActiveData(result);
+                      }}
+                    >
+                      Edit
+                    </MenuItem>
+                  ) : null}
                   {remove ? (
                     <MenuItem
                       onClick={() =>

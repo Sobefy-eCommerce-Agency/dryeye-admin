@@ -1,16 +1,30 @@
+import { ActionType, EntityType } from "../../types/commons/commons";
 import { AddressComponent, Practice } from "../../types/interfaces/practices";
 
-export const buildPostPracticePayload = (
-  data: Practice,
+export const buildEntityPayload = (
+  id: EntityType,
+  action: ActionType,
+  data: Practice | {},
   additionalData: AddressComponent
 ) => {
-  if (additionalData) {
-    const { practice, createdAt, ...rest } = data;
-    const payload = {
-      ...rest,
-      ...additionalData,
-    };
-    return payload;
+  switch (id) {
+    case "practices":
+      if (data) {
+        if (action === "create") {
+          const payload = {
+            ...data,
+            ...additionalData,
+          };
+          return payload;
+        }
+        const payload = {
+          ...data,
+          ...additionalData,
+        };
+        return payload;
+      }
+      return null;
+    default:
+      return null;
   }
-  return null;
 };
