@@ -48,7 +48,7 @@ export const GetInitialValues = (
       };
     case "doctors":
       if (action === "edit" && entityData) {
-        const { doctor, createdAt, ...rest } = entityData;
+        const { createdAt, ...rest } = entityData;
         return { ...rest };
       }
       return {

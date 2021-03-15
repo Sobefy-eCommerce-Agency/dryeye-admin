@@ -37,6 +37,7 @@ export const buildEntityPayload = (
           return payload;
         }
         if (action === "edit") {
+          console.log(data);
           const { doctor, owner, firstName, lastName, practice } = data;
           return {
             doctor,
