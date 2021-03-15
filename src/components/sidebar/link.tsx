@@ -16,7 +16,7 @@ const SidebarLink = ({ label, route }: SidebarLinkProps) => {
         color="white"
         _hover={{
           background: "brand.primaryLight",
-          color: "black",
+          color: "white",
         }}
         display="flex"
         w="100%"
