@@ -4,6 +4,7 @@ import {
   MaskType,
   FieldGroupType,
   SelectAutocompleteList,
+  ColumnsKey,
 } from "../commons/commons";
 
 export interface Column {
@@ -19,6 +20,7 @@ export interface FieldSet {
   placeholder: string;
   type: InputType;
   list?: SelectAutocompleteList;
+  dependsOf?: SelectAutocompleteList;
   mask?: MaskType;
   group: FieldGroupType;
 }
@@ -45,6 +47,7 @@ export interface Entity {
   id: EntityType;
   label: string;
   route: string;
+  columnsKey: ColumnsKey;
   columns: Column[];
   fieldSet: FieldSet[];
   fieldSetGroups: FieldSetGroup[];

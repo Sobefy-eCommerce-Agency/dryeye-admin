@@ -82,7 +82,7 @@ export const GetInitialValues = (
 export const GetInitialAddressComponents = (
   entity: EntityType,
   action: ActionType,
-  entityData: Practice | Doctors
+  entityData: Practice | Doctors | Patients
 ) => {
   switch (entity) {
     case "practices":

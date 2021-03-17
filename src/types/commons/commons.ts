@@ -25,4 +25,5 @@ export type addressComponentField =
   | "country"
   | "postal_code";
 export type addressComponentNameLength = "short_name" | "long_name";
-export type SelectAutocompleteList = "customers";
+export type SelectAutocompleteList = "customers" | "practices";
+export type ColumnsKey = "doctor" | "practice" | "patient";

@@ -4,7 +4,7 @@ import {
   SelectAutocompleteList,
 } from "../../types/commons/commons";
 import { Customer } from "../../types/interfaces/customers";
-import { Doctors } from "../../types/interfaces/doctors";
+import { Practice } from "../../types/interfaces/practices";
 
 export const GetAddressComponentValue = (
   components: google.maps.GeocoderAddressComponent[],
@@ -18,12 +18,12 @@ export const GetAddressComponentValue = (
 };
 
 export const FormatSelectAutocompleteData = (
-  data: Customer[],
+  data: [],
   list: SelectAutocompleteList
 ) => {
   switch (list) {
     case "customers":
-      const filteredData = data.flatMap((el) => {
+      return data.flatMap((el: Customer) => {
         if (el.doctor && el.first_name) {
           return {
             id: el.doctor,
@@ -32,6 +32,15 @@ export const FormatSelectAutocompleteData = (
         }
         return [];
       });
-      return filteredData;
+    case "practices":
+      return data.flatMap((el: Practice) => {
+        if (el.practice && el.name) {
+          return {
+            id: el.practice,
+            label: el.name,
+          };
+        }
+        return [];
+      });
   }
 };

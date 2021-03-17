@@ -1,11 +1,12 @@
 import { ActionType, EntityType } from "../../types/commons/commons";
 import { Doctors } from "../../types/interfaces/doctors";
+import { Patients } from "../../types/interfaces/patients";
 import { AddressComponent, Practice } from "../../types/interfaces/practices";
 
 export const buildEntityPayload = (
   id: EntityType,
   action: ActionType,
-  data: Practice | Doctors,
+  data: Practice | Doctors | Patients,
   additionalData: AddressComponent | null
 ) => {
   switch (id) {

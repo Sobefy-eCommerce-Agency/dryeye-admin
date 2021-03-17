@@ -5,6 +5,7 @@ const entities: Entity[] = [
     id: "practices",
     label: "Medical Practices",
     route: "/practices",
+    columnsKey: "practice",
     columns: [
       {
         column: "name",
@@ -192,6 +193,7 @@ const entities: Entity[] = [
     id: "doctors",
     label: "Doctors",
     route: "/doctors",
+    columnsKey: "doctor",
     columns: [
       {
         column: "firstName",
@@ -244,8 +246,10 @@ const entities: Entity[] = [
       {
         id: "practice",
         label: "Practice",
-        placeholder: "Practice ID",
-        type: "text",
+        placeholder: "Select a practice",
+        type: "selectAutocomplete",
+        list: "practices",
+        dependsOf: "customers",
         group: "general",
       },
     ],
@@ -284,6 +288,7 @@ const entities: Entity[] = [
     id: "patients",
     label: "Patients",
     route: "/patients",
+    columnsKey: "patient",
     columns: [
       {
         column: "firstName",

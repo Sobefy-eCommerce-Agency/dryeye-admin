@@ -100,7 +100,7 @@ const ModalForm = ({
         <ModalContent background="gray.50">
           <Formik
             initialValues={initialValues}
-            onSubmit={(values: Practice | Doctors) => {
+            onSubmit={(values: Practice | Doctors | Patients) => {
               const additionalData = addressComponent;
               const data = buildEntityPayload(
                 id,

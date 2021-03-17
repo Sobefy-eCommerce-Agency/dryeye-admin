@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
 import { FieldProps } from "formik";
 import AsyncSelect from "react-select/async";
-import { CustomersApi } from "../../configuration/axiosInstances";
+import { CustomersApi, PracticesApi } from "../../configuration/axiosInstances";
 import { SelectAutocompleteList } from "../../types/commons/commons";
 import { FormatSelectAutocompleteData } from "../utils/format";
 import { Customer } from "../../types/interfaces/customers";
+import { Practice } from "../../types/interfaces/practices";
 
 interface SelectAutocompleteProps {
   id: string;
   placeholder: string;
   list: SelectAutocompleteList;
-  initiallyDisabled?: boolean;
-  onSelect(): void;
+  dependsOf?: SelectAutocompleteList | null;
 }
 
 type dataObject = {
@@ -23,14 +23,13 @@ const SelectAutocomplete = ({
   id,
   placeholder,
   list,
-  initiallyDisabled = false,
-  onSelect,
+  dependsOf = null,
   field,
   form,
 }: SelectAutocompleteProps & FieldProps) => {
   const [disabled, setDisabled] = useState(true);
   const [data, setData] = useState<dataObject[]>([]);
-  const [value, setValue] = useState<dataObject>({ id: "", label: "" });
+  const [value, setValue] = useState<dataObject | null>(null);
 
   const { setFieldValue, setFieldTouched, values } = form;
 
@@ -47,15 +46,18 @@ const SelectAutocomplete = ({
   };
 
   useEffect(() => {
-    if (data.length === 0) {
-      const EntityAPI = () => {
-        switch (list) {
-          case "customers":
-            return CustomersApi;
-        }
-      };
+    const EntityAPI = () => {
+      switch (list) {
+        case "customers":
+          return CustomersApi;
+        case "practices":
+          return PracticesApi;
+      }
+    };
+
+    const FetchEntityData = (value?: string) => {
       EntityAPI()
-        .get()
+        .get(value)
         .then((response) => {
           const { data } = response;
           if (data) {
@@ -63,22 +65,56 @@ const SelectAutocomplete = ({
             if (formattedData) {
               setData(formattedData);
               setDisabled(false);
+
+              // Populate edit field
               if (field.value) {
-                const filteredData: Customer[] = data.filter(
-                  (el: Customer) => el.doctor === field.value
-                );
+                let filteredData = [];
+                switch (list) {
+                  case "customers":
+                    filteredData = data.filter(
+                      (el: Customer) => el.doctor === field.value
+                    );
+                    break;
+                  case "practices":
+                    filteredData = data.filter(
+                      (el: Practice) => el.practice === field.value
+                    );
+                    break;
+                }
                 if (filteredData.length === 1) {
-                  setValue({
-                    id: String(field.value),
-                    label: `${filteredData[0].first_name} ${filteredData[0].last_name}`,
-                  });
+                  switch (list) {
+                    case "customers":
+                      setValue({
+                        id: String(field.value),
+                        label: `${filteredData[0].first_name} ${filteredData[0].last_name}`,
+                      });
+                      break;
+                    case "practices":
+                      setValue({
+                        id: String(field.value),
+                        label: filteredData[0].name,
+                      });
+                      break;
+                  }
                 }
               }
             }
           }
         });
+    };
+
+    if (data.length === 0 && !dependsOf) {
+      FetchEntityData();
     }
-  }, [data, list, field.value]);
+    if (dependsOf) {
+      switch (list) {
+        case "practices":
+          if (values && values.owner) {
+            FetchEntityData(values.owner);
+          }
+      }
+    }
+  }, [data, list, field.value, dependsOf, values]);
 
   return (
     <AsyncSelect
@@ -86,7 +122,7 @@ const SelectAutocomplete = ({
       placeholder={placeholder}
       defaultOptions={data}
       loadOptions={loadOptions}
-      isDisabled={initiallyDisabled || disabled}
+      isDisabled={disabled}
       cacheOptions
       isClearable
       value={value}
@@ -98,7 +134,7 @@ const SelectAutocomplete = ({
           setValue(el);
         } else {
           setFieldValue(id, "", true);
-          setValue({ id: "", label: "" });
+          setValue(null);
         }
       }}
     />

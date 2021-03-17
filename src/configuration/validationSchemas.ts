@@ -23,10 +23,7 @@ export const getSchema = (
               return true;
             }
           ),
-        phone: Yup.string()
-          .min(11, "Too Short!")
-          .max(11, "Too Long!")
-          .required("Required"),
+        phone: Yup.string().required("Required"),
         email: Yup.string().email("Invalid email"),
       });
     case "doctors":

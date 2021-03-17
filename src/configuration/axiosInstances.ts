@@ -7,11 +7,11 @@ const DryEyeInstance = axios.create({
   },
 });
 
-const PracticesApi = {
-  get: () =>
+export const PracticesApi = {
+  get: (id?: string) =>
     DryEyeInstance({
       method: "GET",
-      url: "/practices",
+      url: id ? `/practices?doctor=${id}` : "/practices",
     }),
   create: (data: object) =>
     DryEyeInstance({
@@ -86,7 +86,7 @@ const PatientsApi = {
 };
 
 export const CustomersApi = {
-  get: () =>
+  get: (id?: string) =>
     DryEyeInstance({
       method: "GET",
       url: "/customers",

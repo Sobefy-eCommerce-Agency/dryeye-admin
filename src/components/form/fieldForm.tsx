@@ -24,7 +24,7 @@ const FieldForm = ({
   meta,
   setAddressComponent,
 }: FieldFormProps & FieldProps) => {
-  const { id, label, placeholder, type, list } = fieldConfig;
+  const { id, label, placeholder, type, list, dependsOf } = fieldConfig;
   const error = form.errors[id] !== "" && form.errors[id] !== undefined;
   const touched = form.touched[id] !== undefined;
 
@@ -48,11 +48,11 @@ const FieldForm = ({
             <SelectAutocomplete
               id={id}
               placeholder={placeholder}
-              onSelect={() => {}}
               field={field}
               form={form}
               meta={meta}
               list={list}
+              dependsOf={dependsOf}
             />
           );
         }

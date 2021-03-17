@@ -51,7 +51,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
     (entity) => entity.route === match.path
   );
   const currentEntity = filteredEntities[0];
-  const { columns, id, lang } = currentEntity;
+  const { columns, columnsKey, id, lang } = currentEntity;
 
   // Get entity lang
   const {
@@ -84,6 +84,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
 
   // Fetch context
   useEffect(() => {
+    setEntityData(null);
     getEntityData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
@@ -201,6 +202,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
       </Flex>
       <DashboardTable
         columns={columns}
+        columnsKey={columnsKey}
         entityData={entityData}
         permissions={currentEntityPermissions}
         onDelete={() => onOpenAlert()}

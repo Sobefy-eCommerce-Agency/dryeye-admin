@@ -3,13 +3,14 @@ import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Column } from "../../types/interfaces/entities";
 import { Practice } from "../../types/interfaces/practices";
-import { ActionType } from "../../types/commons/commons";
+import { ActionType, ColumnsKey } from "../../types/commons/commons";
 import { Doctors } from "../../types/interfaces/doctors";
 import { Patients } from "../../types/interfaces/patients";
 
 interface DashboardTableProps {
   columns: Column[];
   entityData: Practice[] | Doctors[] | null;
+  columnsKey: ColumnsKey;
   permissions: any;
   onDelete(): void;
   setAction: React.Dispatch<React.SetStateAction<ActionType | null>>;
@@ -23,6 +24,7 @@ const DashboardTable = ({
   columns,
   entityData,
   permissions,
+  columnsKey,
   onDelete,
   setAction,
   onOpen,
@@ -38,8 +40,8 @@ const DashboardTable = ({
 
   const listRows =
     entityData && entityData.length > 0
-      ? entityData.map((result: Practice | Doctors) => (
-          <Tr key={result.practice}>
+      ? entityData.map((result: Practice | Doctors | Patients) => (
+          <Tr key={result[columnsKey]}>
             {columns.map((column) => {
               const columnKey = column.column;
               return <Td key={columnKey}>{result[columnKey]}</Td>;
