@@ -85,6 +85,14 @@ const PatientsApi = {
     }),
 };
 
+export const CustomersApi = {
+  get: () =>
+    DryEyeInstance({
+      method: "GET",
+      url: "/customers",
+    }),
+};
+
 const getEntityAPI = (id: string) => {
   switch (id) {
     case "practices":

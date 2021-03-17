@@ -22,6 +22,7 @@
     "react-query": "^3.12.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-select": "^4.2.1",
     "typescript": "^4.1.2",
     "use-places-autocomplete": "^1.9.1",
     "web-vitals": "^1.0.1"
@@ -54,6 +55,7 @@
     "@types/googlemaps": "^3.43.3",
     "@types/react-router": "^5.1.12",
     "@types/react-router-dom": "^5.1.7",
+    "@types/react-select": "^4.0.13",
     "@types/yup": "^0.29.11",
     "yup": "^0.32.9"
   }

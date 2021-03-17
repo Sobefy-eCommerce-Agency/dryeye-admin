@@ -8,7 +8,8 @@ export type InputType =
   | "date"
   | "email"
   | "tel"
-  | "addressAutocomplete";
+  | "addressAutocomplete"
+  | "selectAutocomplete";
 export type MaskType = "phone" | "date";
 export type FieldGroupType =
   | "general"
@@ -24,3 +25,4 @@ export type addressComponentField =
   | "country"
   | "postal_code";
 export type addressComponentNameLength = "short_name" | "long_name";
+export type SelectAutocompleteList = "customers";

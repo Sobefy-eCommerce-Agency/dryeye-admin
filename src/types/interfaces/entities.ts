@@ -3,6 +3,7 @@ import {
   InputType,
   MaskType,
   FieldGroupType,
+  SelectAutocompleteList,
 } from "../commons/commons";
 
 export interface Column {
@@ -17,6 +18,7 @@ export interface FieldSet {
   label: string;
   placeholder: string;
   type: InputType;
+  list?: SelectAutocompleteList;
   mask?: MaskType;
   group: FieldGroupType;
 }

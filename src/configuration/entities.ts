@@ -41,8 +41,9 @@ const entities: Entity[] = [
       {
         id: "doctor",
         label: "Doctor",
-        placeholder: "Enter the owner ID",
-        type: "text",
+        placeholder: "Select a doctor",
+        type: "selectAutocomplete",
+        list: "customers",
         group: "addressInformation",
       },
       {
@@ -235,8 +236,9 @@ const entities: Entity[] = [
       {
         id: "owner",
         label: "Owner",
-        placeholder: "Owner ID",
-        type: "text",
+        placeholder: "Select a doctor",
+        type: "selectAutocomplete",
+        list: "customers",
         group: "general",
       },
       {
@@ -318,8 +320,9 @@ const entities: Entity[] = [
       {
         id: "user",
         label: "Doctor",
-        placeholder: "Doctor ID",
-        type: "text",
+        placeholder: "Select a doctor",
+        type: "selectAutocomplete",
+        list: "customers",
         group: "general",
       },
       {

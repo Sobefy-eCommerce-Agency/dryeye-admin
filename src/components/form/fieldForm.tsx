@@ -8,6 +8,7 @@ import { FieldProps } from "formik";
 import { FieldSet } from "../../types/interfaces/entities";
 import { AddressComponent } from "../../types/interfaces/practices";
 import AddressAutocomplete from "./placesAutocomplete";
+import SelectAutocomplete from "./selectAutocomplete";
 
 interface FieldFormProps {
   fieldConfig: FieldSet;
@@ -23,7 +24,7 @@ const FieldForm = ({
   meta,
   setAddressComponent,
 }: FieldFormProps & FieldProps) => {
-  const { id, label, placeholder, type } = fieldConfig;
+  const { id, label, placeholder, type, list } = fieldConfig;
   const error = form.errors[id] !== "" && form.errors[id] !== undefined;
   const touched = form.touched[id] !== undefined;
 
@@ -41,6 +42,21 @@ const FieldForm = ({
             meta={meta}
           />
         );
+      case "selectAutocomplete":
+        if (list) {
+          return (
+            <SelectAutocomplete
+              id={id}
+              placeholder={placeholder}
+              onSelect={() => {}}
+              field={field}
+              form={form}
+              meta={meta}
+              list={list}
+            />
+          );
+        }
+        return "The current field is not configured";
       case "text":
       case "tel":
       case "email":
