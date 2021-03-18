@@ -48,3 +48,8 @@ export const getSchema = (
       });
   }
 };
+
+export const LoginSchema = Yup.object().shape({
+  email: Yup.string().required("Required").email("Invalid email"),
+  password: Yup.string().required("Required"),
+});

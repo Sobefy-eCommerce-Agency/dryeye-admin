@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Amplify } from "aws-amplify";
+import { BrowserRouter as Router } from "react-router-dom";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import config from "./configuration/aws";
 import App from "./App";
 import DryEyeTheme from "./theme/theme";
 import "./index.css";
+import { AuthProvider } from "./components/context/context";
 
 Amplify.configure({
   Auth: {
@@ -31,7 +33,11 @@ const theme = extendTheme(DryEyeTheme);
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <App />
+      <Router>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </Router>
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")

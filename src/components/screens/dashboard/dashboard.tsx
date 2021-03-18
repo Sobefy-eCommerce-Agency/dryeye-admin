@@ -21,7 +21,11 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { Practice } from "../../../types/interfaces/practices";
-import { RoleType, ActionType } from "../../../types/commons/commons";
+import {
+  RoleType,
+  ActionType,
+  EntityType,
+} from "../../../types/commons/commons";
 import DashboardTable from "../../table/table";
 import ModalForm from "../../form/form";
 import getEntityAPI from "../../../configuration/axiosInstances";
@@ -29,7 +33,11 @@ import { Doctors } from "../../../types/interfaces/doctors";
 import { buildEntityPayload } from "../../utils/buildPayload";
 import { Patients } from "../../../types/interfaces/patients";
 
-const Dashboard = ({ match }: RouteComponentProps) => {
+type DashboardProps = {
+  entityName: EntityType;
+};
+
+const Dashboard = ({ entityName }: DashboardProps) => {
   const userRole: RoleType = "administrator";
   const [entityData, setEntityData] = useState<
     Practice[] | Doctors[] | Patients[] | null
@@ -48,7 +56,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
 
   // Get entity configuration
   const filteredEntities = entities.filter(
-    (entity) => entity.route === match.path
+    (entity) => entity.id === entityName
   );
   const currentEntity = filteredEntities[0];
   const { columns, columnsKey, id, lang } = currentEntity;
@@ -168,7 +176,7 @@ const Dashboard = ({ match }: RouteComponentProps) => {
   };
 
   return (
-    <Box m={10} fontWeight="semibold">
+    <Box m={10} fontWeight="semibold" overflowY="auto">
       <Text fontSize="3xl" mb={10}>
         {title}
       </Text>

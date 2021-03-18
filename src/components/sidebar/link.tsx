@@ -22,7 +22,6 @@ const SidebarLink = ({ label, route }: SidebarLinkProps) => {
         w="100%"
         px={10}
         py={4}
-        mx={10}
         borderRadius={10}
         fontSize={16}
         exact

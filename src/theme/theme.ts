@@ -5,6 +5,7 @@ const theme = {
       primaryLight: "#5741b1",
       secondary: "#2ba8bf",
       lightGray: "#f3f5f6",
+      washedWhite: "#ffffff14",
     },
   },
 };
