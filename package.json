@@ -57,6 +57,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/react-select": "^4.0.13",
     "@types/yup": "^0.29.11",
+    "aws-amplify": "^3.3.24",
     "yup": "^0.32.9"
   }
 }
