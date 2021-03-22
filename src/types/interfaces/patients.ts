@@ -1,4 +1,4 @@
-export interface Patients {
+export type Patients = {
   [x: string]: string | number | undefined;
   patient?: string;
   user?: string;
@@ -12,4 +12,4 @@ export interface Patients {
   state?: string;
   zip?: string;
   createdAt?: number;
-}
+};

@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { RouteComponentProps } from "react-router-dom";
 import entities from "../../../configuration/entities";
 import roles from "../../../configuration/roles";
 import {
@@ -32,6 +31,7 @@ import getEntityAPI from "../../../configuration/axiosInstances";
 import { Doctors } from "../../../types/interfaces/doctors";
 import { buildEntityPayload } from "../../utils/buildPayload";
 import { Patients } from "../../../types/interfaces/patients";
+import { SearchByEntity } from "../../utils/format";
 
 type DashboardProps = {
   entityName: EntityType;
@@ -42,7 +42,11 @@ const Dashboard = ({ entityName }: DashboardProps) => {
   const [entityData, setEntityData] = useState<
     Practice[] | Doctors[] | Patients[] | null
   >(null);
+  const [filteredData, setFilteredData] = useState<
+    Practice[] | Doctors[] | Patients[] | null
+  >(null);
   const [action, setAction] = useState<ActionType>(null);
+  const [searchterm, setSearchTerm] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenAlert,
@@ -94,6 +98,8 @@ const Dashboard = ({ entityName }: DashboardProps) => {
   useEffect(() => {
     setEntityData(null);
     getEntityData();
+    setSearchTerm("");
+    setFilteredData([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -168,6 +174,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     }
   };
 
+  // Event Handlers
   const handleSubmit = (data: object) => {
     if (action === "create") {
       createEntity(data);
@@ -175,12 +182,40 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     updateEntity(data);
   };
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+    // filter by entity
+    if (term) {
+      const results = SearchByEntity(id, entityData, term);
+      if (results.length > 0) {
+        setFilteredData(results);
+        return;
+      }
+      setFilteredData([]);
+      return;
+    }
+  };
+
+  // Results label
+  const totalDataLenght = entityData ? entityData.length : 0;
+  const totalDataFileteredLength = filteredData ? filteredData.length : 0;
+  const resultsLabel = searchterm
+    ? `${totalDataFileteredLength} results for: "${searchterm}"`
+    : `${totalDataLenght} ${title.toLowerCase()}`;
+
   return (
-    <Box m={10} fontWeight="semibold" overflowY="auto">
-      <Text fontSize="3xl" mb={10}>
+    <Box
+      p={10}
+      fontWeight="semibold"
+      display="flex"
+      flexDirection="column"
+      maxHeight="100vh"
+    >
+      <Text fontSize="3xl" mb={10} flex={0}>
         {title}
       </Text>
-      <Flex justifyContent="space-between" mb={8}>
+      <Flex justifyContent="space-between" mb={8} flex={0}>
         {search ? (
           <Flex w="sm">
             <InputGroup>
@@ -188,7 +223,12 @@ const Dashboard = ({ entityName }: DashboardProps) => {
                 pointerEvents="none"
                 children={<SearchIcon color="gray.300" />}
               />
-              <Input type="search" placeholder={searchBar} />
+              <Input
+                type="search"
+                placeholder={searchBar}
+                value={searchterm}
+                onChange={handleSearch}
+              />
             </InputGroup>
           </Flex>
         ) : null}
@@ -211,13 +251,16 @@ const Dashboard = ({ entityName }: DashboardProps) => {
       <DashboardTable
         columns={columns}
         columnsKey={columnsKey}
-        entityData={entityData}
+        entityData={filteredData && searchterm ? filteredData : entityData}
         permissions={currentEntityPermissions}
         onDelete={() => onOpenAlert()}
         setAction={setAction}
         setActiveData={setActiveData}
         onOpen={onOpen}
       />
+      <Box flex={0}>
+        <Text>{resultsLabel}</Text>
+      </Box>
       {isOpen ? (
         <ModalForm
           isOpen={isOpen}
@@ -228,7 +271,6 @@ const Dashboard = ({ entityName }: DashboardProps) => {
           entityData={activeData}
         />
       ) : null}
-
       <AlertDialog
         isOpen={isOpenAlert}
         leastDestructiveRef={cancelRef}

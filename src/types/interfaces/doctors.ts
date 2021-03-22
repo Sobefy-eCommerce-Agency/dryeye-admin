@@ -1,4 +1,4 @@
-export interface Doctors {
+export type Doctors = {
   [x: string]: string | number | undefined;
   doctor?: string;
   practice?: string;
@@ -6,4 +6,4 @@ export interface Doctors {
   firstName?: string;
   lastName?: string;
   createdAt?: number;
-}
+};

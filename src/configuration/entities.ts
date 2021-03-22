@@ -162,7 +162,7 @@ const entities: Entity[] = [
     lang: {
       dashboard: {
         title: "Medical Practices",
-        searchBar: "Search for medical practices",
+        searchBar: "Name, address or ZIP",
         addEntityButton: "Add medical practice",
       },
       form: {
@@ -257,7 +257,7 @@ const entities: Entity[] = [
     lang: {
       dashboard: {
         title: "Doctors",
-        searchBar: "Search for doctors",
+        searchBar: "Name, address or practice",
         addEntityButton: "Add doctor",
       },
       form: {
@@ -401,7 +401,7 @@ const entities: Entity[] = [
     lang: {
       dashboard: {
         title: "Patients",
-        searchBar: "Search for patients",
+        searchBar: "Name, address, practice or email",
         addEntityButton: "Add patient",
       },
       form: {

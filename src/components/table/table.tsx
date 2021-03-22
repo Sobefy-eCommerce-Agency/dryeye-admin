@@ -1,4 +1,11 @@
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Column } from "../../types/interfaces/entities";
@@ -86,24 +93,25 @@ const DashboardTable = ({
       : null;
 
   return (
-    <Table
-      variant="simple"
-      borderWidth="1px"
-      width="full"
-      fontWeight="normal"
-      __css={{
-        borderCollapse: "collapse",
-        fontVariantNumeric: "lining-nums tabular-nums",
-      }}
-    >
-      <Thead bg="gray.50">
-        <Tr>
-          {listHeaders}
-          <Th>Actions</Th>
-        </Tr>
-      </Thead>
-      <Tbody>{listRows}</Tbody>
-    </Table>
+    <Flex flex={1} overflowY="auto" mb={8} borderWidth="1px">
+      <Table
+        variant="simple"
+        width="full"
+        fontWeight="normal"
+        __css={{
+          borderCollapse: "collapse",
+          fontVariantNumeric: "lining-nums tabular-nums",
+        }}
+      >
+        <Thead bg="gray.50">
+          <Tr>
+            {listHeaders}
+            <Th>Actions</Th>
+          </Tr>
+        </Thead>
+        <Tbody>{listRows}</Tbody>
+      </Table>
+    </Flex>
   );
 };
 
