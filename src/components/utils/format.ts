@@ -90,8 +90,14 @@ export const SearchByEntity = (
       if (el) {
         const hasFirstName = SearchString(el.firstName, searchTerm);
         const hasLastName = SearchString(el.lastName, searchTerm);
-        const hasPractice = SearchString(el.practice, searchTerm);
-        if (hasFirstName !== -1 || hasLastName !== -1 || hasPractice !== -1) {
+        const hasPracticeName = SearchString(el.practiceName, searchTerm);
+        const hastDoctorName = SearchString(el.doctorName, searchTerm);
+        if (
+          hasFirstName !== -1 ||
+          hasLastName !== -1 ||
+          hasPracticeName !== -1 ||
+          hastDoctorName !== -1
+        ) {
           return true;
         }
         return false;
@@ -103,6 +109,7 @@ export const SearchByEntity = (
   if (entity === "patients" && data) {
     const results = data.filter((el) => {
       if (el) {
+        const hasDoctorName = SearchString(el.doctorName, searchTerm);
         const hasFirstName = SearchString(el.firstName, searchTerm);
         const hasLastName = SearchString(el.lastName, searchTerm);
         const hasAddress = SearchString(el.address, searchTerm);
@@ -110,6 +117,7 @@ export const SearchByEntity = (
         const hasState = SearchString(el.state, searchTerm);
         const hasEmail = SearchString(el.email, searchTerm);
         if (
+          hasDoctorName !== -1 ||
           hasFirstName !== -1 ||
           hasLastName !== -1 ||
           hasAddress !== -1 ||

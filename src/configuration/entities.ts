@@ -37,6 +37,12 @@ const entities: Entity[] = [
         type: "text",
         sort: true,
       },
+      {
+        column: "doctorName",
+        label: "Created by",
+        type: "text",
+        sort: true,
+      },
     ],
     fieldSet: [
       {
@@ -208,14 +214,14 @@ const entities: Entity[] = [
         sort: true,
       },
       {
-        column: "owner",
-        label: "Created by",
+        column: "practiceName",
+        label: "Practice",
         type: "text",
         sort: true,
       },
       {
-        column: "practice",
-        label: "Practice",
+        column: "doctorName",
+        label: "Created by",
         type: "text",
         sort: true,
       },
@@ -257,7 +263,7 @@ const entities: Entity[] = [
     lang: {
       dashboard: {
         title: "Doctors",
-        searchBar: "Name, address or practice",
+        searchBar: "Name, address, created by or practice",
         addEntityButton: "Add doctor",
       },
       form: {
@@ -309,14 +315,14 @@ const entities: Entity[] = [
         sort: true,
       },
       {
-        column: "address2",
-        label: "Apartment, suite, etc.",
+        column: "email",
+        label: "Email",
         type: "text",
         sort: true,
       },
       {
-        column: "email",
-        label: "Email",
+        column: "doctorName",
+        label: "Created by",
         type: "text",
         sort: true,
       },
@@ -401,7 +407,7 @@ const entities: Entity[] = [
     lang: {
       dashboard: {
         title: "Patients",
-        searchBar: "Name, address, practice or email",
+        searchBar: "Name, address, practice, created by or email",
         addEntityButton: "Add patient",
       },
       form: {
