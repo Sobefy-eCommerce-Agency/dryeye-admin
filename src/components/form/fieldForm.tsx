@@ -1,9 +1,11 @@
+import { Checkbox, CheckboxGroup } from "@chakra-ui/checkbox";
 import {
   FormControl,
   FormErrorMessage,
   FormLabel,
 } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
+import { SimpleGrid } from "@chakra-ui/layout";
 import { FieldProps } from "formik";
 import { FieldSet } from "../../types/interfaces/entities";
 import { AddressComponent } from "../../types/interfaces/practices";
@@ -24,7 +26,15 @@ const FieldForm = ({
   meta,
   setAddressComponent,
 }: FieldFormProps & FieldProps) => {
-  const { id, label, placeholder, type, list, dependsOf } = fieldConfig;
+  const {
+    id,
+    label,
+    placeholder,
+    type,
+    list,
+    dependsOf,
+    fieldOptions,
+  } = fieldConfig;
   const error = form.errors[id] !== "" && form.errors[id] !== undefined;
   const touched = form.touched[id] !== undefined;
 
@@ -34,7 +44,7 @@ const FieldForm = ({
       case "addressAutocomplete":
         return (
           <AddressAutocomplete
-            placeholder={placeholder}
+            placeholder={placeholder ? placeholder : ""}
             id={id}
             onSelect={setAddressComponent}
             field={field}
@@ -47,13 +57,28 @@ const FieldForm = ({
           return (
             <SelectAutocomplete
               id={id}
-              placeholder={placeholder}
+              placeholder={placeholder ? placeholder : ""}
               field={field}
               form={form}
               meta={meta}
               list={list}
               dependsOf={dependsOf}
             />
+          );
+        }
+        return "The current field is not configured";
+      case "checkboxGroup":
+        if (fieldOptions) {
+          return (
+            <CheckboxGroup>
+              <SimpleGrid mt={3} columns={3}>
+                {fieldOptions.map((feldOpt) => (
+                  <Checkbox colorScheme="purple" value={feldOpt.value}>
+                    {feldOpt.label}
+                  </Checkbox>
+                ))}
+              </SimpleGrid>
+            </CheckboxGroup>
           );
         }
         return "The current field is not configured";
@@ -66,9 +91,11 @@ const FieldForm = ({
 
   return (
     <FormControl isInvalid={error && touched}>
-      <FormLabel htmlFor={id} fontSize={12} fontWeight="normal">
-        {label}
-      </FormLabel>
+      {label ? (
+        <FormLabel htmlFor={id} fontSize={12} fontWeight="normal">
+          {label}
+        </FormLabel>
+      ) : null}
       {renderField()}
       <FormErrorMessage>{form.errors[id]}</FormErrorMessage>
     </FormControl>

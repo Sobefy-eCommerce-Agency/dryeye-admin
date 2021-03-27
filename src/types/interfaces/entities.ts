@@ -14,20 +14,27 @@ export interface Column {
   sort: boolean;
 }
 
+export interface FieldOptions {
+  value: string;
+  label: string;
+}
+
 export interface FieldSet {
   id: string;
-  label: string;
-  placeholder: string;
+  label?: string;
+  placeholder?: string;
   type: InputType;
   list?: SelectAutocompleteList;
+  fieldOptions?: FieldOptions[];
   dependsOf?: SelectAutocompleteList;
   mask?: MaskType;
   group: FieldGroupType;
 }
 
 export interface FieldSetGroup {
-  id: string;
+  id: FieldGroupType;
   label: string;
+  columns: 1 | 2 | 3;
 }
 
 export interface DashboardLang {

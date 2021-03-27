@@ -9,13 +9,15 @@ export type InputType =
   | "email"
   | "tel"
   | "addressAutocomplete"
-  | "selectAutocomplete";
+  | "selectAutocomplete"
+  | "checkboxGroup";
 export type MaskType = "phone" | "date";
 export type FieldGroupType =
   | "general"
   | "addressInformation"
   | "socialMedia"
-  | "openingHours";
+  | "openingHours"
+  | "eyeCareServices";
 export type addressComponentField =
   | "street_number"
   | "route"

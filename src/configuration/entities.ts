@@ -90,6 +90,25 @@ const entities: Entity[] = [
         group: "addressInformation",
       },
       {
+        id: "eyeCareServices",
+        type: "checkboxGroup",
+        fieldOptions: [
+          {
+            value: "Prescription Eyewear",
+            label: "Prescription Eyewear",
+          },
+          {
+            value: "Routine Eye Exam",
+            label: "Routine Eye Exam",
+          },
+          {
+            value: "Full Dry Eye Evaluation",
+            label: "Full Dry Eye Evaluation",
+          },
+        ],
+        group: "eyeCareServices",
+      },
+      {
         id: "facebook_url",
         label: "Facebook URL",
         placeholder: "Facebook URL",
@@ -161,9 +180,10 @@ const entities: Entity[] = [
       },
     ],
     fieldSetGroups: [
-      { id: "addressInformation", label: "Address Information" },
-      { id: "socialMedia", label: "Social Media" },
-      { id: "openingHours", label: "Opening Hours" },
+      { id: "addressInformation", label: "Address Information", columns: 3 },
+      { id: "eyeCareServices", label: "Eye Care Services", columns: 1 },
+      { id: "socialMedia", label: "Social Media", columns: 3 },
+      { id: "openingHours", label: "Opening Hours", columns: 3 },
     ],
     lang: {
       dashboard: {
@@ -259,7 +279,9 @@ const entities: Entity[] = [
         group: "general",
       },
     ],
-    fieldSetGroups: [{ id: "general", label: "General information" }],
+    fieldSetGroups: [
+      { id: "general", label: "General information", columns: 3 },
+    ],
     lang: {
       dashboard: {
         title: "Doctors",
@@ -401,8 +423,8 @@ const entities: Entity[] = [
       },
     ],
     fieldSetGroups: [
-      { id: "general", label: "General" },
-      { id: "addressInformation", label: "Address Information" },
+      { id: "general", label: "General", columns: 3 },
+      { id: "addressInformation", label: "Address Information", columns: 3 },
     ],
     lang: {
       dashboard: {

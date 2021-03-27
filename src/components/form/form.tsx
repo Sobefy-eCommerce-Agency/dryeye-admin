@@ -132,7 +132,11 @@ const ModalForm = ({
                       <Text fontSize={18} mb={3} fontWeight="semibold">
                         {group.label}
                       </Text>
-                      <SimpleGrid columns={3} columnGap={6} rowGap={6}>
+                      <SimpleGrid
+                        columns={group.columns}
+                        columnGap={6}
+                        rowGap={6}
+                      >
                         {fieldSet.map((fieldConfig) => {
                           const { group: fieldConfigGroup, id } = fieldConfig;
                           if (fieldConfigGroup === group.id) {
