@@ -79,7 +79,7 @@ const FieldForm = ({
                 setFieldTouched(id);
               }}
             >
-              <SimpleGrid mt={3} columns={3}>
+              <SimpleGrid mt={3} columns={3} rowGap={3}>
                 {fieldOptions.map((feldOpt) => (
                   <Checkbox colorScheme="purple" value={feldOpt.value}>
                     {feldOpt.label}

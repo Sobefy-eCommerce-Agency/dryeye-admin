@@ -31,6 +31,7 @@ export type Practice = {
   saturday_op_hours: string;
   sunday_op_hours: string;
   eyeCareServices: any[];
+  dryEyeTreatments: any[];
 };
 
 export type AddressComponent = {

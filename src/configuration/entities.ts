@@ -109,6 +109,57 @@ const entities: Entity[] = [
         group: "eyeCareServices",
       },
       {
+        id: "dryEyeTreatments",
+        type: "checkboxGroup",
+        fieldOptions: [
+          {
+            value: "AB Max",
+            label: "AB Max",
+          },
+          {
+            value: "Blephex",
+            label: "Blephex",
+          },
+          {
+            value: "Eyelid Debridement",
+            label: "Eyelid Debridement",
+          },
+          {
+            value: "iLUX",
+            label: "iLUX",
+          },
+          {
+            value: "Intense Pulse Light",
+            label: "Intense Pulse Light",
+          },
+          {
+            value: "Lipiflow",
+            label: "Lipiflow",
+          },
+          {
+            value: "Sciton BBL",
+            label: "Sciton BBL",
+          },
+          {
+            value: "Thermal 1 Touch",
+            label: "Thermal 1 Touch",
+          },
+          {
+            value: "Zest Treatment",
+            label: "Zest Treatment",
+          },
+          {
+            value: "Zest ZocuKit",
+            label: "Zest ZocuKit",
+          },
+          {
+            value: "ZocuWipe",
+            label: "ZocuWipe",
+          },
+        ],
+        group: "dryEyeTreatments",
+      },
+      {
         id: "facebook_url",
         label: "Facebook URL",
         placeholder: "Facebook URL",
@@ -182,6 +233,7 @@ const entities: Entity[] = [
     fieldSetGroups: [
       { id: "addressInformation", label: "Address Information", columns: 3 },
       { id: "eyeCareServices", label: "Eye Care Services", columns: 1 },
+      { id: "dryEyeTreatments", label: "DryEye Treatments", columns: 1 },
       { id: "socialMedia", label: "Social Media", columns: 3 },
       { id: "openingHours", label: "Opening Hours", columns: 3 },
     ],

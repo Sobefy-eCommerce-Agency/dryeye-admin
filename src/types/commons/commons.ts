@@ -22,7 +22,8 @@ export type FieldGroupType =
   | "addressInformation"
   | "socialMedia"
   | "openingHours"
-  | "eyeCareServices";
+  | "eyeCareServices"
+  | "dryEyeTreatments";
 export type addressComponentField =
   | "street_number"
   | "route"
