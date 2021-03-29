@@ -63,7 +63,7 @@ const ModalForm = ({
     ? GetInitialAddressComponents(action, entityData)
     : null;
 
-  const initialValues = GetInitialValues(action, entityData);
+  const initialValues = GetInitialValues(id, action, entityData);
 
   const [addressComponent, setAddressComponent] = useState<any>(
     initialAddressComponents
@@ -138,6 +138,7 @@ const ModalForm = ({
                               <Field key={id} name={id}>
                                 {({ field, form, meta }: FieldProps) => (
                                   <FieldForm
+                                    key={id + entity.id}
                                     fieldConfig={fieldConfig}
                                     form={form}
                                     field={field}

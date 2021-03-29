@@ -1,12 +1,17 @@
-import { ActionType, EntityDataType } from "../../types/commons/commons";
+import {
+  ActionType,
+  EntityDataType,
+  EntityType,
+} from "../../types/commons/commons";
 
 export const GetInitialValues = (
+  entity: EntityType,
   action: ActionType,
   entityData: EntityDataType | null
 ): Object | {} => {
-  switch (entityData?.entityName) {
+  switch (entity) {
     case "practices":
-      if (action === "edit") {
+      if (action === "edit" && entityData) {
         const {
           route,
           street_number,
@@ -26,13 +31,13 @@ export const GetInitialValues = (
       }
       return {};
     case "doctors":
-      if (action === "edit") {
+      if (action === "edit" && entityData) {
         const { createdAt, ...rest } = entityData;
         return { ...rest };
       }
       return {};
     case "patients":
-      if (action === "edit") {
+      if (action === "edit" && entityData) {
         const { createdAt, ...rest } = entityData;
         return { ...rest };
       }
