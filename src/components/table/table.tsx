@@ -9,22 +9,21 @@ import {
 import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Column } from "../../types/interfaces/entities";
-import { Practice } from "../../types/interfaces/practices";
-import { ActionType, ColumnsKey } from "../../types/commons/commons";
-import { Doctors } from "../../types/interfaces/doctors";
-import { Patients } from "../../types/interfaces/patients";
+import {
+  ActionType,
+  ColumnsKey,
+  EntityDataType,
+} from "../../types/commons/commons";
 
 interface DashboardTableProps {
   columns: Column[];
-  entityData: Practice[] | Doctors[] | null;
+  entityData: EntityDataType[] | null;
   columnsKey: ColumnsKey;
   permissions: any;
   onDelete(): void;
   setAction: React.Dispatch<React.SetStateAction<ActionType | null>>;
   onOpen(): void;
-  setActiveData: React.Dispatch<
-    React.SetStateAction<Practice | Doctors | Patients | null>
-  >;
+  setActiveData: React.Dispatch<React.SetStateAction<EntityDataType | null>>;
 }
 
 const DashboardTable = ({
@@ -47,49 +46,55 @@ const DashboardTable = ({
 
   const listRows =
     entityData && entityData.length > 0
-      ? entityData.map((result: Practice | Doctors | Patients) => (
-          <Tr key={result[columnsKey]}>
-            {columns.map((column) => {
-              const columnKey = column.column;
-              return <Td key={columnKey}>{result[columnKey]}</Td>;
-            })}
-            <Td>
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  rightIcon={<ChevronDownIcon />}
-                  aria-label="Actions"
-                >
-                  Actions
-                </MenuButton>
-                <MenuList>
-                  {view ? <MenuItem>View</MenuItem> : null}
-                  {update ? (
-                    <MenuItem
-                      onClick={() => {
-                        setAction("edit");
-                        onOpen();
-                        setActiveData(result);
-                      }}
+      ? entityData.map((result: EntityDataType) => {
+          const key = result[columnsKey];
+          if (typeof key === "string" || typeof key === "number") {
+            return (
+              <Tr key={key}>
+                {columns.map((column) => {
+                  const columnKey = column.column;
+                  return <Td key={columnKey}>{result[columnKey]}</Td>;
+                })}
+                <Td>
+                  <Menu>
+                    <MenuButton
+                      as={Button}
+                      rightIcon={<ChevronDownIcon />}
+                      aria-label="Actions"
                     >
-                      Edit
-                    </MenuItem>
-                  ) : null}
-                  {remove ? (
-                    <MenuItem
-                      onClick={() => {
-                        setActiveData(result);
-                        onDelete();
-                      }}
-                    >
-                      Delete
-                    </MenuItem>
-                  ) : null}
-                </MenuList>
-              </Menu>
-            </Td>
-          </Tr>
-        ))
+                      Actions
+                    </MenuButton>
+                    <MenuList>
+                      {view ? <MenuItem>View</MenuItem> : null}
+                      {update ? (
+                        <MenuItem
+                          onClick={() => {
+                            setAction("edit");
+                            onOpen();
+                            setActiveData(result);
+                          }}
+                        >
+                          Edit
+                        </MenuItem>
+                      ) : null}
+                      {remove ? (
+                        <MenuItem
+                          onClick={() => {
+                            setActiveData(result);
+                            onDelete();
+                          }}
+                        >
+                          Delete
+                        </MenuItem>
+                      ) : null}
+                    </MenuList>
+                  </Menu>
+                </Td>
+              </Tr>
+            );
+          }
+          return null;
+        })
       : null;
 
   return (

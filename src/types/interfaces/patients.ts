@@ -1,5 +1,6 @@
 export type Patients = {
   [x: string]: string | number | undefined;
+  entityName: "patients";
   patient?: string;
   user?: string;
   firstName?: string;

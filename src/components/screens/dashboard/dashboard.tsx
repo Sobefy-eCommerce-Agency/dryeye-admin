@@ -19,18 +19,16 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { Practice } from "../../../types/interfaces/practices";
 import {
   RoleType,
   ActionType,
   EntityType,
+  EntityDataType,
 } from "../../../types/commons/commons";
 import DashboardTable from "../../table/table";
 import ModalForm from "../../form/form";
 import getEntityAPI from "../../../configuration/axiosInstances";
-import { Doctors } from "../../../types/interfaces/doctors";
 import { buildEntityPayload } from "../../utils/buildPayload";
-import { Patients } from "../../../types/interfaces/patients";
 import { SearchByEntity } from "../../utils/format";
 
 type DashboardProps = {
@@ -39,12 +37,10 @@ type DashboardProps = {
 
 const Dashboard = ({ entityName }: DashboardProps) => {
   const userRole: RoleType = "administrator";
-  const [entityData, setEntityData] = useState<
-    Practice[] | Doctors[] | Patients[] | null
-  >(null);
-  const [filteredData, setFilteredData] = useState<
-    Practice[] | Doctors[] | Patients[] | null
-  >(null);
+  const [entityData, setEntityData] = useState<EntityDataType[] | null>(null);
+  const [filteredData, setFilteredData] = useState<EntityDataType[] | null>(
+    null
+  );
   const [action, setAction] = useState<ActionType>(null);
   const [searchterm, setSearchTerm] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,9 +50,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     onClose: onCloseAlert,
   } = useDisclosure();
   const cancelRef = useRef(null);
-  const [activeData, setActiveData] = useState<
-    Practice | Doctors | Patients | null
-  >(null);
+  const [activeData, setActiveData] = useState<EntityDataType | null>(null);
 
   // Get entity configuration
   const filteredEntities = entities.filter(

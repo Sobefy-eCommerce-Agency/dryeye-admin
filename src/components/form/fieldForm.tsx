@@ -69,8 +69,16 @@ const FieldForm = ({
         return "The current field is not configured";
       case "checkboxGroup":
         if (fieldOptions) {
+          const { value } = field;
+          const { setFieldValue, setFieldTouched } = form;
           return (
-            <CheckboxGroup>
+            <CheckboxGroup
+              value={value}
+              onChange={(values) => {
+                setFieldValue(id, values);
+                setFieldTouched(id);
+              }}
+            >
               <SimpleGrid mt={3} columns={3}>
                 {fieldOptions.map((feldOpt) => (
                   <Checkbox colorScheme="purple" value={feldOpt.value}>

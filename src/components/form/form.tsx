@@ -14,25 +14,24 @@ import {
 } from "@chakra-ui/react";
 import { Field, FieldProps, Form, Formik } from "formik";
 import styled from "@emotion/styled";
-import { ActionType } from "../../types/commons/commons";
+import { ActionType, EntityDataType } from "../../types/commons/commons";
 import { Entity } from "../../types/interfaces/entities";
 import FieldForm from "./fieldForm";
 import { getSchema } from "../../configuration/validationSchemas";
 import { buildEntityPayload } from "../utils/buildPayload";
-import { AddressComponent, Practice } from "../../types/interfaces/practices";
+
 import {
   GetInitialAddressComponents,
   GetInitialValues,
 } from "../utils/initialValues";
-import { Doctors } from "../../types/interfaces/doctors";
-import { Patients } from "../../types/interfaces/patients";
+
 interface FormProps {
   isOpen: boolean;
   onClose(): void;
   action: ActionType;
   entity: Entity;
   onSubmit(data: object): void;
-  entityData: Practice | Doctors | Patients | null;
+  entityData: EntityDataType | null;
 }
 
 const FormStyled = styled(Form)`
@@ -61,19 +60,14 @@ const ModalForm = ({
   } = entity;
 
   const initialAddressComponents = entityData
-    ? GetInitialAddressComponents(id, action, entityData)
+    ? GetInitialAddressComponents(action, entityData)
     : null;
 
-  const initialValues: Practice | Doctors | Patients | {} = GetInitialValues(
-    id,
-    action,
-    entityData
-  );
+  const initialValues = GetInitialValues(action, entityData);
 
-  const [
-    addressComponent,
-    setAddressComponent,
-  ] = useState<AddressComponent | null>(initialAddressComponents);
+  const [addressComponent, setAddressComponent] = useState<any>(
+    initialAddressComponents
+  );
 
   // Destruct lang
   const {
@@ -100,7 +94,7 @@ const ModalForm = ({
         <ModalContent background="gray.50">
           <Formik
             initialValues={initialValues}
-            onSubmit={(values: Practice | Doctors | Patients) => {
+            onSubmit={(values: any) => {
               const additionalData = addressComponent;
               const data = buildEntityPayload(
                 id,

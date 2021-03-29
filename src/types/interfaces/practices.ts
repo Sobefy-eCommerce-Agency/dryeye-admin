@@ -1,5 +1,6 @@
 export type Practice = {
-  [x: string]: string | number | undefined;
+  [x: string]: string | number | any[] | undefined;
+  entityName: "practices";
   practice?: string;
   doctor: string;
   name: string;
@@ -29,6 +30,7 @@ export type Practice = {
   friday_op_hours: string;
   saturday_op_hours: string;
   sunday_op_hours: string;
+  eyeCareServices: any[];
 };
 
 export type AddressComponent = {

@@ -1,16 +1,12 @@
-import { ActionType, EntityType } from "../../types/commons/commons";
-import { Doctors } from "../../types/interfaces/doctors";
-import { Patients } from "../../types/interfaces/patients";
-import { Practice } from "../../types/interfaces/practices";
+import { ActionType, EntityDataType } from "../../types/commons/commons";
 
 export const GetInitialValues = (
-  entity: EntityType,
   action: ActionType,
-  entityData: Practice | Doctors | Patients | null
-) => {
-  switch (entity) {
+  entityData: EntityDataType | null
+): Object | {} => {
+  switch (entityData?.entityName) {
     case "practices":
-      if (action === "edit" && entityData) {
+      if (action === "edit") {
         const {
           route,
           street_number,
@@ -28,66 +24,33 @@ export const GetInitialValues = (
         } = entityData;
         return { ...rest };
       }
-      return {
-        doctor: "",
-        name: "",
-        phone: "",
-        email: "",
-        website: "",
-        address: "",
-        facebook_url: "",
-        instagram_url: "",
-        twitter_url: "",
-        monday_op_hours: "",
-        tuesday_op_hours: "",
-        wednesday_op_hours: "",
-        thursday_op_hours: "",
-        friday_op_hours: "",
-        saturday_op_hours: "",
-        sunday_op_hours: "",
-      };
+      return {};
     case "doctors":
-      if (action === "edit" && entityData) {
+      if (action === "edit") {
         const { createdAt, ...rest } = entityData;
         return { ...rest };
       }
-      return {
-        firstName: "",
-        lastName: "",
-        practice: "",
-        owner: "",
-      };
+      return {};
     case "patients":
-      if (action === "edit" && entityData) {
+      if (action === "edit") {
         const { createdAt, ...rest } = entityData;
         return { ...rest };
       }
-      return {
-        user: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        address: "",
-        address2: "",
-        city: "",
-        state: "",
-        zip: "",
-      };
+      return {};
     default:
       return {};
   }
 };
 
 export const GetInitialAddressComponents = (
-  entity: EntityType,
   action: ActionType,
-  entityData: Practice | Doctors | Patients
+  entityData: EntityDataType
 ) => {
-  switch (entity) {
+  switch (entityData.entityName) {
     case "practices":
-      if (action === "edit" && entityData) {
+      if (action === "edit") {
         const {
+          entityName,
           practice,
           doctor,
           email,
@@ -105,6 +68,7 @@ export const GetInitialAddressComponents = (
           website,
           wednesday_op_hours,
           createdAt,
+          eyeCareServices,
           ...rest
         } = entityData;
         return { ...rest };

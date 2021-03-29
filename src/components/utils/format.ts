@@ -1,12 +1,11 @@
 import {
   addressComponentField,
   addressComponentNameLength,
+  EntityDataType,
   EntityType,
   SelectAutocompleteList,
 } from "../../types/commons/commons";
 import { Customer } from "../../types/interfaces/customers";
-import { Doctors } from "../../types/interfaces/doctors";
-import { Patients } from "../../types/interfaces/patients";
 import { Practice } from "../../types/interfaces/practices";
 
 export const GetAddressComponentValue = (
@@ -61,12 +60,12 @@ export const SearchString = (
 
 export const SearchByEntity = (
   entity: EntityType,
-  data: (Practice | Doctors | Patients)[] | null,
+  data: EntityDataType[] | null,
   searchTerm: string
 ) => {
   if (entity === "practices" && data) {
     const results = data.filter((el) => {
-      if (el) {
+      if (el && el.entityName === "practices") {
         const hasName = SearchString(el.name, searchTerm);
         const hasAddress = SearchString(el.address, searchTerm);
         const hasCity = SearchString(el.city, searchTerm);
@@ -87,7 +86,7 @@ export const SearchByEntity = (
   }
   if (entity === "doctors" && data) {
     const results = data.filter((el) => {
-      if (el) {
+      if (el && el.entityName === "doctors") {
         const hasFirstName = SearchString(el.firstName, searchTerm);
         const hasLastName = SearchString(el.lastName, searchTerm);
         const hasPracticeName = SearchString(el.practiceName, searchTerm);
@@ -108,7 +107,7 @@ export const SearchByEntity = (
   }
   if (entity === "patients" && data) {
     const results = data.filter((el) => {
-      if (el) {
+      if (el && el.entityName === "patients") {
         const hasDoctorName = SearchString(el.doctorName, searchTerm);
         const hasFirstName = SearchString(el.firstName, searchTerm);
         const hasLastName = SearchString(el.lastName, searchTerm);
