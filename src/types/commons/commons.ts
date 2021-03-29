@@ -8,6 +8,7 @@ export type RoleType = "administrator" | "editor" | "viewOnly";
 export type ActionType = "view" | "create" | "edit" | "delete" | null;
 export type InputType =
   | "text"
+  | "textArea"
   | "number"
   | "select"
   | "date"

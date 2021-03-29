@@ -6,6 +6,7 @@ import {
 } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { SimpleGrid } from "@chakra-ui/layout";
+import { Textarea } from "@chakra-ui/textarea";
 import { FieldProps } from "formik";
 import { FieldSet } from "../../types/interfaces/entities";
 import { AddressComponent } from "../../types/interfaces/practices";
@@ -90,6 +91,8 @@ const FieldForm = ({
           );
         }
         return "The current field is not configured";
+      case "textArea":
+        return <Textarea {...field} id={id} placeholder={placeholder} />;
       case "text":
       case "tel":
       case "email":
