@@ -92,7 +92,7 @@ const FieldForm = ({
         }
         return "The current field is not configured";
       case "textArea":
-        return <Textarea {...field} id={id} placeholder={placeholder} />;
+        return <Textarea mt={3} {...field} id={id} placeholder={placeholder} />;
       case "text":
       case "tel":
       case "email":

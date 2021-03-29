@@ -74,6 +74,8 @@ export const GetInitialAddressComponents = (
           wednesday_op_hours,
           createdAt,
           eyeCareServices,
+          dryEyeTreatments,
+          dryEyeProducts,
           ...rest
         } = entityData;
         return { ...rest };

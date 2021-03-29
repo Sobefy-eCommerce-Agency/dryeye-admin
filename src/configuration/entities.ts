@@ -160,6 +160,12 @@ const entities: Entity[] = [
         group: "dryEyeTreatments",
       },
       {
+        id: "dryEyeProducts",
+        placeholder: "Products separated by commas",
+        type: "textArea",
+        group: "dryEyeProducts",
+      },
+      {
         id: "facebook_url",
         label: "Facebook URL",
         placeholder: "Facebook URL",
@@ -234,6 +240,7 @@ const entities: Entity[] = [
       { id: "addressInformation", label: "Address Information", columns: 3 },
       { id: "eyeCareServices", label: "Eye Care Services", columns: 1 },
       { id: "dryEyeTreatments", label: "DryEye Treatments", columns: 1 },
+      { id: "dryEyeProducts", label: "DryEye Products", columns: 1 },
       { id: "socialMedia", label: "Social Media", columns: 3 },
       { id: "openingHours", label: "Opening Hours", columns: 3 },
     ],
