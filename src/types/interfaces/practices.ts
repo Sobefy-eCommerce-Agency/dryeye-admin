@@ -1,6 +1,5 @@
 export type Practice = {
   [x: string]: string | number | any[] | undefined;
-  entityName: "practices";
   practice?: string;
   doctor: string;
   name: string;
@@ -9,6 +8,7 @@ export type Practice = {
   website: string;
   address: string;
   street_number?: string;
+  suite_number?: string;
   route?: string;
   county?: string;
   state?: string;

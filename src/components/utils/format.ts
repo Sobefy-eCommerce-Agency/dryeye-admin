@@ -53,7 +53,6 @@ export const SearchString = (
 ) => {
   if (str) {
     const searchTermString = str.toString();
-    console.log("searching");
     return searchTermString.toLowerCase().search(searchTerm.toLowerCase());
   }
   return -1;

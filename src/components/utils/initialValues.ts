@@ -29,33 +29,66 @@ export const GetInitialValues = (
         } = entityData;
         return { ...rest };
       }
-      return {};
+      return {
+        doctor: "",
+        name: "",
+        phone: "",
+        email: "",
+        website: "",
+        address: "",
+        facebook_url: "",
+        instagram_url: "",
+        twitter_url: "",
+        monday_op_hours: "",
+        tuesday_op_hours: "",
+        wednesday_op_hours: "",
+        thursday_op_hours: "",
+        friday_op_hours: "",
+        saturday_op_hours: "",
+        sunday_op_hours: "",
+      };
     case "doctors":
       if (action === "edit" && entityData) {
         const { createdAt, ...rest } = entityData;
         return { ...rest };
       }
-      return {};
+      return {
+        firstName: "",
+        lastName: "",
+        practice: "",
+        owner: "",
+      };
     case "patients":
       if (action === "edit" && entityData) {
         const { createdAt, ...rest } = entityData;
         return { ...rest };
       }
-      return {};
+      return {
+        user: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        address: "",
+        address2: "",
+        city: "",
+        state: "",
+        zip: "",
+      };
     default:
       return {};
   }
 };
 
 export const GetInitialAddressComponents = (
+  entity: EntityType,
   action: ActionType,
   entityData: EntityDataType
 ) => {
-  switch (entityData.entityName) {
+  switch (entity) {
     case "practices":
       if (action === "edit") {
         const {
-          entityName,
           practice,
           doctor,
           email,
@@ -76,6 +109,7 @@ export const GetInitialAddressComponents = (
           eyeCareServices,
           dryEyeTreatments,
           dryEyeProducts,
+          suite_number,
           ...rest
         } = entityData;
         return { ...rest };

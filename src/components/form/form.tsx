@@ -60,7 +60,7 @@ const ModalForm = ({
   } = entity;
 
   const initialAddressComponents = entityData
-    ? GetInitialAddressComponents(action, entityData)
+    ? GetInitialAddressComponents(id, action, entityData)
     : null;
 
   const initialValues = GetInitialValues(id, action, entityData);
