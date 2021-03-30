@@ -48,11 +48,12 @@ export const FormatSelectAutocompleteData = (
 };
 
 export const SearchString = (
-  str: string | number | undefined,
+  str: string | number | undefined | any[],
   searchTerm: string
 ) => {
   if (str) {
     const searchTermString = str.toString();
+    console.log("searching");
     return searchTermString.toLowerCase().search(searchTerm.toLowerCase());
   }
   return -1;
@@ -65,7 +66,7 @@ export const SearchByEntity = (
 ) => {
   if (entity === "practices" && data) {
     const results = data.filter((el) => {
-      if (el && el.entityName === "practices") {
+      if (el) {
         const hasName = SearchString(el.name, searchTerm);
         const hasAddress = SearchString(el.address, searchTerm);
         const hasCity = SearchString(el.city, searchTerm);
@@ -86,7 +87,7 @@ export const SearchByEntity = (
   }
   if (entity === "doctors" && data) {
     const results = data.filter((el) => {
-      if (el && el.entityName === "doctors") {
+      if (el) {
         const hasFirstName = SearchString(el.firstName, searchTerm);
         const hasLastName = SearchString(el.lastName, searchTerm);
         const hasPracticeName = SearchString(el.practiceName, searchTerm);
@@ -107,7 +108,7 @@ export const SearchByEntity = (
   }
   if (entity === "patients" && data) {
     const results = data.filter((el) => {
-      if (el && el.entityName === "patients") {
+      if (el) {
         const hasDoctorName = SearchString(el.doctorName, searchTerm);
         const hasFirstName = SearchString(el.firstName, searchTerm);
         const hasLastName = SearchString(el.lastName, searchTerm);
