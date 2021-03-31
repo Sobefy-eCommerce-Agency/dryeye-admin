@@ -1,8 +1,9 @@
+import { ReactNode } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useAuth } from "../components/context/context";
 
 type PrivateRouteProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   path: string;
   exact: boolean;
 };

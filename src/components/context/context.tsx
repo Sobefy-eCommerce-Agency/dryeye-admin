@@ -1,4 +1,4 @@
-import { useContext, createContext, useReducer } from "react";
+import { useContext, createContext, useReducer, ReactNode } from "react";
 
 type Action =
   | { type: "authenticate"; value: boolean }
@@ -11,7 +11,7 @@ type State = {
   isAuthenticating: boolean;
 };
 type Dispatch = (action: Action) => void;
-type AuthProviderProps = { children: React.ReactNode };
+type AuthProviderProps = { children: ReactNode };
 
 const AuthContext = createContext<
   { state: State; dispatch: Dispatch } | undefined
