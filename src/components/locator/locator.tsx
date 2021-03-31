@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { Box, SimpleGrid } from "@chakra-ui/layout";
 import useGeolocation from "../../hooks/useGeolocation";
+import { googleApiKey } from "../../shared/environment";
 
 const Locator = () => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCHeK_iAMVafmWm_6D0LX7K1ITSrAVnFr8",
+    googleMapsApiKey: googleApiKey,
   });
   const [loading, location] = useGeolocation();
-  const [center, setCenter] = useState({ lat: 26.3728124, lng: -80.1874058 });
+  const [center, setCenter] = useState({ lat: 37.09024, lng: -95.712891 });
+  const [zoom, setZoom] = useState(3);
 
   const containerStyle = {
     width: "400px",
@@ -24,6 +26,7 @@ const Locator = () => {
   useEffect(() => {
     if (location) {
       setCenter({ lat: location.latitude, lng: location.longitude });
+      setZoom(10);
     }
   }, [location]);
 
@@ -37,7 +40,7 @@ const Locator = () => {
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={center}
-              zoom={10}
+              zoom={zoom}
               options={mapOptions}
             >
               <></>
