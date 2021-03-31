@@ -30,6 +30,8 @@ import ModalForm from "../../form/form";
 import getEntityAPI from "../../../configuration/axiosInstances";
 import { buildEntityPayload } from "../../utils/buildPayload";
 import { SearchByEntity } from "../../utils/format";
+import AppContainer from "../../container/appContainer";
+import Sidebar from "../../sidebar";
 
 type DashboardProps = {
   entityName: EntityType;
@@ -199,103 +201,106 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     : `${totalDataLenght} ${title.toLowerCase()}`;
 
   return (
-    <Box
-      p={10}
-      fontWeight="semibold"
-      display="flex"
-      flexDirection="column"
-      maxHeight="100vh"
-    >
-      <Text fontSize="3xl" mb={10} flex={0}>
-        {title}
-      </Text>
-      <Flex justifyContent="space-between" mb={8} flex={0}>
-        {search ? (
-          <Flex w="sm">
-            <InputGroup>
-              <InputLeftElement
-                pointerEvents="none"
-                children={<SearchIcon color="gray.300" />}
-              />
-              <Input
-                type="search"
-                placeholder={searchBar}
-                value={searchterm}
-                onChange={handleSearch}
-              />
-            </InputGroup>
-          </Flex>
-        ) : null}
-        {create ? (
-          <Button
-            onClick={() => {
-              setAction("create");
-              onOpen();
-            }}
-            background="brand.primary"
-            color="white"
-            _hover={{
-              background: "brand.primaryLight",
-            }}
-          >
-            {addEntityButton}
-          </Button>
-        ) : null}
-      </Flex>
-      <DashboardTable
-        columns={columns}
-        columnsKey={columnsKey}
-        entityData={filteredData && searchterm ? filteredData : entityData}
-        permissions={currentEntityPermissions}
-        onDelete={() => onOpenAlert()}
-        setAction={setAction}
-        setActiveData={setActiveData}
-        onOpen={onOpen}
-      />
-      <Box flex={0}>
-        <Text>{resultsLabel}</Text>
-      </Box>
-      {isOpen ? (
-        <ModalForm
-          isOpen={isOpen}
-          onClose={onClose}
-          action={action}
-          entity={currentEntity}
-          onSubmit={(data) => handleSubmit(data)}
-          entityData={activeData}
-        />
-      ) : null}
-      <AlertDialog
-        isOpen={isOpenAlert}
-        leastDestructiveRef={cancelRef}
-        onClose={onCloseAlert}
-        isCentered
+    <AppContainer>
+      <Sidebar />
+      <Box
+        p={10}
+        fontWeight="semibold"
+        display="flex"
+        flexDirection="column"
+        maxHeight="100vh"
       >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              {deleteEntityTitle}
-            </AlertDialogHeader>
-            <AlertDialogBody>{deleteEntityDescription}</AlertDialogBody>
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onCloseAlert}>
-                Cancel
-              </Button>
-              <Button
-                colorScheme="red"
-                onClick={() => {
-                  deleteEntity();
-                  onCloseAlert();
-                }}
-                ml={3}
-              >
-                Delete
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-    </Box>
+        <Text fontSize="3xl" mb={10} flex={0}>
+          {title}
+        </Text>
+        <Flex justifyContent="space-between" mb={8} flex={0}>
+          {search ? (
+            <Flex w="sm">
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<SearchIcon color="gray.300" />}
+                />
+                <Input
+                  type="search"
+                  placeholder={searchBar}
+                  value={searchterm}
+                  onChange={handleSearch}
+                />
+              </InputGroup>
+            </Flex>
+          ) : null}
+          {create ? (
+            <Button
+              onClick={() => {
+                setAction("create");
+                onOpen();
+              }}
+              background="brand.primary"
+              color="white"
+              _hover={{
+                background: "brand.primaryLight",
+              }}
+            >
+              {addEntityButton}
+            </Button>
+          ) : null}
+        </Flex>
+        <DashboardTable
+          columns={columns}
+          columnsKey={columnsKey}
+          entityData={filteredData && searchterm ? filteredData : entityData}
+          permissions={currentEntityPermissions}
+          onDelete={() => onOpenAlert()}
+          setAction={setAction}
+          setActiveData={setActiveData}
+          onOpen={onOpen}
+        />
+        <Box flex={0}>
+          <Text>{resultsLabel}</Text>
+        </Box>
+        {isOpen ? (
+          <ModalForm
+            isOpen={isOpen}
+            onClose={onClose}
+            action={action}
+            entity={currentEntity}
+            onSubmit={(data) => handleSubmit(data)}
+            entityData={activeData}
+          />
+        ) : null}
+        <AlertDialog
+          isOpen={isOpenAlert}
+          leastDestructiveRef={cancelRef}
+          onClose={onCloseAlert}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                {deleteEntityTitle}
+              </AlertDialogHeader>
+              <AlertDialogBody>{deleteEntityDescription}</AlertDialogBody>
+              <AlertDialogFooter>
+                <Button ref={cancelRef} onClick={onCloseAlert}>
+                  Cancel
+                </Button>
+                <Button
+                  colorScheme="red"
+                  onClick={() => {
+                    deleteEntity();
+                    onCloseAlert();
+                  }}
+                  ml={3}
+                >
+                  Delete
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
+      </Box>
+    </AppContainer>
   );
 };
 

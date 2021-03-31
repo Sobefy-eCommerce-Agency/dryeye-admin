@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { Auth } from "aws-amplify";
-import AppContainer from "./components/container/appContainer";
-import Sidebar from "./components/sidebar";
 import { useAuth } from "./components/context/context";
 import PrivateRoutes from "./routes/privateRoutes";
 import { Box } from "@chakra-ui/layout";
@@ -28,12 +26,7 @@ function App() {
 
   return !isAuthenticating ? (
     <Box width="full" height="full">
-      {authenticated ? (
-        <AppContainer>
-          <Sidebar />
-          <PrivateRoutes />
-        </AppContainer>
-      ) : null}
+      {authenticated ? <PrivateRoutes /> : null}
       <PublicRoutes />
     </Box>
   ) : null;
