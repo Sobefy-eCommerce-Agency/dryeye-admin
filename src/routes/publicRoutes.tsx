@@ -1,6 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 import Locator from "../components/locator/locator";
 import Login from "../components/login/login";
+import { LocatorProvider } from "../components/context/locatorContext";
 import PublicRoute from "./publicRoute";
 
 export default function PublicRoutes() {
@@ -10,7 +11,9 @@ export default function PublicRoutes() {
         <Login />
       </PublicRoute>
       <Route path="/locator" exact>
-        <Locator />
+        <LocatorProvider>
+          <Locator />
+        </LocatorProvider>
       </Route>
     </Switch>
   );
