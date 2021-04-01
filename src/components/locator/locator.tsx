@@ -1,13 +1,15 @@
 import { useEffect } from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, InfoWindow, useJsApiLoader } from "@react-google-maps/api";
 import { Box, SimpleGrid } from "@chakra-ui/layout";
 import { useLocator } from "../context/locatorContext";
 import useGeolocation from "../../hooks/useGeolocation";
 import { googleApiKey } from "../../shared/environment";
+import { PracticesApi } from "../../configuration/axiosInstances";
+import LocatorMarker from "./locatorMarker";
 
 const Locator = () => {
   const { state, dispatch } = useLocator();
-  const { center, zoom } = state;
+  const { center, zoom, locations } = state;
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: googleApiKey,
@@ -37,6 +39,18 @@ const Locator = () => {
     }
   }, [location, dispatch]);
 
+  useEffect(() => {
+    PracticesApi.get().then((response) => {
+      const { data } = response;
+      if (data) {
+        dispatch({
+          type: "setLocations",
+          locations: data,
+        });
+      }
+    });
+  }, [dispatch]);
+
   return (
     <Box>
       <Box></Box>
@@ -50,7 +64,11 @@ const Locator = () => {
               zoom={zoom}
               options={mapOptions}
             >
-              <></>
+              {locations
+                ? locations.map((loc) => (
+                    <LocatorMarker location={loc} onMarkerClick={} />
+                  ))
+                : null}
             </GoogleMap>
           ) : null}
         </Box>

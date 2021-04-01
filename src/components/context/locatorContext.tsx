@@ -4,7 +4,8 @@ import { Practice } from "../../types/interfaces/practices";
 
 type Action =
   | { type: "setCenter"; center: Center }
-  | { type: "setZoom"; zoom: number };
+  | { type: "setZoom"; zoom: number }
+  | { type: "setLocations"; locations: Practice[] };
 type Dispatch = (action: Action) => void;
 type State = {
   center: Center;
@@ -24,6 +25,9 @@ function locatorReducer(state: State, action: Action) {
     }
     case "setZoom": {
       return { ...state, zoom: action.zoom };
+    }
+    case "setLocations": {
+      return { ...state, locations: action.locations };
     }
     default: {
       throw new Error(`Unhandled action type`);
