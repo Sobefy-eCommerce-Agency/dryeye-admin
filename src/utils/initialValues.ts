@@ -2,7 +2,7 @@ import {
   ActionType,
   EntityDataType,
   EntityType,
-} from "../../types/commons/commons";
+} from "../types/commons/commons";
 
 export const GetInitialValues = (
   entity: EntityType,

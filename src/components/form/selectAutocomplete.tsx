@@ -3,7 +3,7 @@ import { FieldProps } from "formik";
 import AsyncSelect from "react-select/async";
 import { CustomersApi, PracticesApi } from "../../configuration/axiosInstances";
 import { SelectAutocompleteList } from "../../types/commons/commons";
-import { FormatSelectAutocompleteData } from "../utils/format";
+import { FormatSelectAutocompleteData } from "../../utils/format";
 import { Customer } from "../../types/interfaces/customers";
 import { Practice } from "../../types/interfaces/practices";
 

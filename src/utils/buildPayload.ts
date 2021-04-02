@@ -2,8 +2,8 @@ import {
   ActionType,
   EntityDataType,
   EntityType,
-} from "../../types/commons/commons";
-import { AddressComponent } from "../../types/interfaces/practices";
+} from "../types/commons/commons";
+import { AddressComponent } from "../types/interfaces/practices";
 
 export const buildEntityPayload = (
   id: EntityType,

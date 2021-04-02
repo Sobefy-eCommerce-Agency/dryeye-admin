@@ -18,12 +18,12 @@ import { ActionType, EntityDataType } from "../../types/commons/commons";
 import { Entity } from "../../types/interfaces/entities";
 import FieldForm from "./fieldForm";
 import { getSchema } from "../../configuration/validationSchemas";
-import { buildEntityPayload } from "../utils/buildPayload";
+import { buildEntityPayload } from "../../utils/buildPayload";
 
 import {
   GetInitialAddressComponents,
   GetInitialValues,
-} from "../utils/initialValues";
+} from "../../utils/initialValues";
 
 interface FormProps {
   isOpen: boolean;

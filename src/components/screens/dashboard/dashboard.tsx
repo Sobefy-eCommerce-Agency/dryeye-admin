@@ -28,8 +28,8 @@ import {
 import DashboardTable from "../../table/table";
 import ModalForm from "../../form/form";
 import getEntityAPI from "../../../configuration/axiosInstances";
-import { buildEntityPayload } from "../../utils/buildPayload";
-import { SearchByEntity } from "../../utils/format";
+import { buildEntityPayload } from "../../../utils/buildPayload";
+import { SearchByEntity } from "../../../utils/format";
 import AppContainer from "../../container/appContainer";
 import Sidebar from "../../sidebar";
 

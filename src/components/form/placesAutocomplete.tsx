@@ -4,7 +4,7 @@ import { FieldProps } from "formik";
 import useOnclickOutside from "react-cool-onclickoutside";
 import usePlacesAutocomplete, { getDetails } from "use-places-autocomplete";
 import { AddressComponent } from "../../types/interfaces/practices";
-import { GetAddressComponentValue } from "../utils/format";
+import { GetAddressComponentValue } from "../../utils/format";
 
 interface AddressAutocompleteProps {
   placeholder: string;

@@ -4,6 +4,7 @@ import { useAuth } from "./components/context/context";
 import PrivateRoutes from "./routes/privateRoutes";
 import { Box } from "@chakra-ui/layout";
 import PublicRoutes from "./routes/publicRoutes";
+import { LocatorProvider } from "./components/context/locatorContext";
 
 function App() {
   const { dispatch, state } = useAuth();
@@ -26,8 +27,10 @@ function App() {
 
   return !isAuthenticating ? (
     <Box width="full" height="full">
-      <PrivateRoutes />
-      <PublicRoutes />
+      <LocatorProvider>
+        <PrivateRoutes />
+        <PublicRoutes />
+      </LocatorProvider>
     </Box>
   ) : null;
 }

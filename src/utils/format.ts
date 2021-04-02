@@ -4,9 +4,9 @@ import {
   EntityDataType,
   EntityType,
   SelectAutocompleteList,
-} from "../../types/commons/commons";
-import { Customer } from "../../types/interfaces/customers";
-import { Practice } from "../../types/interfaces/practices";
+} from "../types/commons/commons";
+import { Customer } from "../types/interfaces/customers";
+import { Practice } from "../types/interfaces/practices";
 
 export const GetAddressComponentValue = (
   components: google.maps.GeocoderAddressComponent[],
