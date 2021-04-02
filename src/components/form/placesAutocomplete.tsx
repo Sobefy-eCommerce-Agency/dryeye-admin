@@ -32,7 +32,7 @@ const AddressAutocomplete = ({
   } = usePlacesAutocomplete({
     requestOptions: {
       componentRestrictions: {
-        country: "us",
+        country: ["us", "ca"],
       },
       types: ["address"],
       bounds: {

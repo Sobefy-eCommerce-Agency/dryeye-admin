@@ -66,7 +66,7 @@ const Locator = () => {
             >
               {locations
                 ? locations.map((loc) => (
-                    <LocatorMarker location={loc} onMarkerClick={} />
+                    <LocatorMarker location={loc} onMarkerClick={() => {}} />
                   ))
                 : null}
             </GoogleMap>
