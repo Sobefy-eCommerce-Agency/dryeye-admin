@@ -4,8 +4,8 @@ import { useAuth } from "../components/context/context";
 
 type PrivateRouteProps = {
   children: ReactNode;
-  path: string;
-  exact: boolean;
+  path?: string;
+  exact?: boolean;
 };
 
 const PrivateRoute = ({ children, path, exact }: PrivateRouteProps) => {

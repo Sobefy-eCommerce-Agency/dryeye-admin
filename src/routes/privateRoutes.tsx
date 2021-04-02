@@ -1,8 +1,11 @@
-import { Switch } from "react-router-dom";
+import { Redirect, Switch } from "react-router-dom";
+import { useAuth } from "../components/context/context";
 import Dashboard from "../components/screens/dashboard/dashboard";
 import PrivateRoute from "./privateRoute";
 
 export default function PrivateRoutes() {
+  const { state } = useAuth();
+  const { authenticated } = state;
   return (
     <Switch>
       <PrivateRoute path="/practices" exact>
@@ -14,6 +17,7 @@ export default function PrivateRoutes() {
       <PrivateRoute path="/patients" exact>
         <Dashboard entityName="patients" />
       </PrivateRoute>
+      {authenticated ? <Redirect to={`/practices`} /> : null}
     </Switch>
   );
 }

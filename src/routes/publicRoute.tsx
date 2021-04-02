@@ -13,7 +13,7 @@ const PublicRoute = ({ children, path, exact }: PublicRouteProps) => {
   const { authenticated } = state;
   return (
     <Route path={path} exact={exact}>
-      {!authenticated ? children : <Redirect to="/" />}
+      {!authenticated ? children : <Redirect to="/practices" />}
     </Route>
   );
 };

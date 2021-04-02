@@ -7,7 +7,7 @@ import PublicRoutes from "./routes/publicRoutes";
 
 function App() {
   const { dispatch, state } = useAuth();
-  const { isAuthenticating, authenticated } = state;
+  const { isAuthenticating } = state;
   async function onLoad() {
     try {
       await Auth.currentSession();
@@ -26,7 +26,7 @@ function App() {
 
   return !isAuthenticating ? (
     <Box width="full" height="full">
-      {authenticated ? <PrivateRoutes /> : null}
+      <PrivateRoutes />
       <PublicRoutes />
     </Box>
   ) : null;
