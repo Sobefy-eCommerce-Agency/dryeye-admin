@@ -13,14 +13,11 @@ const LocatorMarker = ({ location, onMarkerClick }: LocatorMarkerProps) => {
   return (
     <>
       {typeof latitude === "number" && typeof longitude === "number" ? (
-        <>
-          <Marker
-            position={{ lat: latitude, lng: longitude }}
-            onClick={() => onMarkerClick(location)}
-            icon={MarkerIcon}
-            children={<div>hey</div>}
-          />
-        </>
+        <Marker
+          position={{ lat: latitude, lng: longitude }}
+          onClick={() => onMarkerClick(location)}
+          icon={MarkerIcon}
+        />
       ) : null}
     </>
   );

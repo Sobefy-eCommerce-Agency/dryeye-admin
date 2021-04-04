@@ -274,7 +274,7 @@ const entities: Entity[] = [
           `The practice ${name} has been created.`,
         entityUpdatedTitle: "Practice updated.",
         entityUpdatedDescription: (name) =>
-          `The practice ${name} has been created.`,
+          `The practice ${name} has been updated.`,
         entityDeletedTitle: "Practice deleted.",
         entityDeletedDescription: (name) =>
           `The practice ${name} has been deleted.`,

@@ -5,12 +5,14 @@ import { Practice } from "../../types/interfaces/practices";
 type Action =
   | { type: "setCenter"; center: Center }
   | { type: "setZoom"; zoom: number }
-  | { type: "setLocations"; locations: Practice[] };
+  | { type: "setLocations"; locations: Practice[] }
+  | { type: "setActiveLocation"; location: Practice | null };
 type Dispatch = (action: Action) => void;
 type State = {
   center: Center;
   zoom: number;
   locations: Practice[] | null;
+  activeLocation: Practice | null;
 };
 type CountProviderProps = { children: React.ReactNode };
 
@@ -29,6 +31,9 @@ function locatorReducer(state: State, action: Action) {
     case "setLocations": {
       return { ...state, locations: action.locations };
     }
+    case "setActiveLocation": {
+      return { ...state, activeLocation: action.location };
+    }
     default: {
       throw new Error(`Unhandled action type`);
     }
@@ -40,6 +45,7 @@ function LocatorProvider({ children }: CountProviderProps) {
     center: { lat: 37.09024, lng: -95.712891 },
     zoom: 3,
     locations: null,
+    activeLocation: null,
   });
 
   const value = { state, dispatch };
