@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-import { Box, SimpleGrid } from "@chakra-ui/layout";
+import { Box, Flex, SimpleGrid } from "@chakra-ui/layout";
+import Select from "react-select";
 import { useLocator } from "../context/locatorContext";
 import useGeolocation from "../../hooks/useGeolocation";
 import { googleApiKey } from "../../shared/environment";
@@ -9,6 +10,9 @@ import LocatorMarker from "./locatorMarker";
 import { Practice } from "../../types/interfaces/practices";
 import LocatorInfoWindow from "./locatorInfoWindow";
 import LocatorCard from "./locatorCard";
+import { FormLabel } from "@chakra-ui/form-control";
+import { dryEyeTreatments, eyeCareServices } from "../../shared/consts";
+import MultiSelect from "../multiSelect/multiSelect";
 
 const Locator = () => {
   const { state, dispatch } = useLocator();
@@ -29,6 +33,34 @@ const Locator = () => {
     streetViewControl: false,
   };
 
+  // Handlers
+  const activateLocation = (location: Practice | null) => {
+    if (
+      location &&
+      typeof location.latitude === "number" &&
+      typeof location.longitude === "number"
+    ) {
+      dispatch({
+        type: "setCenter",
+        center: { lat: location.latitude, lng: location.longitude },
+      });
+      dispatch({
+        type: "setZoom",
+        zoom: 15,
+      });
+    } else {
+      dispatch({
+        type: "setZoom",
+        zoom: 10,
+      });
+    }
+    dispatch({
+      type: "setActiveLocation",
+      location: location,
+    });
+  };
+
+  // Side effects
   useEffect(() => {
     if (location) {
       dispatch({
@@ -54,31 +86,31 @@ const Locator = () => {
     });
   }, [dispatch]);
 
-  // Handlers
-  const activateLocation = (location: Practice | null) => {
-    if (
-      location &&
-      typeof location.latitude === "number" &&
-      typeof location.longitude === "number"
-    ) {
-      dispatch({
-        type: "setCenter",
-        center: { lat: location.latitude, lng: location.longitude },
-      });
-      dispatch({
-        type: "setZoom",
-        zoom: 15,
-      });
-    }
-    dispatch({
-      type: "setActiveLocation",
-      location: location,
-    });
-  };
-
   return (
-    <Box width="full" height="100vh">
-      <Box></Box>
+    <Flex width="full" height="100vh" direction="column">
+      <SimpleGrid p={5} background="gray.50" columns={4} columnGap={5}>
+        <MultiSelect
+          id="dry_eye_treatments_select"
+          label="DryEye Treatments"
+          name="DryEye Treatments"
+          placeholder="Select one or multiple treatments"
+          options={dryEyeTreatments}
+        />
+        <MultiSelect
+          id="eye_care_services_select"
+          label="Eye Care Services"
+          name="Eye Care Services"
+          placeholder="Select one or multiple services"
+          options={eyeCareServices}
+        />
+        <MultiSelect
+          id="dry_eye_products"
+          label="Dry Eye Products"
+          name="Dry Eye Products"
+          placeholder="Select one or multiple products"
+          options={eyeCareServices}
+        />
+      </SimpleGrid>
       <SimpleGrid height="full" templateColumns="1fr 2fr">
         <SimpleGrid
           columns={1}
@@ -86,6 +118,7 @@ const Locator = () => {
           overflowY="auto"
           background="gray.50"
           py={5}
+          height="100%"
         >
           {locations
             ? locations.map((loc) => {
@@ -127,7 +160,7 @@ const Locator = () => {
           ) : null}
         </Box>
       </SimpleGrid>
-    </Box>
+    </Flex>
   );
 };
 

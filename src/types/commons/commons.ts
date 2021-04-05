@@ -38,3 +38,7 @@ export type addressComponentNameLength = "short_name" | "long_name";
 export type SelectAutocompleteList = "customers" | "practices";
 export type ColumnsKey = "doctor" | "practice" | "patient";
 export type Center = { lat: number; lng: number };
+export type ValueLabelPair = {
+  value: string;
+  label: string;
+};

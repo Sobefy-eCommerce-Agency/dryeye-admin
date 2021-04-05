@@ -47,9 +47,7 @@ const LocatorCard = ({
               <Box>
                 {dryEyeTreatments.map(
                   (treatment, i) =>
-                    `${treatment}${
-                      i + 1 < dryEyeTreatments.length ? ", " : null
-                    }`
+                    `${treatment}${i + 1 < dryEyeTreatments.length ? ", " : ""}`
                 )}
               </Box>
             </Box>
@@ -70,7 +68,7 @@ const LocatorCard = ({
               <Box>
                 {eyeCareServices.map(
                   (service, i) =>
-                    `${service}${i + 1 < eyeCareServices.length ? ", " : null}`
+                    `${service}${i + 1 < eyeCareServices.length ? ", " : ""}`
                 )}
               </Box>
             </Box>
