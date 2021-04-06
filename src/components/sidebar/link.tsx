@@ -1,4 +1,4 @@
-import { Box, Link } from "@chakra-ui/layout";
+import { Box, Link } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
 interface SidebarLinkProps {

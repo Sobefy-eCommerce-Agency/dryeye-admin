@@ -1,5 +1,4 @@
-import { FormLabel } from "@chakra-ui/form-control";
-import { Box } from "@chakra-ui/layout";
+import { FormLabel, Box } from "@chakra-ui/react";
 import Select from "react-select";
 
 interface MultiSelectProps {

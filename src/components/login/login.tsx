@@ -1,18 +1,20 @@
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
-import { Button } from "@chakra-ui/button";
 import {
+  Button,
   FormControl,
   FormErrorMessage,
   FormLabel,
-} from "@chakra-ui/form-control";
-import { Input } from "@chakra-ui/input";
-import { Box, Flex, Heading } from "@chakra-ui/layout";
+  Input,
+  Box,
+  Flex,
+  Heading,
+  Spinner,
+} from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { Field, FieldProps, Form, Formik } from "formik";
 import { LoginSchema } from "../../configuration/validationSchemas";
 import { useAuth } from "../context/context";
-import { Spinner } from "@chakra-ui/spinner";
 
 type loginForm = {
   email: string;

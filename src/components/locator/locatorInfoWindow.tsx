@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/layout";
+import { Box, Text } from "@chakra-ui/react";
 import { InfoWindow } from "@react-google-maps/api";
 import { Practice } from "../../types/interfaces/practices";
 

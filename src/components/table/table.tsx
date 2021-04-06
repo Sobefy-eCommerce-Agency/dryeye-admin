@@ -5,8 +5,13 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
 } from "@chakra-ui/react";
-import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Column } from "../../types/interfaces/entities";
 import {

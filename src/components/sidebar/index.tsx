@@ -1,10 +1,16 @@
 import { Auth } from "aws-amplify";
-import { Box, Divider, Flex, Grid, Text } from "@chakra-ui/layout";
+import {
+  Box,
+  Divider,
+  Flex,
+  Grid,
+  Text,
+  Image,
+  Button,
+} from "@chakra-ui/react";
 import SidebarLink from "./link";
 import Logo from "../../assets/images/logo.webp";
-import { Image } from "@chakra-ui/image";
 import { useAuth } from "../context/context";
-import { Button } from "@chakra-ui/button";
 import { useHistory } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-import { Box, Flex, SimpleGrid } from "@chakra-ui/layout";
+import { Box, Flex, SimpleGrid } from "@chakra-ui/react";
 import { useLocator } from "../context/locatorContext";
 import useGeolocation from "../../hooks/useGeolocation";
 import { googleApiKey } from "../../shared/environment";

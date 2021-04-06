@@ -1,5 +1,4 @@
-import { Input } from "@chakra-ui/input";
-import { Box, StackDivider, Text, VStack } from "@chakra-ui/layout";
+import { Input, Box, StackDivider, Text, VStack } from "@chakra-ui/react";
 import { FieldProps } from "formik";
 import useOnclickOutside from "react-cool-onclickoutside";
 import usePlacesAutocomplete, { getDetails } from "use-places-autocomplete";
