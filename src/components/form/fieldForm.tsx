@@ -1,12 +1,13 @@
-import { Checkbox, CheckboxGroup } from "@chakra-ui/checkbox";
 import {
+  Checkbox,
+  CheckboxGroup,
   FormControl,
   FormErrorMessage,
   FormLabel,
-} from "@chakra-ui/form-control";
-import { Input } from "@chakra-ui/input";
-import { SimpleGrid } from "@chakra-ui/layout";
-import { Textarea } from "@chakra-ui/textarea";
+  Input,
+  SimpleGrid,
+  Textarea,
+} from "@chakra-ui/react";
 import { FieldProps } from "formik";
 import { FieldSet } from "../../types/interfaces/entities";
 import { AddressComponent } from "../../types/interfaces/practices";

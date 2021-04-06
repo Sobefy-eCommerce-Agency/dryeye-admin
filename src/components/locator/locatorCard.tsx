@@ -25,23 +25,26 @@ const LocatorCard = ({
     <>
       {hasCoordinates ? (
         <Box
-          boxShadow="md"
+          boxShadow={isActive ? "md" : "sm"}
           p={5}
           cursor="pointer"
           onClick={() => onClick(location)}
           background={isActive ? "brand.primary" : "white"}
           mx={5}
           borderRadius={5}
-          _hover={{ background: isActive ? "auto" : "gray.100" }}
+          _hover={{
+            background: isActive ? "auto" : "gray.100",
+            boxShadow: "md",
+          }}
           color={isActive ? "white" : "black"}
           transition=".2s ease"
         >
-          <Text fontSize={18} fontWeight={700} mb={3}>
+          <Text fontSize={16} fontWeight={600} mb={3}>
             {name}
           </Text>
           {dryEyeTreatments && dryEyeTreatments.length > 0 ? (
             <Box mb={3}>
-              <Text fontSize={16} fontWeight={600} as="u">
+              <Text fontSize={14} fontWeight={600} as="u">
                 Dryeye Treatments
               </Text>
               <Box>

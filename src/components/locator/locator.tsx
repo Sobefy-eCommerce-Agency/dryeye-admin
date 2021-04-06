@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { Box, Flex, SimpleGrid } from "@chakra-ui/layout";
-import Select from "react-select";
 import { useLocator } from "../context/locatorContext";
 import useGeolocation from "../../hooks/useGeolocation";
 import { googleApiKey } from "../../shared/environment";
@@ -10,9 +9,9 @@ import LocatorMarker from "./locatorMarker";
 import { Practice } from "../../types/interfaces/practices";
 import LocatorInfoWindow from "./locatorInfoWindow";
 import LocatorCard from "./locatorCard";
-import { FormLabel } from "@chakra-ui/form-control";
 import { dryEyeTreatments, eyeCareServices } from "../../shared/consts";
 import MultiSelect from "../multiSelect/multiSelect";
+import SkeletonCard from "../skeleton/skeletonCard";
 
 const Locator = () => {
   const { state, dispatch } = useLocator();
@@ -87,8 +86,8 @@ const Locator = () => {
   }, [dispatch]);
 
   return (
-    <Flex width="full" height="100vh" direction="column">
-      <SimpleGrid p={5} background="gray.50" columns={4} columnGap={5}>
+    <Flex width="full" height="100vh" direction="column" background="gray.50">
+      <SimpleGrid px={5} py={6} columns={4} columnGap={5}>
         <MultiSelect
           id="dry_eye_treatments_select"
           label="DryEye Treatments"
@@ -111,15 +110,13 @@ const Locator = () => {
           options={eyeCareServices}
         />
       </SimpleGrid>
-      <SimpleGrid height="full" templateColumns="1fr 2fr">
-        <SimpleGrid
-          columns={1}
-          rowGap={5}
-          overflowY="auto"
-          background="gray.50"
-          py={5}
-          height="100%"
-        >
+      <SimpleGrid
+        height="full"
+        templateColumns="25% 75%"
+        overflowY="hidden"
+        py={5}
+      >
+        <SimpleGrid columns={1} rowGap={5} overflowY="auto" height="100%">
           {locations
             ? locations.map((loc) => {
                 return (
@@ -131,9 +128,9 @@ const Locator = () => {
                   />
                 );
               })
-            : null}
+            : [...Array(20)].map(() => <SkeletonCard />)}
         </SimpleGrid>
-        <Box>
+        <Box mr={5} boxShadow="sm">
           {isLoaded && !loading ? (
             <GoogleMap
               mapContainerStyle={containerStyle}
