@@ -47,11 +47,6 @@ const Locator = () => {
         type: "setZoom",
         zoom: 15,
       });
-    } else {
-      dispatch({
-        type: "setZoom",
-        zoom: 10,
-      });
     }
     dispatch({
       type: "setActiveLocation",
