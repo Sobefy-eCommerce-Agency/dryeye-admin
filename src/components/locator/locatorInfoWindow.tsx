@@ -13,7 +13,6 @@ const LocatorInfoWindow = ({
 }: LocatorInfoWindowProps) => {
   if (location) {
     const { name, latitude, longitude } = location;
-    console.log(latitude, longitude);
     if (typeof latitude === "number" && typeof longitude === "number") {
       return (
         <InfoWindow
