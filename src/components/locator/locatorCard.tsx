@@ -38,6 +38,7 @@ const LocatorCard = ({
           }}
           color={isActive ? "white" : "black"}
           transition=".2s ease"
+          height="min-content"
         >
           <Text fontSize={16} fontWeight={600} mb={3}>
             {name}

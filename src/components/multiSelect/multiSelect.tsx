@@ -7,6 +7,8 @@ interface MultiSelectProps {
   placeholder: string;
   name: string;
   options: { label: string; value: string }[];
+  onSelect(values: any[]): void;
+  value: any[] | null;
 }
 
 const MultiSelect = ({
@@ -15,6 +17,8 @@ const MultiSelect = ({
   placeholder,
   name,
   options,
+  onSelect,
+  value,
 }: MultiSelectProps) => {
   return (
     <Box>
@@ -22,6 +26,7 @@ const MultiSelect = ({
         {label}
       </FormLabel>
       <Select
+        value={value}
         id={id}
         isMulti
         name={name}
@@ -29,6 +34,11 @@ const MultiSelect = ({
         placeholder={placeholder}
         className="basic-multi-select"
         classNamePrefix="select"
+        onChange={(values) => {
+          if (values instanceof Array) {
+            onSelect(values);
+          }
+        }}
       />
     </Box>
   );
