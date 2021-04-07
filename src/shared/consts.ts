@@ -61,3 +61,38 @@ export const eyeCareServices: ValueLabelPair[] = [
     label: "Full Dry Eye Evaluation",
   },
 ];
+
+export const dryEyeProducts: ValueLabelPair[] = [
+  {
+    value: "TheraTears Eye Drops",
+    label: "TheraTears Eye Drops",
+  },
+  {
+    value: "Soothe XP",
+    label: "Soothe XP",
+  },
+  {
+    value: "Retaine PM",
+    label: "Retaine PM",
+  },
+  {
+    value: "Retaine MGD",
+    label: "Retaine MGD",
+  },
+  {
+    value: "Pataday Extra Strength",
+    label: "Pataday Extra Strength",
+  },
+  {
+    value: "OCuSOFT Hypochlor Spray",
+    label: "OCuSOFT Hypochlor Spray",
+  },
+  {
+    value: "Heyedrate Eye Make Up Remover Oil",
+    label: "Heyedrate Eye Make Up Remover Oil",
+  },
+  {
+    value: "Bruder Moist Heat Mask",
+    label: "Bruder Moist Heat Mask",
+  },
+];

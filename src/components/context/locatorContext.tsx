@@ -10,6 +10,7 @@ export type Action =
   | { type: "setActiveLocation"; location: Practice | null }
   | { type: "setDryEyeTreatmentsFilter"; filters: any[] | null }
   | { type: "setEyeCareServicesFilter"; filters: any[] | null }
+  | { type: "setDryEyeProductsFilter"; filters: any[] | null }
   | { type: "setNoResultsFound"; noResultsFound: boolean }
   | { type: "resetFilters" };
 type Dispatch = (action: Action) => void;
@@ -21,6 +22,7 @@ type State = {
   activeLocation: Practice | null;
   dryEyeTreatmentsFilter: any[] | null;
   eyeCareServicesFilter: any[] | null;
+  dryEyeProductsFilter: any[] | null;
   noResultsFound: boolean;
 };
 type CountProviderProps = { children: React.ReactNode };
@@ -52,6 +54,9 @@ function locatorReducer(state: State, action: Action) {
     case "setEyeCareServicesFilter": {
       return { ...state, eyeCareServicesFilter: action.filters };
     }
+    case "setDryEyeProductsFilter": {
+      return { ...state, dryEyeProductsFilter: action.filters };
+    }
     case "setNoResultsFound": {
       return { ...state, noResultsFound: action.noResultsFound };
     }
@@ -79,6 +84,7 @@ function LocatorProvider({ children }: CountProviderProps) {
     activeLocation: null,
     dryEyeTreatmentsFilter: null,
     eyeCareServicesFilter: null,
+    dryEyeProductsFilter: null,
     noResultsFound: false,
   });
 

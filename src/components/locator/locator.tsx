@@ -9,7 +9,11 @@ import LocatorMarker from "./locatorMarker";
 import { Practice } from "../../types/interfaces/practices";
 import LocatorInfoWindow from "./locatorInfoWindow";
 import LocatorCard from "./locatorCard";
-import { dryEyeTreatments, eyeCareServices } from "../../shared/consts";
+import {
+  dryEyeProducts,
+  dryEyeTreatments,
+  eyeCareServices,
+} from "../../shared/consts";
 import MultiSelect from "../multiSelect/multiSelect";
 import SkeletonCard from "../skeleton/skeletonCard";
 
@@ -23,6 +27,7 @@ const Locator = () => {
     activeLocation,
     dryEyeTreatmentsFilter,
     eyeCareServicesFilter,
+    dryEyeProductsFilter,
     noResultsFound,
   } = state;
   const currentLocations = filteredLocations || locations;
@@ -237,9 +242,14 @@ const Locator = () => {
           label="Dry Eye Products"
           name="Dry Eye Products"
           placeholder="Select one or multiple products"
-          options={eyeCareServices}
-          value={eyeCareServicesFilter}
-          onSelect={(values: any[]) => {}}
+          options={dryEyeProducts}
+          value={dryEyeProductsFilter}
+          onSelect={(values: any[]) =>
+            changeFilter({
+              type: "setDryEyeProductsFilter",
+              filters: values && values.length > 0 ? values : null,
+            })
+          }
         />
       </SimpleGrid>
       <SimpleGrid
