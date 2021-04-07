@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
-import { useLocator } from "../context/locatorContext";
+import { useLocator, Action } from "../context/locatorContext";
 import useGeolocation from "../../hooks/useGeolocation";
 import { googleApiKey } from "../../shared/environment";
 import { PracticesApi } from "../../configuration/axiosInstances";
@@ -62,6 +62,14 @@ const Locator = () => {
     dispatch({
       type: "setActiveLocation",
       location: location,
+    });
+  };
+
+  const changeFilter = (action: Action) => {
+    dispatch(action);
+    dispatch({
+      type: "setActiveLocation",
+      location: null,
     });
   };
 
@@ -204,7 +212,7 @@ const Locator = () => {
           options={dryEyeTreatments}
           value={dryEyeTreatmentsFilter}
           onSelect={(values: any[]) =>
-            dispatch({
+            changeFilter({
               type: "setDryEyeTreatmentsFilter",
               filters: values && values.length > 0 ? values : null,
             })
@@ -218,7 +226,7 @@ const Locator = () => {
           options={eyeCareServices}
           value={eyeCareServicesFilter}
           onSelect={(values: any[]) =>
-            dispatch({
+            changeFilter({
               type: "setEyeCareServicesFilter",
               filters: values && values.length > 0 ? values : null,
             })

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Center } from "../../types/commons/commons";
 import { Practice } from "../../types/interfaces/practices";
 
-type Action =
+export type Action =
   | { type: "setCenter"; center: Center }
   | { type: "setZoom"; zoom: number }
   | { type: "setLocations"; locations: Practice[] }
