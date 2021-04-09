@@ -110,6 +110,7 @@ const PlacesAutocomplete = ({
         {label}
       </FormLabel>
       <Input
+        id={id}
         value={value}
         onChange={handleInput}
         disabled={!ready}

@@ -17,6 +17,7 @@ import {
 import MultiSelect from "../multiSelect/multiSelect";
 import SkeletonCard from "../skeleton/skeletonCard";
 import PlacesAutocomplete from "./placesAutocomplete";
+import NameFilter from "./filters/nameFilter";
 
 const Locator = () => {
   const { state, dispatch } = useLocator();
@@ -29,6 +30,7 @@ const Locator = () => {
     dryEyeTreatmentsFilter,
     eyeCareServicesFilter,
     dryEyeProductsFilter,
+    practiceNameFilter,
     noResultsFound,
   } = state;
   const currentLocations = filteredLocations || locations;
@@ -114,12 +116,14 @@ const Locator = () => {
   useEffect(() => {
     let newLocations: Practice[] | null = null;
     const currentLocations = locations;
-    if (dryEyeTreatmentsFilter || eyeCareServicesFilter) {
+    if (dryEyeTreatmentsFilter || eyeCareServicesFilter || practiceNameFilter) {
       const results = currentLocations?.filter((loc) => {
         const currentDryEyeTreatments = loc.dryEyeTreatments;
         const currentEyeCareServices = loc.eyeCareServices;
+        const currentPracticeName = loc.name.toLowerCase();
         let treatmentsIncluded = false;
         let servicesIncluded = false;
+        let practiceNameIncluded = false;
         // Filter Dry Eye Treatments
         if (dryEyeTreatmentsFilter && dryEyeTreatmentsFilter.length > 0) {
           if (currentDryEyeTreatments && currentDryEyeTreatments.length > 0) {
@@ -138,8 +142,14 @@ const Locator = () => {
             });
           }
         }
+        // Filter by practice nam
+        if (practiceNameFilter) {
+          practiceNameIncluded = currentPracticeName.includes(
+            practiceNameFilter
+          );
+        }
         // Check results
-        if (treatmentsIncluded || servicesIncluded) {
+        if (treatmentsIncluded || servicesIncluded || practiceNameIncluded) {
           return true;
         }
         return false;
@@ -166,7 +176,7 @@ const Locator = () => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dryEyeTreatmentsFilter, eyeCareServicesFilter]);
+  }, [dryEyeTreatmentsFilter, eyeCareServicesFilter, practiceNameFilter]);
 
   // JSX
   const getLocationsList = () => {
@@ -209,7 +219,19 @@ const Locator = () => {
 
   return (
     <Flex width="full" height="100vh" direction="column" background="gray.50">
-      <SimpleGrid px={5} py={6} columns={4} columnGap={5}>
+      <SimpleGrid px={5} py={6} columns={5} columnGap={5}>
+        <NameFilter
+          id="practice_name_filter"
+          placeholder="Practice name"
+          label="Practice Name"
+          value={practiceNameFilter}
+          onChange={(e) => {
+            dispatch({
+              type: "setPracticeNameFilter",
+              name: e.target.value.toLowerCase(),
+            });
+          }}
+        />
         <PlacesAutocomplete
           label="Location"
           id="location_filter"
