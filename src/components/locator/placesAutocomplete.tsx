@@ -105,7 +105,7 @@ const PlacesAutocomplete = ({
     });
 
   return (
-    <Box ref={ref}>
+    <Box ref={ref} position="relative">
       <FormLabel htmlFor={id} fontSize={12} fontWeight="normal">
         {label}
       </FormLabel>
