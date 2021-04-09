@@ -134,3 +134,14 @@ export const SearchByEntity = (
   }
   return [];
 };
+
+export const arrayToCommaString = (arr: any[]) => {
+  let str = "";
+  if (arr && arr.length > 0) {
+    for (let i = 0; i < arr.length; i++) {
+      const element = arr[i];
+      str += `${element}${i + 1 < arr.length ? ", " : ""}`;
+    }
+  }
+  return str;
+};

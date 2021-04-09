@@ -294,7 +294,7 @@ const Locator = () => {
       </SimpleGrid>
       <SimpleGrid
         height="full"
-        templateColumns="25% 75%"
+        templateColumns="27% 73%"
         overflowY="hidden"
         py={5}
       >
