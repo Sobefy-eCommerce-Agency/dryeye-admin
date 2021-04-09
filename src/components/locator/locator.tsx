@@ -16,6 +16,7 @@ import {
 } from "../../shared/consts";
 import MultiSelect from "../multiSelect/multiSelect";
 import SkeletonCard from "../skeleton/skeletonCard";
+import PlacesAutocomplete from "./placesAutocomplete";
 
 const Locator = () => {
   const { state, dispatch } = useLocator();
@@ -209,6 +210,23 @@ const Locator = () => {
   return (
     <Flex width="full" height="100vh" direction="column" background="gray.50">
       <SimpleGrid px={5} py={6} columns={4} columnGap={5}>
+        <PlacesAutocomplete
+          label="Location"
+          id="location_filter"
+          placeholder="Location"
+          onSelect={(center) => {
+            if (center) {
+              dispatch({
+                type: "setCenter",
+                center: center,
+              });
+              dispatch({
+                type: "setZoom",
+                zoom: 10,
+              });
+            }
+          }}
+        />
         <MultiSelect
           id="dry_eye_treatments_select"
           label="DryEye Treatments"
