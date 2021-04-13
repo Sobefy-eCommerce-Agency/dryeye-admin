@@ -16,7 +16,8 @@ export type InputType =
   | "tel"
   | "addressAutocomplete"
   | "selectAutocomplete"
-  | "checkboxGroup";
+  | "checkboxGroup"
+  | "switch";
 export type MaskType = "phone" | "date";
 export type FieldGroupType =
   | "general"

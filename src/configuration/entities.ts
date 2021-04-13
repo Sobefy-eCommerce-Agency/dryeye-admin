@@ -98,6 +98,12 @@ const entities: Entity[] = [
         group: "addressInformation",
       },
       {
+        id: "preferred",
+        label: "Is preferred?",
+        type: "switch",
+        group: "addressInformation",
+      },
+      {
         id: "eyeCareServices",
         type: "checkboxGroup",
         fieldOptions: eyeCareServices,

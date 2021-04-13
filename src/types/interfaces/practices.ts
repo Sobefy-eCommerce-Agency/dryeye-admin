@@ -1,5 +1,5 @@
 export type Practice = {
-  [x: string]: string | number | any[] | undefined;
+  [x: string]: string | number | any[] | boolean | undefined;
   practice?: string;
   doctor: string;
   name: string;
@@ -33,6 +33,7 @@ export type Practice = {
   dryEyeProducts: string;
   eyeCareServices: any[];
   dryEyeTreatments: any[];
+  preferred: boolean;
 };
 
 export type AddressComponent = {

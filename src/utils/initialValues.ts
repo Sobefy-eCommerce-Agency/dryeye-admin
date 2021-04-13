@@ -46,6 +46,7 @@ export const GetInitialValues = (
         friday_op_hours: "",
         saturday_op_hours: "",
         sunday_op_hours: "",
+        preferred: false,
       };
     case "doctors":
       if (action === "edit" && entityData) {
@@ -110,6 +111,7 @@ export const GetInitialAddressComponents = (
           dryEyeTreatments,
           dryEyeProducts,
           suite_number,
+          preferred,
           ...rest
         } = entityData;
         return { ...rest };

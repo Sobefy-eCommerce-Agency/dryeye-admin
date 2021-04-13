@@ -1,11 +1,13 @@
 import {
   Checkbox,
   CheckboxGroup,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
   SimpleGrid,
+  Switch,
   Textarea,
 } from "@chakra-ui/react";
 import { FieldProps } from "formik";
@@ -92,6 +94,20 @@ const FieldForm = ({
           );
         }
         return "The current field is not configured";
+      case "switch":
+        return (
+          <Flex height="full" alignItems="center">
+            <Switch
+              id={id}
+              size="lg"
+              colorScheme="purple"
+              isChecked={field.value}
+              onChange={(event) => {
+                form.setFieldValue(id, event.target.checked);
+              }}
+            />
+          </Flex>
+        );
       case "textArea":
         return <Textarea mt={3} {...field} id={id} placeholder={placeholder} />;
       case "text":
@@ -102,7 +118,11 @@ const FieldForm = ({
   };
 
   return (
-    <FormControl isInvalid={error && touched}>
+    <FormControl
+      isInvalid={error && touched}
+      display="flex"
+      flexDirection="column"
+    >
       {label ? (
         <FormLabel htmlFor={id} fontSize={12} fontWeight="normal">
           {label}

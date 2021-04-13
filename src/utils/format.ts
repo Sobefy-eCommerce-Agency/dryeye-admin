@@ -48,7 +48,7 @@ export const FormatSelectAutocompleteData = (
 };
 
 export const SearchString = (
-  str: string | number | undefined | any[],
+  str: string | number | undefined | boolean | any[],
   searchTerm: string
 ) => {
   if (str) {

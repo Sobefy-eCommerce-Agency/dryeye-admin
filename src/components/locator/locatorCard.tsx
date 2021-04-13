@@ -58,15 +58,17 @@ const LocatorCard = ({
     dryEyeProducts,
     eyeCareServices,
     phone,
+    latitude,
+    longitude,
+    preferred,
   } = location;
 
   // Convert array to comma string
   const dryEyeTreatmentsString = arrayToCommaString(dryEyeTreatments);
   const eyeCareServicesString = arrayToCommaString(eyeCareServices);
 
-  const hasCoordinates = location.latitude && location.longitude;
-  const isPreferred = location.name === "Bocaview";
-  const textAlign = isPreferred ? "center" : "left";
+  const hasCoordinates = latitude && longitude;
+  const textAlign = preferred ? "center" : "left";
   return (
     <>
       {hasCoordinates ? (
@@ -89,7 +91,7 @@ const LocatorCard = ({
           ref={reference}
         >
           <Flex minHeight="58px">
-            {isPreferred ? (
+            {preferred ? (
               <Flex
                 background="brand.secondary"
                 textAlign="center"
@@ -126,7 +128,7 @@ const LocatorCard = ({
               </Text>
             </Flex>
           </Flex>
-          <Grid p={8} pt={`${isPreferred ? 8 : 2}`} rowGap={4}>
+          <Grid p={8} pt={`${preferred ? 8 : 2}`} rowGap={4}>
             {address ? (
               <InfoRow
                 title="Address:"
