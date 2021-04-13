@@ -9,15 +9,12 @@ import LocatorMarker from "./locatorMarker";
 import { Practice } from "../../types/interfaces/practices";
 import LocatorInfoWindow from "./locatorInfoWindow";
 import LocatorCard from "./locatorCard";
-import {
-  dryEyeProducts,
-  dryEyeTreatments,
-  eyeCareServices,
-} from "../../shared/consts";
+import { dryEyeTreatments, eyeCareServices } from "../../shared/consts";
 import MultiSelect from "../multiSelect/multiSelect";
 import SkeletonCard from "../skeleton/skeletonCard";
 import PlacesAutocomplete from "./placesAutocomplete";
 import NameFilter from "./filters/nameFilter";
+import { getUniqueProducts } from "../../utils/format";
 
 const Locator = () => {
   const { state, dispatch } = useLocator();
@@ -50,6 +47,9 @@ const Locator = () => {
     mapTypeControl: false,
     streetViewControl: false,
   };
+
+  // Computed values
+  const dryEyeProducts = getUniqueProducts(locations);
 
   // Handlers
   const activateLocation = (location: Practice | null) => {
@@ -116,14 +116,21 @@ const Locator = () => {
   useEffect(() => {
     let newLocations: Practice[] | null = null;
     const currentLocations = locations;
-    if (dryEyeTreatmentsFilter || eyeCareServicesFilter || practiceNameFilter) {
+    if (
+      dryEyeTreatmentsFilter ||
+      eyeCareServicesFilter ||
+      practiceNameFilter ||
+      dryEyeProductsFilter
+    ) {
       const results = currentLocations?.filter((loc) => {
         const currentDryEyeTreatments = loc.dryEyeTreatments;
         const currentEyeCareServices = loc.eyeCareServices;
         const currentPracticeName = loc.name.toLowerCase();
+        const currentDryEyeProducts = loc.dryEyeProducts;
         let treatmentsIncluded = false;
         let servicesIncluded = false;
         let practiceNameIncluded = false;
+        let productsIncluded = false;
         // Filter Dry Eye Treatments
         if (dryEyeTreatmentsFilter && dryEyeTreatmentsFilter.length > 0) {
           if (currentDryEyeTreatments && currentDryEyeTreatments.length > 0) {
@@ -148,8 +155,24 @@ const Locator = () => {
             practiceNameFilter
           );
         }
+        // Filter by Dry Eye Products
+        if (
+          dryEyeProductsFilter &&
+          dryEyeProductsFilter.length > 0 &&
+          currentDryEyeProducts
+        ) {
+          dryEyeProductsFilter?.forEach((filter) => {
+            productsIncluded = currentDryEyeProducts.includes(filter.value);
+          });
+        }
+
         // Check results
-        if (treatmentsIncluded || servicesIncluded || practiceNameIncluded) {
+        if (
+          treatmentsIncluded ||
+          servicesIncluded ||
+          practiceNameIncluded ||
+          productsIncluded
+        ) {
           return true;
         }
         return false;
@@ -176,7 +199,12 @@ const Locator = () => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dryEyeTreatmentsFilter, eyeCareServicesFilter, practiceNameFilter]);
+  }, [
+    dryEyeTreatmentsFilter,
+    eyeCareServicesFilter,
+    dryEyeProductsFilter,
+    practiceNameFilter,
+  ]);
 
   const activeCardRef = useCallback((node: HTMLDivElement) => {
     if (node !== null) {

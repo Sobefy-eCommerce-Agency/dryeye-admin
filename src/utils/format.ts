@@ -4,6 +4,7 @@ import {
   EntityDataType,
   EntityType,
   SelectAutocompleteList,
+  ValueLabelPair,
 } from "../types/commons/commons";
 import { Customer } from "../types/interfaces/customers";
 import { Practice } from "../types/interfaces/practices";
@@ -144,4 +145,30 @@ export const arrayToCommaString = (arr: any[]) => {
     }
   }
   return str;
+};
+
+export const getUniqueProducts = (practices: Practice[] | null) => {
+  if (practices) {
+    let products: ValueLabelPair[] = [];
+    for (let i = 0; i < practices.length; i++) {
+      const practice = practices[i];
+      const { dryEyeProducts } = practice;
+      if (dryEyeProducts) {
+        const productsArray = dryEyeProducts.split(",");
+        if (productsArray) {
+          for (let j = 0; j < productsArray.length; j++) {
+            const product = productsArray[j].trim();
+            const existingProduct = products.filter(
+              (pr) => pr.value === product
+            );
+            if (existingProduct.length === 0) {
+              products.push({ value: product, label: product });
+            }
+          }
+        }
+      }
+    }
+    return products;
+  }
+  return null;
 };

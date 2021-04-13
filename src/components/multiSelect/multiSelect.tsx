@@ -6,7 +6,7 @@ interface MultiSelectProps {
   label: string;
   placeholder: string;
   name: string;
-  options: { label: string; value: string }[];
+  options: { label: string; value: string }[] | null;
   onSelect(values: any[]): void;
   value: any[] | null;
 }
@@ -30,7 +30,7 @@ const MultiSelect = ({
         id={id}
         isMulti
         name={name}
-        options={options}
+        options={options || []}
         placeholder={placeholder}
         className="basic-multi-select"
         classNamePrefix="select"
