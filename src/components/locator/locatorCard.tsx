@@ -77,7 +77,7 @@ const LocatorCard = ({
           cursor="pointer"
           onClick={() => onClick(location)}
           background={isActive ? "brand.primary" : "white"}
-          mx={5}
+          mx={{ base: 0, md: 5 }}
           borderTopLeftRadius="2xl"
           borderTopRightRadius="2xl"
           borderBottomRadius="2xl"

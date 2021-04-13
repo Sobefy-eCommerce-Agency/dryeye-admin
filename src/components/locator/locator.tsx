@@ -255,8 +255,19 @@ const Locator = () => {
   };
 
   return (
-    <Flex width="full" height="100vh" direction="column" background="gray.50">
-      <SimpleGrid px={5} py={6} columns={5} columnGap={5}>
+    <Flex
+      width="full"
+      height={{ base: "auto", md: "100vh" }}
+      direction="column"
+      background="gray.50"
+    >
+      <SimpleGrid
+        px={5}
+        py={6}
+        columns={{ base: 1, md: 2, lg: 5 }}
+        rowGap={{ base: 4, md: 4, lg: 0 }}
+        columnGap={5}
+      >
         <NameFilter
           id="practice_name_filter"
           placeholder="Practice name"
@@ -290,7 +301,7 @@ const Locator = () => {
           id="dry_eye_treatments_select"
           label="DryEye Treatments"
           name="DryEye Treatments"
-          placeholder="Select one or multiple treatments"
+          placeholder="Treatments"
           options={dryEyeTreatments}
           value={dryEyeTreatmentsFilter}
           onSelect={(values: any[]) =>
@@ -304,7 +315,7 @@ const Locator = () => {
           id="eye_care_services_select"
           label="Eye Care Services"
           name="Eye Care Services"
-          placeholder="Select one or multiple services"
+          placeholder="Services"
           options={eyeCareServices}
           value={eyeCareServicesFilter}
           onSelect={(values: any[]) =>
@@ -318,7 +329,7 @@ const Locator = () => {
           id="dry_eye_products"
           label="Dry Eye Products"
           name="Dry Eye Products"
-          placeholder="Select one or multiple products"
+          placeholder="Products"
           options={dryEyeProducts}
           value={dryEyeProductsFilter}
           onSelect={(values: any[]) =>
@@ -331,14 +342,28 @@ const Locator = () => {
       </SimpleGrid>
       <SimpleGrid
         height="full"
-        templateColumns="27% 73%"
+        templateColumns={{ base: "100%", md: "50% 50%", lg: "26% 74%" }}
+        templateRows={{ base: "500px 1fr", md: "1fr" }}
         overflowY="hidden"
         py={5}
+        pt={{ base: 0, md: 5 }}
+        px={{ base: 5, md: 0 }}
       >
-        <SimpleGrid columns={1} rowGap={5} overflowY="auto" height="100%">
+        <SimpleGrid
+          columns={1}
+          rowGap={5}
+          overflowY="auto"
+          height="100%"
+          order={{ base: 2, md: 1 }}
+        >
           {getLocationsList()}
         </SimpleGrid>
-        <Box mr={5} boxShadow="sm">
+        <Box
+          mr={{ base: 0, md: 5 }}
+          mb={{ base: 5, md: 0 }}
+          boxShadow="sm"
+          order={{ base: 1, md: 2 }}
+        >
           {isLoaded && !loading ? (
             <GoogleMap
               mapContainerStyle={containerStyle}
