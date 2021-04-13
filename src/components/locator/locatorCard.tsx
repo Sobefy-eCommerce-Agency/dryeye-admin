@@ -10,9 +10,11 @@ import {
   IoMedkitSharp,
 } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
+
 interface LocatorCardProps {
   location: Practice;
-  activeLocation: Practice | null;
+  isActive: boolean;
+  reference: ((node: HTMLDivElement) => void) | null;
   onClick(location: Practice): void;
 }
 
@@ -44,8 +46,9 @@ const InfoRow = ({ title, content, icon, isActive }: InfoRowProps) => {
 
 const LocatorCard = ({
   location,
-  activeLocation,
+  isActive,
   onClick,
+  reference,
 }: LocatorCardProps) => {
   const {
     name,
@@ -61,7 +64,6 @@ const LocatorCard = ({
   const dryEyeTreatmentsString = arrayToCommaString(dryEyeTreatments);
   const eyeCareServicesString = arrayToCommaString(eyeCareServices);
 
-  const isActive = location.practice === activeLocation?.practice;
   const hasCoordinates = location.latitude && location.longitude;
   const isPreferred = location.name === "Bocaview";
   const textAlign = isPreferred ? "center" : "left";
@@ -84,6 +86,7 @@ const LocatorCard = ({
           color={isActive ? "white" : "black"}
           transition=".2s ease"
           height="min-content"
+          ref={reference}
         >
           <Flex minHeight="58px">
             {isPreferred ? (

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { useLocator, Action } from "../context/locatorContext";
@@ -178,6 +178,12 @@ const Locator = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dryEyeTreatmentsFilter, eyeCareServicesFilter, practiceNameFilter]);
 
+  const activeCardRef = useCallback((node: HTMLDivElement) => {
+    if (node !== null) {
+      node.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
+
   // JSX
   const getLocationsList = () => {
     if (noResultsFound) {
@@ -203,11 +209,14 @@ const Locator = () => {
     }
     if (currentLocations) {
       const currentLocationsList = currentLocations.map((loc) => {
+        const isActive = activeLocation?.practice === loc.practice;
+        const currentRef = isActive ? activeCardRef : null;
         return (
           <LocatorCard
+            reference={currentRef}
             key={loc.practice}
             location={loc}
-            activeLocation={activeLocation}
+            isActive={isActive}
             onClick={(location) => activateLocation(location)}
           />
         );
