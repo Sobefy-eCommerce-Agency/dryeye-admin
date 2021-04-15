@@ -35,7 +35,7 @@ const PlacesAutocomplete = ({
       componentRestrictions: {
         country: ["us", "ca"],
       },
-      types: ["address"],
+      types: ["(cities)"],
       bounds: {
         north: center.lat + 0.1,
         south: center.lat - 0.1,
