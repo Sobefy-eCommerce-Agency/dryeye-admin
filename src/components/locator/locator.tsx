@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { useLocator, Action } from "../context/locatorContext";
@@ -18,6 +18,9 @@ import { getUniqueProducts } from "../../utils/format";
 
 const Locator = () => {
   const { state, dispatch } = useLocator();
+  const cardWrapperRef: React.LegacyRef<HTMLDivElement> | undefined = useRef(
+    null
+  );
   const {
     center,
     zoom,
@@ -207,8 +210,8 @@ const Locator = () => {
   ]);
 
   const activeCardRef = useCallback((node: HTMLDivElement) => {
-    if (node !== null) {
-      node.scrollIntoView({ behavior: "smooth" });
+    if (node !== null && cardWrapperRef.current !== null) {
+      cardWrapperRef.current.scrollTop = node.offsetTop;
     }
   }, []);
 
@@ -349,15 +352,19 @@ const Locator = () => {
         pt={{ base: 0, md: 5 }}
         px={{ base: 5, md: 0 }}
       >
-        <SimpleGrid
-          columns={1}
-          rowGap={5}
+        <Box
+          display="grid"
+          gridTemplateColumns="1fr"
+          gridRowGap={5}
           overflowY="auto"
           height="100%"
           order={{ base: 2, md: 1 }}
+          ref={cardWrapperRef}
+          position="relative"
+          __css={{ scrollBehavior: "smooth" }}
         >
           {getLocationsList()}
-        </SimpleGrid>
+        </Box>
         <Box
           mr={{ base: 0, md: 5 }}
           mb={{ base: 5, md: 0 }}
