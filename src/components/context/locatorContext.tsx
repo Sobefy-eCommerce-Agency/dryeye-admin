@@ -77,6 +77,7 @@ function locatorReducer(state: State, action: Action) {
         eyeCareServicesFilter: null,
         practiceNameFilter: "",
         filteredLocations: null,
+        doctorsFilter: "",
         noResultsFound: false,
       };
     }
