@@ -31,6 +31,7 @@ const Locator = () => {
     eyeCareServicesFilter,
     dryEyeProductsFilter,
     practiceNameFilter,
+    doctorsFilter,
     noResultsFound,
   } = state;
   const currentLocations = filteredLocations || locations;
@@ -105,7 +106,7 @@ const Locator = () => {
   }, [location, dispatch]);
 
   useEffect(() => {
-    PracticesApi.get().then((response) => {
+    PracticesApi.get(undefined, true).then((response) => {
       const { data } = response;
       if (data) {
         dispatch({
@@ -123,17 +124,21 @@ const Locator = () => {
       dryEyeTreatmentsFilter ||
       eyeCareServicesFilter ||
       practiceNameFilter ||
-      dryEyeProductsFilter
+      dryEyeProductsFilter ||
+      doctorsFilter
     ) {
       const results = currentLocations?.filter((loc) => {
         const currentDryEyeTreatments = loc.dryEyeTreatments;
         const currentEyeCareServices = loc.eyeCareServices;
         const currentPracticeName = loc.name.toLowerCase();
         const currentDryEyeProducts = loc.dryEyeProducts;
+        const currentDoctors = loc.doctors;
+        const currentDoctor = loc.doctorName;
         let treatmentsIncluded = false;
         let servicesIncluded = false;
         let practiceNameIncluded = false;
         let productsIncluded = false;
+        let doctorsIncluded = false;
         // Filter Dry Eye Treatments
         if (dryEyeTreatmentsFilter && dryEyeTreatmentsFilter.length > 0) {
           if (currentDryEyeTreatments && currentDryEyeTreatments.length > 0) {
@@ -152,7 +157,7 @@ const Locator = () => {
             });
           }
         }
-        // Filter by practice nam
+        // Filter by practice name
         if (practiceNameFilter) {
           practiceNameIncluded = currentPracticeName.includes(
             practiceNameFilter
@@ -168,13 +173,39 @@ const Locator = () => {
             productsIncluded = currentDryEyeProducts.includes(filter.value);
           });
         }
+        // Filter Doctor names
+        if (doctorsFilter && currentDoctors && currentDoctors.length > 0) {
+          const filteredDoctors = currentDoctors.filter((doc) => {
+            const { firstName, lastName } = doc;
+            if (firstName && lastName) {
+              const fullName = `${firstName.trim()} ${lastName.trim()}`.toLowerCase();
+              const lowerCaseDoctor = currentDoctor
+                ? currentDoctor.toLowerCase()
+                : "";
+              if (
+                fullName.includes(doctorsFilter) ||
+                lowerCaseDoctor.includes(doctorsFilter)
+              ) {
+                return true;
+              }
+            }
+            return false;
+          });
+          console.log(filteredDoctors);
+          if (filteredDoctors.length > 0) {
+            doctorsIncluded = true;
+          } else {
+            doctorsIncluded = false;
+          }
+        }
 
         // Check results
         if (
           treatmentsIncluded ||
           servicesIncluded ||
           practiceNameIncluded ||
-          productsIncluded
+          productsIncluded ||
+          doctorsIncluded
         ) {
           return true;
         }
@@ -206,6 +237,7 @@ const Locator = () => {
     dryEyeTreatmentsFilter,
     eyeCareServicesFilter,
     dryEyeProductsFilter,
+    doctorsFilter,
     practiceNameFilter,
   ]);
 
@@ -267,7 +299,7 @@ const Locator = () => {
       <SimpleGrid
         px={5}
         py={6}
-        columns={{ base: 1, md: 2, lg: 5 }}
+        columns={{ base: 1, md: 2, lg: 6 }}
         rowGap={{ base: 4, md: 4, lg: 0 }}
         columnGap={5}
       >
@@ -279,6 +311,18 @@ const Locator = () => {
           onChange={(e) => {
             dispatch({
               type: "setPracticeNameFilter",
+              name: e.target.value.toLowerCase(),
+            });
+          }}
+        />
+        <NameFilter
+          id="doctors_filter"
+          placeholder="Doctor name"
+          label="Doctor Name"
+          value={doctorsFilter}
+          onChange={(e) => {
+            dispatch({
+              type: "setDoctorsFilter",
               name: e.target.value.toLowerCase(),
             });
           }}

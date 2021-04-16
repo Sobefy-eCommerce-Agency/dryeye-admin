@@ -11,6 +11,7 @@ export type Action =
   | { type: "setDryEyeTreatmentsFilter"; filters: any[] | null }
   | { type: "setEyeCareServicesFilter"; filters: any[] | null }
   | { type: "setDryEyeProductsFilter"; filters: any[] | null }
+  | { type: "setDoctorsFilter"; name: string }
   | { type: "setPracticeNameFilter"; name: string }
   | { type: "setNoResultsFound"; noResultsFound: boolean }
   | { type: "resetFilters" };
@@ -25,6 +26,7 @@ type State = {
   eyeCareServicesFilter: any[] | null;
   dryEyeProductsFilter: any[] | null;
   practiceNameFilter: string;
+  doctorsFilter: string;
   noResultsFound: boolean;
 };
 type CountProviderProps = { children: React.ReactNode };
@@ -62,6 +64,9 @@ function locatorReducer(state: State, action: Action) {
     case "setPracticeNameFilter": {
       return { ...state, practiceNameFilter: action.name };
     }
+    case "setDoctorsFilter": {
+      return { ...state, doctorsFilter: action.name };
+    }
     case "setNoResultsFound": {
       return { ...state, noResultsFound: action.noResultsFound };
     }
@@ -91,6 +96,7 @@ function LocatorProvider({ children }: CountProviderProps) {
     dryEyeTreatmentsFilter: null,
     eyeCareServicesFilter: null,
     dryEyeProductsFilter: null,
+    doctorsFilter: "",
     practiceNameFilter: "",
     noResultsFound: false,
   });

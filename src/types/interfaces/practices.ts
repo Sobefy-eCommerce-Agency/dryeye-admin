@@ -1,7 +1,11 @@
+import { Doctors } from "./doctors";
+
 export type Practice = {
   [x: string]: string | number | any[] | boolean | undefined;
   practice?: string;
   doctor: string;
+  doctorName?: string;
+  doctors?: Doctors[];
   name: string;
   phone: string;
   email: string;

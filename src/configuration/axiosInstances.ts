@@ -8,10 +8,14 @@ const DryEyeInstance = axios.create({
 });
 
 export const PracticesApi = {
-  get: (id?: string) =>
+  get: (id?: string, allDoctors?: boolean) =>
     DryEyeInstance({
       method: "GET",
-      url: id ? `/practices?doctor=${id}` : "/practices",
+      url: id
+        ? `/practices?doctor=${id}`
+        : allDoctors
+        ? "/practices?all_doctors=true"
+        : "/practices",
     }),
   create: (data: object) =>
     DryEyeInstance({
