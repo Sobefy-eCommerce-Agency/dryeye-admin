@@ -37,14 +37,6 @@ export const dryEyeTreatments: ValueLabelPair[] = [
     value: "Zest Treatment",
     label: "Zest Treatment",
   },
-  {
-    value: "Zest ZocuKit",
-    label: "Zest ZocuKit",
-  },
-  {
-    value: "ZocuWipe",
-    label: "ZocuWipe",
-  },
 ];
 
 export const eyeCareServices: ValueLabelPair[] = [
