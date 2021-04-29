@@ -97,7 +97,7 @@ export const CustomersApi = {
     }),
 };
 
-const getEntityAPI = (id: string) => {
+export const getEntityAPI = (id: string) => {
   switch (id) {
     case "practices":
       return PracticesApi;
@@ -107,5 +107,3 @@ const getEntityAPI = (id: string) => {
       return PatientsApi;
   }
 };
-
-export default getEntityAPI;

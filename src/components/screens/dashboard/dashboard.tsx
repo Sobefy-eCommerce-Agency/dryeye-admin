@@ -27,7 +27,7 @@ import {
 } from "../../../types/commons/commons";
 import DashboardTable from "../../table/table";
 import ModalForm from "../../form/form";
-import getEntityAPI from "../../../configuration/axiosInstances";
+import { getEntityAPI } from "../../../configuration/axiosInstances";
 import { buildEntityPayload } from "../../../utils/buildPayload";
 import { SearchByEntity } from "../../../utils/format";
 import AppContainer from "../../container/appContainer";
