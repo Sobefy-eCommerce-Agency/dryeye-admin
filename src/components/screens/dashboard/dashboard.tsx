@@ -143,6 +143,8 @@ const Dashboard = ({ entityName }: DashboardProps) => {
           isClosable: true,
         });
         getEntityData();
+        setFilteredData(null);
+        setSearchTerm("");
       }
     });
   };
@@ -164,6 +166,8 @@ const Dashboard = ({ entityName }: DashboardProps) => {
               isClosable: true,
             });
             getEntityData();
+            setFilteredData(null);
+            setSearchTerm("");
           }
         });
       }
