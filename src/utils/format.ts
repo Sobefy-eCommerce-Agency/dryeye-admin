@@ -48,6 +48,23 @@ export const FormatSelectAutocompleteData = (
   }
 };
 
+export const FormatCheckBoxData = (data: [], list: SelectAutocompleteList) => {
+  switch (list) {
+    case "eyeCareServices":
+    case "dryEyeTreatments":
+      return data.flatMap((el: any) => {
+        const { id, label } = el;
+        if (id && label) {
+          return {
+            label,
+            value: id,
+          };
+        }
+        return [];
+      });
+  }
+};
+
 export const SearchString = (
   str: string | number | undefined | boolean | any[],
   searchTerm: string

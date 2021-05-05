@@ -76,6 +76,15 @@ export const GetInitialValues = (
         state: "",
         zip: "",
       };
+    case "servicesAndTreatments":
+      if (action === "edit" && entityData) {
+        const { createdAt, ...rest } = entityData;
+        console.log(entityData);
+        return { ...rest };
+      }
+      return {
+        label: "",
+      };
     default:
       return {};
   }
@@ -120,6 +129,8 @@ export const GetInitialAddressComponents = (
     case "doctors":
       return null;
     case "patients":
+      return null;
+    case "servicesAndTreatments":
       return null;
   }
 };

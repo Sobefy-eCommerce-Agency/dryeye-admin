@@ -2,7 +2,11 @@ import { Doctors } from "../interfaces/doctors";
 import { Patients } from "../interfaces/patients";
 import { Practice } from "../interfaces/practices";
 
-export type EntityType = "practices" | "doctors" | "patients";
+export type EntityType =
+  | "practices"
+  | "doctors"
+  | "patients"
+  | "servicesAndTreatments";
 export type EntityDataType = Practice | Doctors | Patients;
 export type RoleType = "administrator" | "editor" | "viewOnly";
 export type ActionType = "view" | "create" | "edit" | "delete" | null;
@@ -37,8 +41,13 @@ export type addressComponentField =
   | "country"
   | "postal_code";
 export type addressComponentNameLength = "short_name" | "long_name";
-export type SelectAutocompleteList = "customers" | "practices";
-export type ColumnsKey = "doctor" | "practice" | "patient";
+export type SelectAutocompleteList =
+  | "customers"
+  | "practices"
+  | "serviceOrTreatment"
+  | "eyeCareServices"
+  | "dryEyeTreatments";
+export type ColumnsKey = "doctor" | "practice" | "patient" | "id";
 export type Center = { lat: number; lng: number };
 export type ValueLabelPair = {
   value: string;

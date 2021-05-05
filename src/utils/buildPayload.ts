@@ -77,6 +77,26 @@ export const buildEntityPayload = (
         };
       }
       return null;
+
+    case "servicesAndTreatments":
+      if (data) {
+        if (action === "create") {
+          const { createdAt, ...rest } = data;
+          const payload = {
+            ...rest,
+          };
+          return payload;
+        }
+        if (action === "edit") {
+          return data;
+        }
+        const { id } = data;
+        return {
+          id,
+        };
+      }
+      return null;
+
     default:
       return null;
   }

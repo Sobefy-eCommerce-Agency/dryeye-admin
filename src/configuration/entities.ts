@@ -53,6 +53,7 @@ const entities: Entity[] = [
         type: "selectAutocomplete",
         list: "customers",
         group: "addressInformation",
+        async: true,
       },
       {
         id: "name",
@@ -106,14 +107,16 @@ const entities: Entity[] = [
       {
         id: "eyeCareServices",
         type: "checkboxGroup",
-        fieldOptions: eyeCareServices,
+        list: "eyeCareServices",
         group: "eyeCareServices",
+        async: true,
       },
       {
         id: "dryEyeTreatments",
         type: "checkboxGroup",
-        fieldOptions: dryEyeTreatments,
+        list: "dryEyeTreatments",
         group: "dryEyeTreatments",
+        async: true,
       },
       {
         id: "dryEyeProducts",
@@ -283,6 +286,7 @@ const entities: Entity[] = [
         type: "selectAutocomplete",
         list: "customers",
         group: "general",
+        async: true,
       },
       {
         id: "practice",
@@ -292,6 +296,7 @@ const entities: Entity[] = [
         list: "practices",
         dependsOf: "customers",
         group: "general",
+        async: true,
       },
     ],
     fieldSetGroups: [
@@ -372,6 +377,7 @@ const entities: Entity[] = [
         type: "selectAutocomplete",
         list: "customers",
         group: "general",
+        async: true,
       },
       {
         id: "firstName",
@@ -468,6 +474,80 @@ const entities: Entity[] = [
         entityDeletedTitle: "Patient deleted.",
         entityDeletedDescription: (name) =>
           `The patient ${name} has been deleted.`,
+      },
+    },
+  },
+  {
+    id: "servicesAndTreatments",
+    label: "Services & treatments",
+    route: "/services-and-treatments",
+    columnsKey: "id",
+    columns: [
+      {
+        column: "id",
+        label: "ID",
+        type: "text",
+        sort: true,
+      },
+      {
+        column: "label",
+        label: "Label",
+        type: "text",
+        sort: true,
+      },
+      {
+        column: "type",
+        label: "Type",
+        type: "text",
+        sort: true,
+      },
+    ],
+    fieldSet: [
+      {
+        id: "label",
+        label: "Label",
+        placeholder: "Label",
+        type: "text",
+        group: "general",
+      },
+      {
+        id: "type",
+        label: "Type",
+        placeholder: "Select a type",
+        type: "selectAutocomplete",
+        list: "serviceOrTreatment",
+        async: false,
+        group: "general",
+      },
+    ],
+    fieldSetGroups: [{ id: "general", label: "General", columns: 3 }],
+    lang: {
+      dashboard: {
+        title: "Services & Treatments",
+        searchBar: "Label",
+        addEntityButton: "Add",
+      },
+      form: {
+        createEntityTitle: "Create",
+        createEntityButton: "Create",
+        updateEntityTitle: (label) => `Update ${label}`,
+        updateEntityButton: "Save",
+      },
+      dialogs: {
+        deleteEntityTitle: "Delete",
+        deleteEntityDescription:
+          "Are you sure? You can't undo this action afterwards.",
+      },
+      userFeedback: {
+        entityCreatedTitle: "Created.",
+        entityCreatedDescription: (label) =>
+          `The service ${label} has been created.`,
+        entityUpdatedTitle: "Service updated.",
+        entityUpdatedDescription: (label) =>
+          `The service ${label} has been updated.`,
+        entityDeletedTitle: "Patient deleted.",
+        entityDeletedDescription: (label) =>
+          `The service ${label} has been deleted.`,
       },
     },
   },

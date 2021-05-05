@@ -1,18 +1,16 @@
 import {
-  Checkbox,
-  CheckboxGroup,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
-  SimpleGrid,
   Switch,
   Textarea,
 } from "@chakra-ui/react";
 import { FieldProps } from "formik";
 import { FieldSet } from "../../types/interfaces/entities";
 import { AddressComponent } from "../../types/interfaces/practices";
+import CheckBoxGroupField from "./CheckBoxGroup/CheckBoxGroupField";
 import MultiProducts from "./MultiProducts/MultiProducts";
 import AddressAutocomplete from "./placesAutocomplete";
 import SelectAutocomplete from "./selectAutocomplete";
@@ -31,15 +29,7 @@ const FieldForm = ({
   meta,
   setAddressComponent,
 }: FieldFormProps & FieldProps) => {
-  const {
-    id,
-    label,
-    placeholder,
-    type,
-    list,
-    dependsOf,
-    fieldOptions,
-  } = fieldConfig;
+  const { id, label, placeholder, type, list, dependsOf, async } = fieldConfig;
   const error = form.errors[id] !== "" && form.errors[id] !== undefined;
   const touched = form.touched[id] !== undefined;
 
@@ -68,30 +58,21 @@ const FieldForm = ({
               meta={meta}
               list={list}
               dependsOf={dependsOf}
+              async={async || false}
             />
           );
         }
         return "The current field is not configured";
       case "checkboxGroup":
-        if (fieldOptions) {
-          const { value } = field;
-          const { setFieldValue, setFieldTouched } = form;
+        if (list) {
           return (
-            <CheckboxGroup
-              value={value}
-              onChange={(values) => {
-                setFieldValue(id, values);
-                setFieldTouched(id);
-              }}
-            >
-              <SimpleGrid mt={3} columns={3} rowGap={3}>
-                {fieldOptions.map((feldOpt) => (
-                  <Checkbox colorScheme="purple" value={feldOpt.value}>
-                    {feldOpt.label}
-                  </Checkbox>
-                ))}
-              </SimpleGrid>
-            </CheckboxGroup>
+            <CheckBoxGroupField
+              id={id}
+              field={field}
+              form={form}
+              meta={meta}
+              list={list}
+            />
           );
         }
         return "The current field is not configured";

@@ -34,6 +34,16 @@ const roles: Role[] = [
           search: true,
         },
       },
+      {
+        id: "servicesAndTreatments",
+        actions: {
+          view: true,
+          create: true,
+          update: true,
+          remove: true,
+          search: true,
+        },
+      },
     ],
   },
 ];

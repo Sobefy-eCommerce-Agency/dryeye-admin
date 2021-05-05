@@ -12,6 +12,7 @@ interface SelectAutocompleteProps {
   placeholder: string;
   list: SelectAutocompleteList;
   dependsOf?: SelectAutocompleteList | null;
+  async: boolean;
 }
 
 type dataObject = {
@@ -26,6 +27,7 @@ const SelectAutocomplete = ({
   dependsOf = null,
   field,
   form,
+  async = true,
 }: SelectAutocompleteProps & FieldProps) => {
   const [disabled, setDisabled] = useState(true);
   const [data, setData] = useState<dataObject[]>([]);
@@ -52,55 +54,66 @@ const SelectAutocomplete = ({
           return CustomersApi;
         case "practices":
           return PracticesApi;
+        default:
+          return PracticesApi;
       }
     };
 
     const FetchEntityData = (value?: string) => {
-      EntityAPI()
-        .get(value)
-        .then((response) => {
-          const { data } = response;
-          if (data) {
-            const formattedData = FormatSelectAutocompleteData(data, list);
-            if (formattedData) {
-              setData(formattedData);
-              setDisabled(false);
+      if (async) {
+        EntityAPI()
+          .get(value)
+          .then((response) => {
+            const { data } = response;
+            if (data) {
+              const formattedData = FormatSelectAutocompleteData(data, list);
+              if (formattedData) {
+                setData(formattedData);
+                setDisabled(false);
 
-              // Populate edit field
-              if (field.value) {
-                let filteredData = [];
-                switch (list) {
-                  case "customers":
-                    filteredData = data.filter(
-                      (el: Customer) => el.doctor === field.value
-                    );
-                    break;
-                  case "practices":
-                    filteredData = data.filter(
-                      (el: Practice) => el.practice === field.value
-                    );
-                    break;
-                }
-                if (filteredData.length === 1) {
+                // Populate edit field
+                if (field.value) {
+                  let filteredData = [];
                   switch (list) {
                     case "customers":
-                      setValue({
-                        id: String(field.value),
-                        label: `${filteredData[0].first_name} ${filteredData[0].last_name}`,
-                      });
+                      filteredData = data.filter(
+                        (el: Customer) => el.doctor === field.value
+                      );
                       break;
                     case "practices":
-                      setValue({
-                        id: String(field.value),
-                        label: filteredData[0].name,
-                      });
+                      filteredData = data.filter(
+                        (el: Practice) => el.practice === field.value
+                      );
                       break;
+                  }
+                  if (filteredData.length === 1) {
+                    switch (list) {
+                      case "customers":
+                        setValue({
+                          id: String(field.value),
+                          label: `${filteredData[0].first_name} ${filteredData[0].last_name}`,
+                        });
+                        break;
+                      case "practices":
+                        setValue({
+                          id: String(field.value),
+                          label: filteredData[0].name,
+                        });
+                        break;
+                    }
                   }
                 }
               }
             }
-          }
-        });
+          });
+      } else {
+        const data = [
+          { id: "service", label: "Service" },
+          { id: "treatment", label: "Treatment" },
+        ];
+        setData(data);
+        setDisabled(false);
+      }
     };
 
     if (data.length === 0 && !dependsOf) {
@@ -114,7 +127,7 @@ const SelectAutocomplete = ({
           }
       }
     }
-  }, [data, list, field.value, dependsOf, values]);
+  }, [data, list, field.value, dependsOf, values, async]);
 
   return (
     <AsyncSelect

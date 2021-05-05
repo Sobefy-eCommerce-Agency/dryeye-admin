@@ -6,7 +6,7 @@ import { checkForValidRoute } from "../utils/utils";
 import { LocatorProvider } from "../components/context/locatorContext";
 import Locator from "../components/locator/locator";
 import AppContainer from "../components/container/appContainer";
-import Sidebar from "../components/sidebar";
+import Sidebar from "../components/sidebar/sidebar";
 
 export default function PrivateRoutes() {
   const { state } = useAuth();
@@ -17,6 +17,9 @@ export default function PrivateRoutes() {
     <Switch>
       <PrivateRoute path="/practices" exact>
         <Dashboard entityName="practices" />
+      </PrivateRoute>
+      <PrivateRoute path="/services-and-treatments" exact>
+        <Dashboard entityName="servicesAndTreatments" />
       </PrivateRoute>
       <PrivateRoute path="/doctors" exact>
         <Dashboard entityName="doctors" />

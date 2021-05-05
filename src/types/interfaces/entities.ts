@@ -29,6 +29,7 @@ export interface FieldSet {
   dependsOf?: SelectAutocompleteList;
   mask?: MaskType;
   group: FieldGroupType;
+  async?: boolean;
 }
 
 export interface FieldSetGroup {

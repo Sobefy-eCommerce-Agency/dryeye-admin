@@ -31,7 +31,7 @@ import { getEntityAPI } from "../../../configuration/axiosInstances";
 import { buildEntityPayload } from "../../../utils/buildPayload";
 import { SearchByEntity } from "../../../utils/format";
 import AppContainer from "../../container/appContainer";
-import Sidebar from "../../sidebar";
+import Sidebar from "../../sidebar/sidebar";
 
 type DashboardProps = {
   entityName: EntityType;

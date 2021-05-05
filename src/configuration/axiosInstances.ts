@@ -89,6 +89,32 @@ const PatientsApi = {
     }),
 };
 
+export const ServicesAndTreatmentsApi = {
+  get: (type?: string) =>
+    DryEyeInstance({
+      method: "GET",
+      url: `/services-and-treatments${type ? `?type=${type}` : ""}`,
+    }),
+  create: (data: object) =>
+    DryEyeInstance({
+      method: "POST",
+      url: "/services-and-treatments",
+      data,
+    }),
+  update: (data: object) =>
+    DryEyeInstance({
+      method: "PUT",
+      url: "/services-and-treatments",
+      data,
+    }),
+  delete: (data: object) =>
+    DryEyeInstance({
+      method: "DELETE",
+      url: "/services-and-treatments",
+      data,
+    }),
+};
+
 export const CustomersApi = {
   get: (id?: string) =>
     DryEyeInstance({
@@ -105,5 +131,7 @@ export const getEntityAPI = (id: string) => {
       return DoctorsApi;
     case "patients":
       return PatientsApi;
+    case "servicesAndTreatments":
+      return ServicesAndTreatmentsApi;
   }
 };
