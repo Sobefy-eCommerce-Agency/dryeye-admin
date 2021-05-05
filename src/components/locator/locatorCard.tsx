@@ -164,7 +164,9 @@ const LocatorCard = ({
             {dryEyeProducts ? (
               <InfoRow
                 title="DryEye Products:"
-                content={dryEyeProducts}
+                content={
+                  typeof dryEyeProducts === "string" ? dryEyeProducts : ""
+                }
                 icon={IoMedkitSharp}
                 isActive={isActive}
               />

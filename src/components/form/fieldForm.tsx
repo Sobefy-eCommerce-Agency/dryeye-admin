@@ -13,6 +13,7 @@ import {
 import { FieldProps } from "formik";
 import { FieldSet } from "../../types/interfaces/entities";
 import { AddressComponent } from "../../types/interfaces/practices";
+import MultiProducts from "./MultiProducts/MultiProducts";
 import AddressAutocomplete from "./placesAutocomplete";
 import SelectAutocomplete from "./selectAutocomplete";
 
@@ -110,6 +111,8 @@ const FieldForm = ({
         );
       case "textArea":
         return <Textarea mt={3} {...field} id={id} placeholder={placeholder} />;
+      case "multiProducts":
+        return <MultiProducts id={id} form={form} meta={meta} field={field} />;
       case "text":
       case "tel":
       case "email":

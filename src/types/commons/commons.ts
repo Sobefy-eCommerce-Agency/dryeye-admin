@@ -17,7 +17,8 @@ export type InputType =
   | "addressAutocomplete"
   | "selectAutocomplete"
   | "checkboxGroup"
-  | "switch";
+  | "switch"
+  | "multiProducts";
 export type MaskType = "phone" | "date";
 export type FieldGroupType =
   | "general"
@@ -43,3 +44,14 @@ export type ValueLabelPair = {
   value: string;
   label: string;
 };
+export interface ProductImage {
+  id: number;
+  position: number;
+  src: string;
+}
+export interface Product {
+  id: number;
+  title: string;
+  vendor: string;
+  images: ProductImage[];
+}

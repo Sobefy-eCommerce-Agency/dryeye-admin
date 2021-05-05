@@ -153,7 +153,7 @@ export const getUniqueProducts = (practices: Practice[] | null) => {
     for (let i = 0; i < practices.length; i++) {
       const practice = practices[i];
       const { dryEyeProducts } = practice;
-      if (dryEyeProducts) {
+      if (dryEyeProducts && typeof dryEyeProducts === "string") {
         const productsArray = dryEyeProducts.split(",");
         if (productsArray) {
           for (let j = 0; j < productsArray.length; j++) {

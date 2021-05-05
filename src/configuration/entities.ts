@@ -118,7 +118,7 @@ const entities: Entity[] = [
       {
         id: "dryEyeProducts",
         placeholder: "Products separated by commas",
-        type: "textArea",
+        type: "multiProducts",
         group: "dryEyeProducts",
       },
       {
