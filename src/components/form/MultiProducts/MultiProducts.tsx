@@ -87,7 +87,7 @@ const MultiProducts = ({
                     alt="title"
                     borderRadius={3}
                     border="1px solid"
-                    borderColor="brand.lightGray"
+                    borderColor="brand.grey.light"
                   />
                 </Box>
                 <Box

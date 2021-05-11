@@ -1,5 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import Locator from "../components/locator/locator";
+import LocatorV2 from "../components/LocatorV2/Locator";
 import Login from "../components/login/login";
 import { LocatorProvider } from "../components/context/locatorContext";
 import PublicRoute from "./publicRoute";
@@ -16,6 +17,11 @@ export default function PublicRoutes() {
       <Route path="/locator" exact>
         <LocatorProvider>
           <Locator />
+        </LocatorProvider>
+      </Route>
+      <Route path="/locator-new" exact>
+        <LocatorProvider>
+          <LocatorV2 />
         </LocatorProvider>
       </Route>
       {!authenticated ? <Redirect to={`/login`} /> : null}

@@ -11,7 +11,7 @@ import LocatorInfoWindow from "./locatorInfoWindow";
 import LocatorCard from "./locatorCard";
 import { dryEyeTreatments, eyeCareServices } from "../../shared/consts";
 import MultiSelect from "../multiSelect/multiSelect";
-import SkeletonCard from "../skeleton/skeletonCard";
+import SkeletonCard from "../Skeleton/SkeletonCard";
 import PlacesAutocomplete from "./placesAutocomplete";
 import NameFilter from "./filters/nameFilter";
 import { getUniqueProducts } from "../../utils/format";

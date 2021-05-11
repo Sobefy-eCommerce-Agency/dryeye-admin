@@ -22,8 +22,8 @@ export type Practice = {
   country?: string;
   country_short?: string;
   zip?: string;
-  latitude?: string | number;
-  longitude?: string | number;
+  latitude?: number;
+  longitude?: number;
   createdAt?: number;
   facebook_url: string;
   instagram_url: string;

@@ -3071,6 +3071,16 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/poppins@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/poppins/-/poppins-4.3.0.tgz#10feb9e1ddecb3adf406ac8c0548e8a9e599d0e1"
+  integrity sha512-SSZOiqlEVH6KjgzOaDIi6r6JhvHK2Cht+XwkALD/KEPzf10QjHVszEamVjr71eSfB8xweabiP8u5/gnGEkIEsw==
+
+"@fontsource/rubik@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/rubik/-/rubik-4.3.0.tgz#29333f051dab09ec9be3b4dbc6f56a5461d80fc9"
+  integrity sha512-cT2jQpooHBPDVaVuGxRdO8L6Nnd8ucbOGPOaGFgMpm7Cyzh9Psi0ay8tiEJXIWNV7+k0ycbn8OT/HA1J8xK9lQ==
+
 "@googlemaps/js-api-loader@1.11.1":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.11.1.tgz#b7f02c04d8d8602fb4bd873b03685fccefce1c6f"

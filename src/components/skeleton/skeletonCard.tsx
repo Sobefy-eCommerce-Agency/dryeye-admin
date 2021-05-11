@@ -1,14 +1,13 @@
 import { Stack } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 
-const skeletonCard = () => {
+const SkeletonCard = () => {
   return (
     <Stack
       boxShadow="sm"
       p={5}
       cursor="pointer"
       background="white"
-      mx={5}
       borderRadius={5}
       height="min-content"
     >
@@ -19,4 +18,4 @@ const skeletonCard = () => {
   );
 };
 
-export default skeletonCard;
+export default SkeletonCard;

@@ -90,7 +90,7 @@ function locatorReducer(state: State, action: Action) {
 function LocatorProvider({ children }: CountProviderProps) {
   const [state, dispatch] = React.useReducer(locatorReducer, {
     center: { lat: 37.09024, lng: -95.712891 },
-    zoom: 3,
+    zoom: 4,
     locations: null,
     filteredLocations: null,
     activeLocation: null,
