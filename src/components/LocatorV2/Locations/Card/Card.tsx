@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Icon, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, HStack, Icon, Text } from "@chakra-ui/react";
 import { Practice } from "../../../../types/interfaces/practices";
 import { arrayToCommaString } from "../../../../utils/format";
 import {
@@ -63,7 +63,9 @@ const Card = ({ location, isActive, onClick, reference }: CardProps) => {
     phone,
     latitude,
     longitude,
-    preferred,
+    providerPlus,
+    provider,
+    partner,
   } = location;
 
   // Convert array to comma string
@@ -89,12 +91,24 @@ const Card = ({ location, isActive, onClick, reference }: CardProps) => {
           borderRadius="2xl"
           background={isActive ? "brand.primary" : "white"}
         >
-          <Box p={5} width="60%" flexDirection="column">
-            {preferred ? (
-              <Box mb={6}>
-                <Tag label="Provider" type="providerPlus" />
-              </Box>
-            ) : null}
+          <Box p={5} width="60%">
+            <HStack>
+              {providerPlus ? (
+                <Box mb={6}>
+                  <Tag label="Provider" type="providerPlus" />
+                </Box>
+              ) : null}
+              {provider ? (
+                <Box mb={6}>
+                  <Tag label="Provider" type="provider" />
+                </Box>
+              ) : null}
+              {partner ? (
+                <Box mb={6}>
+                  <Tag label="Partner" type="partner" />
+                </Box>
+              ) : null}
+            </HStack>
             <Grid templateColumns="1fr 1fr" mb={3}>
               {dryEyeTreatments && dryEyeTreatments.length > 0 ? (
                 <InfoRow

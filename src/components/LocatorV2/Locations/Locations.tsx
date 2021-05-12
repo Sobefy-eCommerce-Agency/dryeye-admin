@@ -11,9 +11,8 @@ interface LocationsProps {
 
 const Locations = ({ handleActivateLocation }: LocationsProps) => {
   const { state, dispatch } = useLocator();
-  const cardWrapperRef: React.LegacyRef<HTMLDivElement> | undefined = useRef(
-    null
-  );
+  const cardWrapperRef: React.LegacyRef<HTMLDivElement> | undefined =
+    useRef(null);
 
   const activeCardRef = useCallback((node: HTMLDivElement) => {
     if (node !== null && cardWrapperRef.current !== null) {

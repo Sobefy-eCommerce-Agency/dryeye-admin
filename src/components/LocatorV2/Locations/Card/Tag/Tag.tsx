@@ -10,23 +10,37 @@ const Tag = ({ label, type }: TagProps) => {
   const color = () => {
     switch (type) {
       case "providerPlus":
-        return "brand.secondary";
+        return {
+          background: "brand.secondary",
+          shadow: "#2ba8bf61",
+        };
       case "provider":
-        return "brand.grey.dark";
+        return {
+          background: "brand.primary",
+          shadow: "#5741b154",
+        };
       case "partner":
-        return "brand.grey.dark";
+        return {
+          background: "#969696",
+          shadow: "#80808078",
+        };
       default:
-        break;
+        return {
+          background: "#969696",
+          shadow: "#80808078",
+        };
     }
   };
+
   const hasIcon = type === "providerPlus";
+  const colors = color();
 
   return (
     <ChakraTag
       size="md"
       variant="subtle"
-      boxShadow="6px 6px 20px 4px #2ba8bf61"
-      background={color()}
+      boxShadow={`6px 6px 20px 4px ${colors.shadow}`}
+      background={colors.background}
       color="white"
     >
       <TagLabel>{label}</TagLabel>

@@ -38,7 +38,9 @@ export type Practice = {
   dryEyeProducts: Product[] | string;
   eyeCareServices: any[];
   dryEyeTreatments: any[];
-  preferred: boolean;
+  providerPlus: boolean;
+  provider: boolean;
+  partner: boolean;
 };
 
 export type AddressComponent = {

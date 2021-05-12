@@ -1,4 +1,3 @@
-import { dryEyeTreatments, eyeCareServices } from "../shared/consts";
 import { Entity } from "../types/interfaces/entities";
 
 const entities: Entity[] = [
@@ -99,8 +98,20 @@ const entities: Entity[] = [
         group: "addressInformation",
       },
       {
-        id: "preferred",
-        label: "Is preferred?",
+        id: "providerPlus",
+        label: "Is provider plus?",
+        type: "switch",
+        group: "addressInformation",
+      },
+      {
+        id: "provider",
+        label: "Is provider?",
+        type: "switch",
+        group: "addressInformation",
+      },
+      {
+        id: "partner",
+        label: "Is partner?",
         type: "switch",
         group: "addressInformation",
       },

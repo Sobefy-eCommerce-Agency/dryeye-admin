@@ -12,6 +12,7 @@ export const GetInitialValues = (
   switch (entity) {
     case "practices":
       if (action === "edit" && entityData) {
+        console.log(entityData);
         const {
           route,
           street_number,
@@ -46,7 +47,9 @@ export const GetInitialValues = (
         friday_op_hours: "",
         saturday_op_hours: "",
         sunday_op_hours: "",
-        preferred: false,
+        providerPlus: false,
+        provider: false,
+        partner: false,
       };
     case "doctors":
       if (action === "edit" && entityData) {
@@ -120,7 +123,9 @@ export const GetInitialAddressComponents = (
           dryEyeTreatments,
           dryEyeProducts,
           suite_number,
-          preferred,
+          providerPlus,
+          provider,
+          partner,
           ...rest
         } = entityData;
         return { ...rest };
