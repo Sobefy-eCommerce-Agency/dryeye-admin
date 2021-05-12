@@ -21,19 +21,8 @@ const Locations = ({ handleActivateLocation }: LocationsProps) => {
   }, []);
 
   // State
-  const {
-    center,
-    zoom,
-    locations,
-    filteredLocations,
-    activeLocation,
-    dryEyeTreatmentsFilter,
-    eyeCareServicesFilter,
-    dryEyeProductsFilter,
-    practiceNameFilter,
-    doctorsFilter,
-    noResultsFound,
-  } = state;
+  const { locations, filteredLocations, activeLocation, noResultsFound } =
+    state;
   const currentLocations = filteredLocations || locations;
 
   const resetFilters = () => {

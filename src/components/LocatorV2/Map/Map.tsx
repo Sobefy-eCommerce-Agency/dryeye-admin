@@ -35,80 +35,13 @@ const Map = ({ handleActivateLocation }: MapProps) => {
     zoom,
     locations,
     filteredLocations,
-    activeLocation,
     dryEyeTreatmentsFilter,
     eyeCareServicesFilter,
     dryEyeProductsFilter,
     practiceNameFilter,
     doctorsFilter,
-    noResultsFound,
   } = state;
   const currentLocations = filteredLocations || locations;
-
-  // Handlers
-  const handleTextFilterChange = (
-    value: string,
-    type: "practiceName" | "doctorName"
-  ) => {
-    if (value !== "") {
-      const filteredLocations = currentLocations?.filter((loc) => {
-        const formatedValue = value.toLowerCase().trim();
-        const { doctors, name } = loc;
-        let includePracticeName = false;
-        let includeDoctorName = false;
-
-        if (type === "practiceName") {
-          const lowerCaseLocationName = name.toLowerCase().trim();
-          const practiceNameIncluded =
-            lowerCaseLocationName.includes(formatedValue);
-          includePracticeName = practiceNameIncluded;
-        }
-
-        if (type === "doctorName") {
-          if (doctors && doctors.length > 0) {
-            const filteredDoctors = doctors.filter((doc) => {
-              const { firstName, lastName } = doc;
-              if (firstName && lastName) {
-                const fullName =
-                  `${firstName.trim()} ${lastName.trim()}`.toLowerCase();
-                if (fullName.includes(formatedValue)) {
-                  return true;
-                }
-              }
-              return false;
-            });
-            includeDoctorName = filteredDoctors.length > 0;
-          }
-        }
-
-        if (includePracticeName && includeDoctorName) {
-          return true;
-        }
-        return false;
-      });
-      const newLocations =
-        filteredLocations && filteredLocations.length > 0
-          ? filteredLocations
-          : null;
-      dispatch({
-        type: "setNoResultsFound",
-        noResultsFound: newLocations && newLocations.length > 0 ? false : true,
-      });
-      dispatch({
-        type: "setFilteredLocations",
-        locations: newLocations,
-      });
-    } else {
-      dispatch({
-        type: "setNoResultsFound",
-        noResultsFound: false,
-      });
-      dispatch({
-        type: "setFilteredLocations",
-        locations: null,
-      });
-    }
-  };
 
   const changeFilter = (action: Action) => {
     dispatch(action);
