@@ -101,19 +101,19 @@ const entities: Entity[] = [
         id: "providerPlus",
         label: "Is provider plus?",
         type: "switch",
-        group: "addressInformation",
+        group: "practiceCategory",
       },
       {
         id: "provider",
         label: "Is provider?",
         type: "switch",
-        group: "addressInformation",
+        group: "practiceCategory",
       },
       {
         id: "partner",
         label: "Is partner?",
         type: "switch",
-        group: "addressInformation",
+        group: "practiceCategory",
       },
       {
         id: "eyeCareServices",
@@ -208,6 +208,7 @@ const entities: Entity[] = [
     ],
     fieldSetGroups: [
       { id: "addressInformation", label: "Address Information", columns: 3 },
+      { id: "practiceCategory", label: "Category", columns: 3 },
       { id: "eyeCareServices", label: "Eye Care Services", columns: 1 },
       { id: "dryEyeTreatments", label: "DryEye Treatments", columns: 1 },
       { id: "dryEyeProducts", label: "DryEye Products", columns: 1 },

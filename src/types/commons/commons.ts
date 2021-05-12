@@ -31,7 +31,8 @@ export type FieldGroupType =
   | "openingHours"
   | "eyeCareServices"
   | "dryEyeTreatments"
-  | "dryEyeProducts";
+  | "dryEyeProducts"
+  | "practiceCategory";
 export type addressComponentField =
   | "street_number"
   | "route"

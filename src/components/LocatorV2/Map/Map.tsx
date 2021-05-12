@@ -15,6 +15,7 @@ import {
   dryEyeTreatments,
   eyeCareServices,
 } from "../../../shared/consts";
+import { sortByBooleanProperty } from "../../../utils/utils";
 
 interface MapProps {
   handleActivateLocation(location: Practice | null): void;
@@ -119,12 +120,18 @@ const Map = ({ handleActivateLocation }: MapProps) => {
 
   // Side effects
   useEffect(() => {
-    PracticesApi.get(undefined, true).then((response) => {
+    PracticesApi.get(undefined, true).then((response: { data: Practice[] }) => {
       const { data } = response;
       if (data) {
+        const sortByPartner = sortByBooleanProperty(data, "partner");
+        const sortByProvider = sortByBooleanProperty(sortByPartner, "provider");
+        const sortByProviderPlus = sortByBooleanProperty(
+          sortByProvider,
+          "providerPlus"
+        );
         dispatch({
           type: "setLocations",
-          locations: data,
+          locations: sortByProviderPlus,
         });
       }
     });
