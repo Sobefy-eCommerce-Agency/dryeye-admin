@@ -14,10 +14,6 @@ const theme = {
       },
     },
   },
-  fonts: {
-    heading: "Rubik",
-    body: "Poppins",
-  },
 };
 
 export default theme;

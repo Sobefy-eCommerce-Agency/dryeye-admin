@@ -90,7 +90,11 @@ const Locations = ({
         boxShadow="xl"
         width="full"
       >
-        <SimpleGrid ref={cardWrapperRef} columns={{ sm: 1, md: 2 }} spacing="8">
+        <SimpleGrid
+          ref={cardWrapperRef}
+          columns={{ base: 1, md: 2 }}
+          spacing="8"
+        >
           {getLocationsList()}
         </SimpleGrid>
       </Box>

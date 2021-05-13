@@ -12,7 +12,7 @@ const Feature = ({ title, svg }: FeatureProps) => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      ml={8}
+      ml={{ base: 0, md: 8 }}
     >
       <Box height="90px" mb={2}>
         {svg}

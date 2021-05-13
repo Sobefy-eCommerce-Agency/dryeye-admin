@@ -8,8 +8,6 @@ import App from "./App";
 import DryEyeTheme from "./theme/theme";
 import { AuthProvider } from "./components/context/context";
 import "./index.css";
-import "@fontsource/poppins/400.css";
-import "@fontsource/rubik/400.css";
 
 Amplify.configure({
   Auth: {

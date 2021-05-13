@@ -241,15 +241,17 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
       <Box maxWidth="1480px" margin="auto" position="relative">
         <Box
           background="white"
-          position="absolute"
-          top={4}
+          position={{ base: "relative", md: "absolute" }}
+          top={{ base: 0, md: 4 }}
           zIndex={999}
           p={30}
-          borderRadius={6}
+          borderRadius={{ base: 0, md: 6 }}
           boxShadow="xl"
           display="grid"
-          gridTemplateColumns="repeat(6, 1fr)"
+          gridTemplateColumns={{ base: "1fr", md: "repeat(6, 1fr)" }}
           gridColumnGap={2}
+          gridRowGap={{ base: 2, md: 0 }}
+          width="full"
         >
           <Filter
             placeholder="Practice Name"

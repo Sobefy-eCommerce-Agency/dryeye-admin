@@ -7,14 +7,20 @@ import { ReactComponent as EyecareServicesIcon } from "../../../assets/icons/eye
 const Header = () => {
   return (
     <Box background="brand.primaryColor.light" py={12} px={8}>
-      <Box maxWidth="1480px" margin="auto" display="flex">
-        <Box width="full">
+      <Box
+        maxWidth="1480px"
+        margin="auto"
+        display="flex"
+        flexDirection={{ base: "column", md: "row" }}
+      >
+        <Box width="full" mb={{ base: 6, md: 0 }}>
           <Heading
             color="white"
             fontSize={65}
             fontWeight="normal"
             as="h1"
-            marginBottom={2}
+            marginBottom={{ base: 6, md: 2 }}
+            lineHeight={{ base: 1, md: 1.33 }}
           >
             Provider Directory
           </Heading>

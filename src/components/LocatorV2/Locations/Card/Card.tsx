@@ -114,6 +114,7 @@ const Card = ({
       {hasCoordinates ? (
         <Box
           display="flex"
+          flexDirection={{ base: "column-reverse", md: "row" }}
           boxShadow={isActive ? "xl" : "xl"}
           cursor="pointer"
           onClick={() => onClick(location)}
@@ -127,7 +128,7 @@ const Card = ({
           borderRadius="2xl"
           background={isActive ? "brand.primary" : "white"}
         >
-          <Box p={5} width="60%">
+          <Box p={5} width={{ base: "100%", md: "60%" }}>
             <HStack>
               {providerPlus ? (
                 <Box mb={6}>
@@ -146,10 +147,12 @@ const Card = ({
               ) : null}
             </HStack>
             <Grid
-              templateColumns={
-                dryEyeTreatments && eyeCareServices ? "1fr 1fr" : "1fr"
-              }
+              templateColumns={{
+                base: "1fr",
+                md: dryEyeTreatments && eyeCareServices ? "1fr 1fr" : "1fr",
+              }}
               mb={3}
+              rowGap={{ base: 3, md: 0 }}
             >
               {dryEyeTreatments && dryEyeTreatments.length > 0 ? (
                 <InfoRow
@@ -171,7 +174,11 @@ const Card = ({
               ) : null}
             </Grid>
             <Grid
-              templateColumns={dryEyeProducts && doctors ? "1fr 1fr" : "1fr"}
+              templateColumns={{
+                base: "1fr",
+                md: dryEyeProducts && doctors ? "1fr 1fr" : "1fr",
+              }}
+              rowGap={{ base: 3, md: 0 }}
             >
               {dryEyeProducts && typeof dryEyeProducts !== "string" ? (
                 <InfoRow
@@ -203,9 +210,10 @@ const Card = ({
           <Box
             background="brand.grey.light"
             p={5}
+            borderTopLeftRadius={{ base: "2xl", md: 0 }}
             borderTopRightRadius="2xl"
-            borderBottomRightRadius="2xl"
-            width="40%"
+            borderBottomRightRadius={{ base: 0, md: "2xl" }}
+            width={{ base: "100%", md: "40%" }}
           >
             <Text
               fontSize={24}
