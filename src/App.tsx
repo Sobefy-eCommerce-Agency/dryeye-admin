@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   return !isAuthenticating ? (
-    <Box width="full" height="full">
+    <Box>
       <PrivateRoutes />
       <PublicRoutes />
     </Box>

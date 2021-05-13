@@ -82,8 +82,8 @@ const Locations = ({
     <Box maxWidth="1480px" margin="auto" position="relative">
       <Box
         background="white"
-        position="absolute"
-        top={-4}
+        mt={-4}
+        mb={12}
         zIndex={999}
         p={30}
         borderRadius={6}
