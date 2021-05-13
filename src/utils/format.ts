@@ -153,11 +153,20 @@ export const SearchByEntity = (
   return [];
 };
 
-export const arrayToCommaString = (arr: any[]) => {
+export const arrayToCommaString = (
+  arr: any[],
+  type: "treatments" | "services" | "doctors"
+) => {
   let str = "";
   if (arr && arr.length > 0) {
     for (let i = 0; i < arr.length; i++) {
-      const element = arr[i];
+      let element = "";
+      switch (type) {
+        case "treatments":
+        case "services":
+          element = arr[i].label;
+          break;
+      }
       str += `${element}${i + 1 < arr.length ? ", " : ""}`;
     }
   }
@@ -170,20 +179,20 @@ export const getUniqueProducts = (practices: Practice[] | null) => {
     for (let i = 0; i < practices.length; i++) {
       const practice = practices[i];
       const { dryEyeProducts } = practice;
-      if (dryEyeProducts && typeof dryEyeProducts === "string") {
-        const productsArray = dryEyeProducts.split(",");
-        if (productsArray) {
-          for (let j = 0; j < productsArray.length; j++) {
-            const product = productsArray[j].trim();
-            const existingProduct = products.filter(
-              (pr) => pr.value === product
-            );
-            if (existingProduct.length === 0) {
-              products.push({ value: product, label: product });
-            }
-          }
-        }
-      }
+      // if (dryEyeProducts && typeof dryEyeProducts === "string") {
+      //   const productsArray = dryEyeProducts.split(",");
+      //   if (productsArray) {
+      //     for (let j = 0; j < productsArray.length; j++) {
+      //       const product = productsArray[j].trim();
+      //       const existingProduct = products.filter(
+      //         (pr) => pr.value === product
+      //       );
+      //       if (existingProduct.length === 0) {
+      //         products.push({ value: product, label: product });
+      //       }
+      //     }
+      //   }
+      // }
     }
     return products;
   }

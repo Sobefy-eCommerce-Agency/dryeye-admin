@@ -64,8 +64,11 @@ const LocatorCard = ({
   } = location;
 
   // Convert array to comma string
-  const dryEyeTreatmentsString = arrayToCommaString(dryEyeTreatments);
-  const eyeCareServicesString = arrayToCommaString(eyeCareServices);
+  const dryEyeTreatmentsString = arrayToCommaString(
+    dryEyeTreatments,
+    "treatments"
+  );
+  const eyeCareServicesString = arrayToCommaString(eyeCareServices, "services");
 
   const hasCoordinates = latitude && longitude;
   const textAlign = preferred ? "center" : "left";

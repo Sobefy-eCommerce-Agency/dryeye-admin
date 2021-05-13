@@ -11,17 +11,19 @@ import {
 } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
 import Tag from "./Tag/Tag";
+import Filter from "../../Map/Filter/Filter";
 
 interface CardProps {
   location: Practice;
   isActive: boolean;
   reference: ((node: HTMLDivElement) => void) | null;
   onClick(location: Practice): void;
+  treatmentsAndServices: any[] | null;
 }
 
 interface InfoRowProps {
   title: string;
-  content: string;
+  content: string | React.ReactNode;
   icon: IconType;
   isActive: boolean;
   darkBG?: boolean;
@@ -44,15 +46,21 @@ const InfoRow = ({
         <Text fontWeight="700" color={textColor} fontSize={14} mb={1}>
           {title}
         </Text>
-        <Text color={textColor} fontSize={14}>
+        <Box color={textColor} fontSize={14}>
           {content}
-        </Text>
+        </Box>
       </Box>
     </Flex>
   );
 };
 
-const Card = ({ location, isActive, onClick, reference }: CardProps) => {
+const Card = ({
+  location,
+  isActive,
+  onClick,
+  reference,
+  treatmentsAndServices,
+}: CardProps) => {
   const {
     name,
     address,
@@ -66,11 +74,42 @@ const Card = ({ location, isActive, onClick, reference }: CardProps) => {
     providerPlus,
     provider,
     partner,
+    doctors,
   } = location;
 
   // Convert array to comma string
-  const dryEyeTreatmentsString = arrayToCommaString(dryEyeTreatments);
-  const eyeCareServicesString = arrayToCommaString(eyeCareServices);
+  const currentDryeyeTreatments = treatmentsAndServices?.filter(
+    (el) => el.type === "treatment"
+  );
+  const currentEyeCareServices = treatmentsAndServices?.filter(
+    (el) => el.type === "service"
+  );
+
+  const dryeyeTeatmentsObject: any[] = [];
+  dryEyeTreatments.forEach((treatment) => {
+    currentDryeyeTreatments?.forEach((definedTreatment) => {
+      if (treatment === definedTreatment.id) {
+        dryeyeTeatmentsObject.push(definedTreatment);
+      }
+    });
+  });
+
+  const eyeCareServicesObject: any[] = [];
+  eyeCareServices.forEach((service) => {
+    currentEyeCareServices?.forEach((definedService) => {
+      if (service === definedService.id) {
+        console.log(definedService);
+        eyeCareServicesObject.push(definedService);
+      }
+    });
+  });
+
+  const dryEyeTreatmentsString = dryeyeTeatmentsObject
+    ? arrayToCommaString(dryeyeTeatmentsObject, "treatments")
+    : "";
+  const eyeCareServicesString = eyeCareServicesObject
+    ? arrayToCommaString(eyeCareServicesObject, "services")
+    : "";
 
   const hasCoordinates = latitude && longitude;
   return (
@@ -109,7 +148,12 @@ const Card = ({ location, isActive, onClick, reference }: CardProps) => {
                 </Box>
               ) : null}
             </HStack>
-            <Grid templateColumns="1fr 1fr" mb={3}>
+            <Grid
+              templateColumns={
+                dryEyeTreatments && eyeCareServices ? "1fr 1fr" : "1fr"
+              }
+              mb={3}
+            >
               {dryEyeTreatments && dryEyeTreatments.length > 0 ? (
                 <InfoRow
                   title="DryEye Treatments:"
@@ -129,13 +173,29 @@ const Card = ({ location, isActive, onClick, reference }: CardProps) => {
                 />
               ) : null}
             </Grid>
-            <Grid templateColumns="1fr 1fr">
-              {dryEyeProducts ? (
+            <Grid
+              templateColumns={dryEyeProducts && doctors ? "1fr 1fr" : "1fr"}
+            >
+              {dryEyeProducts && typeof dryEyeProducts !== "string" ? (
                 <InfoRow
                   title="DryEye Products:"
-                  content={
-                    typeof dryEyeProducts === "string" ? dryEyeProducts : ""
-                  }
+                  content={dryEyeProducts.map((product, i) => {
+                    if (i < 10) {
+                      return <p key={product.id}>{product.title}</p>;
+                    }
+                    return null;
+                  })}
+                  icon={IoMedkitSharp}
+                  isActive={isActive}
+                  darkBG
+                />
+              ) : null}
+              {doctors ? (
+                <InfoRow
+                  title="Doctors:"
+                  content={doctors.map((dr) => (
+                    <p key={dr.doctor}>{`${dr.firstName} ${dr.lastName}`}</p>
+                  ))}
                   icon={IoMedkitSharp}
                   isActive={isActive}
                   darkBG

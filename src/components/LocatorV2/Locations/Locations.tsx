@@ -7,9 +7,13 @@ import { Practice } from "../../../types/interfaces/practices";
 
 interface LocationsProps {
   handleActivateLocation(location: Practice | null): void;
+  treatmentsAndServices: any[] | null;
 }
 
-const Locations = ({ handleActivateLocation }: LocationsProps) => {
+const Locations = ({
+  handleActivateLocation,
+  treatmentsAndServices,
+}: LocationsProps) => {
   const { state, dispatch } = useLocator();
   const cardWrapperRef: React.LegacyRef<HTMLDivElement> | undefined =
     useRef(null);
@@ -65,6 +69,7 @@ const Locations = ({ handleActivateLocation }: LocationsProps) => {
             location={loc}
             isActive={isActive}
             onClick={(location) => handleActivateLocation(location)}
+            treatmentsAndServices={treatmentsAndServices}
           />
         );
       });

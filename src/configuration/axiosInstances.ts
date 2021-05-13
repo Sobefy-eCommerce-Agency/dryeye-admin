@@ -90,7 +90,7 @@ const PatientsApi = {
 };
 
 export const ServicesAndTreatmentsApi = {
-  get: (type?: string) =>
+  get: (type?: "treatment" | "service") =>
     DryEyeInstance({
       method: "GET",
       url: `/services-and-treatments${type ? `?type=${type}` : ""}`,

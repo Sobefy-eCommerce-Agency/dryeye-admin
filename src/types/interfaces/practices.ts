@@ -35,7 +35,7 @@ export type Practice = {
   friday_op_hours: string;
   saturday_op_hours: string;
   sunday_op_hours: string;
-  dryEyeProducts: Product[] | string;
+  dryEyeProducts: Product[];
   eyeCareServices: any[];
   dryEyeTreatments: any[];
   providerPlus: boolean;
