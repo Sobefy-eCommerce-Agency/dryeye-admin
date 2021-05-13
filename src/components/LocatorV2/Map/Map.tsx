@@ -10,18 +10,15 @@ import { Practice } from "../../../types/interfaces/practices";
 import Filter from "./Filter/Filter";
 import PlacesAutocomplete from "./PlacesAutocomplete/PlacesAutocomplete";
 import MultiSelect from "./MultiSelect/MultiSelect";
-import {
-  dryEyeProducts,
-  dryEyeTreatments,
-  eyeCareServices,
-} from "../../../shared/consts";
 import { sortByBooleanProperty } from "../../../utils/utils";
+import { FormatCheckBoxData, getUniqueProducts } from "../../../utils/format";
 
 interface MapProps {
   handleActivateLocation(location: Practice | null): void;
+  treatmentsAndServices: any[] | null;
 }
 
-const Map = ({ handleActivateLocation }: MapProps) => {
+const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
   const { state, dispatch } = useLocator();
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -50,6 +47,21 @@ const Map = ({ handleActivateLocation }: MapProps) => {
       location: null,
     });
   };
+
+  const dryEyeTreatments = treatmentsAndServices?.filter(
+    (el) => el.type === "treatment"
+  );
+  const formattedDryEyeTreatments = dryEyeTreatments
+    ? FormatCheckBoxData(dryEyeTreatments, "dryEyeTreatments")
+    : [];
+
+  const eyeCareServices = treatmentsAndServices?.filter(
+    (el) => el.type === "service"
+  );
+  const formattedEyeCareServices = eyeCareServices
+    ? FormatCheckBoxData(eyeCareServices, "eyeCareServices")
+    : [];
+  const dryEyeProducts = getUniqueProducts(locations);
 
   // Side effects
   useEffect(() => {
@@ -132,10 +144,16 @@ const Map = ({ handleActivateLocation }: MapProps) => {
         if (
           dryEyeProductsFilter &&
           dryEyeProductsFilter.length > 0 &&
-          currentDryEyeProducts
+          currentDryEyeProducts &&
+          typeof currentDryEyeProducts !== "string"
         ) {
           dryEyeProductsFilter?.forEach((filter) => {
-            productsIncluded = currentDryEyeProducts.includes(filter.value);
+            const filteredProducts = currentDryEyeProducts
+              ? currentDryEyeProducts.filter(
+                  (prod) => String(prod.id) === filter.value
+                )
+              : [];
+            productsIncluded = filteredProducts.length > 0;
           });
         }
         // Filter Doctor names
@@ -157,7 +175,6 @@ const Map = ({ handleActivateLocation }: MapProps) => {
             }
             return false;
           });
-          console.log(filteredDoctors);
           if (filteredDoctors.length > 0) {
             doctorsIncluded = true;
           } else {
@@ -275,7 +292,7 @@ const Map = ({ handleActivateLocation }: MapProps) => {
           <MultiSelect
             name="DryEye Treatments"
             placeholder="Treatments"
-            options={dryEyeTreatments}
+            options={formattedDryEyeTreatments || []}
             value={dryEyeTreatmentsFilter}
             onSelect={(values: any[]) =>
               changeFilter({
@@ -287,7 +304,7 @@ const Map = ({ handleActivateLocation }: MapProps) => {
           <MultiSelect
             name="Eye Care Services"
             placeholder="Services"
-            options={eyeCareServices}
+            options={formattedEyeCareServices || []}
             value={eyeCareServicesFilter}
             onSelect={(values: any[]) =>
               changeFilter({

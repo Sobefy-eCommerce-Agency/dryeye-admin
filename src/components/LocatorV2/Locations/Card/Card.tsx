@@ -11,8 +11,6 @@ import {
 } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
 import Tag from "./Tag/Tag";
-import Filter from "../../Map/Filter/Filter";
-
 interface CardProps {
   location: Practice;
   isActive: boolean;
@@ -98,7 +96,6 @@ const Card = ({
   eyeCareServices.forEach((service) => {
     currentEyeCareServices?.forEach((definedService) => {
       if (service === definedService.id) {
-        console.log(definedService);
         eyeCareServicesObject.push(definedService);
       }
     });

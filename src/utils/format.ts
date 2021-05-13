@@ -48,7 +48,10 @@ export const FormatSelectAutocompleteData = (
   }
 };
 
-export const FormatCheckBoxData = (data: [], list: SelectAutocompleteList) => {
+export const FormatCheckBoxData = (
+  data: any[],
+  list: SelectAutocompleteList
+) => {
   switch (list) {
     case "eyeCareServices":
     case "dryEyeTreatments":
@@ -179,20 +182,22 @@ export const getUniqueProducts = (practices: Practice[] | null) => {
     for (let i = 0; i < practices.length; i++) {
       const practice = practices[i];
       const { dryEyeProducts } = practice;
-      // if (dryEyeProducts && typeof dryEyeProducts === "string") {
-      //   const productsArray = dryEyeProducts.split(",");
-      //   if (productsArray) {
-      //     for (let j = 0; j < productsArray.length; j++) {
-      //       const product = productsArray[j].trim();
-      //       const existingProduct = products.filter(
-      //         (pr) => pr.value === product
-      //       );
-      //       if (existingProduct.length === 0) {
-      //         products.push({ value: product, label: product });
-      //       }
-      //     }
-      //   }
-      // }
+      if (dryEyeProducts) {
+        if (dryEyeProducts) {
+          for (let j = 0; j < dryEyeProducts.length; j++) {
+            const product = dryEyeProducts[j];
+            const existingProduct = products.filter(
+              (pr) => pr.value === String(product.id)
+            );
+            if (existingProduct.length === 0) {
+              products.push({
+                value: String(product.id),
+                label: product.title,
+              });
+            }
+          }
+        }
+      }
     }
     return products;
   }

@@ -12,7 +12,6 @@ export const GetInitialValues = (
   switch (entity) {
     case "practices":
       if (action === "edit" && entityData) {
-        console.log(entityData);
         const {
           route,
           street_number,
@@ -82,7 +81,6 @@ export const GetInitialValues = (
     case "servicesAndTreatments":
       if (action === "edit" && entityData) {
         const { createdAt, ...rest } = entityData;
-        console.log(entityData);
         return { ...rest };
       }
       return {

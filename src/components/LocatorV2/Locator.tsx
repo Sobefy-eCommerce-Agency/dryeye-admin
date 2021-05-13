@@ -46,7 +46,10 @@ const Locator = () => {
   return (
     <div>
       <Header />
-      <Map handleActivateLocation={activateLocation} />
+      <Map
+        handleActivateLocation={activateLocation}
+        treatmentsAndServices={treatmentsAndServices}
+      />
       <Locations
         handleActivateLocation={activateLocation}
         treatmentsAndServices={treatmentsAndServices}

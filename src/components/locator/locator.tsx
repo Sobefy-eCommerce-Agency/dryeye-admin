@@ -18,9 +18,8 @@ import { getUniqueProducts } from "../../utils/format";
 
 const Locator = () => {
   const { state, dispatch } = useLocator();
-  const cardWrapperRef: React.LegacyRef<HTMLDivElement> | undefined = useRef(
-    null
-  );
+  const cardWrapperRef: React.LegacyRef<HTMLDivElement> | undefined =
+    useRef(null);
   const {
     center,
     zoom,
@@ -159,9 +158,8 @@ const Locator = () => {
         }
         // Filter by practice name
         if (practiceNameFilter) {
-          practiceNameIncluded = currentPracticeName.includes(
-            practiceNameFilter
-          );
+          practiceNameIncluded =
+            currentPracticeName.includes(practiceNameFilter);
         }
         // Filter by Dry Eye Products
         if (
@@ -178,7 +176,8 @@ const Locator = () => {
           const filteredDoctors = currentDoctors.filter((doc) => {
             const { firstName, lastName } = doc;
             if (firstName && lastName) {
-              const fullName = `${firstName.trim()} ${lastName.trim()}`.toLowerCase();
+              const fullName =
+                `${firstName.trim()} ${lastName.trim()}`.toLowerCase();
               const lowerCaseDoctor = currentDoctor
                 ? currentDoctor.toLowerCase()
                 : "";
@@ -191,7 +190,6 @@ const Locator = () => {
             }
             return false;
           });
-          console.log(filteredDoctors);
           if (filteredDoctors.length > 0) {
             doctorsIncluded = true;
           } else {
