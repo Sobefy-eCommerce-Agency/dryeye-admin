@@ -14,7 +14,7 @@ export const PracticesApi = {
       url: id
         ? `/practices?doctor=${id}`
         : allDoctors
-        ? "/practices?all_doctors=true"
+        ? "/practices?all_doctors=true&total_spent=true&treatments=true"
         : "/practices",
     }),
   create: (data: object) =>
