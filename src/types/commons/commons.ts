@@ -64,4 +64,5 @@ export interface Product {
   title: string;
   vendor: string;
   images: ProductImage[];
+  tags: string[];
 }

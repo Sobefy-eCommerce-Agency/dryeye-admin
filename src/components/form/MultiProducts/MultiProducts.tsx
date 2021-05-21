@@ -45,7 +45,12 @@ const MultiProducts = ({
         } = response;
         if (productsResult) {
           setLoadingProducts(false);
-          setProducts(productsResult);
+          // filter products by No Locator tag
+          const filteredProducts = productsResult.filter((prod: Product) => {
+            const includesNoLocator = prod.tags.includes("No Locator");
+            return !includesNoLocator;
+          });
+          setProducts(filteredProducts);
         }
       });
     }
