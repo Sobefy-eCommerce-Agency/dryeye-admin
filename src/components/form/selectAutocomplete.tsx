@@ -139,6 +139,10 @@ const SelectAutocomplete = ({
       cacheOptions
       isClearable
       value={value}
+      menuPortalTarget={document.body}
+      menuPlacement="bottom"
+      menuPosition="absolute"
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
       onChange={(el) => {
         if (el) {
           const { id: elementId } = el;

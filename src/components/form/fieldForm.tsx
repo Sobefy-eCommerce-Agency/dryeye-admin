@@ -6,6 +6,7 @@ import {
   Input,
   Switch,
   Textarea,
+  Box,
 } from "@chakra-ui/react";
 import { FieldProps } from "formik";
 import { FieldSet } from "../../types/interfaces/entities";
