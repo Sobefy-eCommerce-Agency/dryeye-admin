@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Grid, Image, Text } from "@chakra-ui/react";
+import { Box, Checkbox, Grid } from "@chakra-ui/react";
 import { Product } from "../../../types/commons/commons";
 import { FieldProps } from "formik";
 
@@ -50,7 +50,21 @@ const MultiProducts = ({
             const includesNoLocator = prod.tags.includes("No Locator");
             return !includesNoLocator;
           });
-          setProducts(filteredProducts);
+          // Sort by alphabetical order
+          const sortedProducts = filteredProducts.sort(
+            (a: Product, b: Product) => {
+              let fa = a.title.toLowerCase(),
+                fb = b.title.toLowerCase();
+              if (fa < fb) {
+                return -1;
+              }
+              if (fa > fb) {
+                return 1;
+              }
+              return 0;
+            }
+          );
+          setProducts(sortedProducts);
         }
       });
     }
@@ -65,57 +79,23 @@ const MultiProducts = ({
           height="full"
           maxHeight={80}
           overflowY="auto"
+          marginTop={3}
         >
           {products.map((product) => {
-            const { id, title, vendor, images } = product;
-            const featuredImage = images[0];
+            const { id, title } = product;
             const isSelected = selectedProducts
               ? selectedProducts.filter((prod) => prod.id === id).length === 1
               : false;
 
             return (
-              <Box
-                key={id}
-                width="full"
-                borderRadius={4}
-                boxShadow="md"
-                padding={3}
-                display="flex"
-                cursor="pointer"
-                onClick={() => handleSelectProduct(product, isSelected)}
-                background={isSelected ? "brand.secondary" : "white"}
-                transition=".2s ease"
-              >
-                <Box width="25%" marginRight={3}>
-                  <Image
-                    src={featuredImage ? featuredImage.src : ""}
-                    alt="title"
-                    borderRadius={3}
-                    border="1px solid"
-                    borderColor="brand.grey.light"
-                  />
-                </Box>
-                <Box
-                  display="flex"
-                  flexDirection="column"
-                  justifyContent="space-between"
-                  width="75%"
+              <Box key={id} width="full">
+                <Checkbox
+                  colorScheme="purple"
+                  isChecked={isSelected}
+                  onChange={() => handleSelectProduct(product, isSelected)}
                 >
-                  <Text
-                    fontSize={12}
-                    marginBottom={2}
-                    color={isSelected ? "white" : "black"}
-                  >
-                    {title}
-                  </Text>
-                  <Text
-                    fontSize={12}
-                    fontWeight="bold"
-                    color={isSelected ? "white" : "black"}
-                  >
-                    {vendor}
-                  </Text>
-                </Box>
+                  {title}
+                </Checkbox>
               </Box>
             );
           })}
