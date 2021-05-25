@@ -128,7 +128,7 @@ const Card = ({
           borderRadius="2xl"
           background={isActive ? "brand.primary" : "white"}
         >
-          <Box p={5} width={{ base: "100%", md: "60%" }}>
+          <Box p={5} width={{ base: "100%", md: "70%" }}>
             <HStack>
               {providerPlus ? (
                 <Box mb={6}>
@@ -213,7 +213,7 @@ const Card = ({
             borderTopLeftRadius={{ base: "2xl", md: 0 }}
             borderTopRightRadius="2xl"
             borderBottomRightRadius={{ base: 0, md: "2xl" }}
-            width={{ base: "100%", md: "40%" }}
+            width={{ base: "100%", md: "30%" }}
           >
             <Text
               fontSize={24}

@@ -93,8 +93,9 @@ const MultiProducts = ({
                   colorScheme="purple"
                   isChecked={isSelected}
                   onChange={() => handleSelectProduct(product, isSelected)}
+                  alignItems="flex-start"
                 >
-                  {title}
+                  <Box marginTop={-1}>{title}</Box>
                 </Checkbox>
               </Box>
             );

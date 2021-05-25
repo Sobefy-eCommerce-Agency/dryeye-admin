@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGroup, SimpleGrid } from "@chakra-ui/react";
+import { Checkbox, CheckboxGroup, SimpleGrid, Box } from "@chakra-ui/react";
 import { FieldProps } from "formik";
 import { useEffect, useState } from "react";
 import { SelectAutocompleteList } from "../../../types/commons/commons";
@@ -50,8 +50,13 @@ const CheckBoxGroupField = ({
         >
           <SimpleGrid mt={3} columns={3} rowGap={3}>
             {options.map((op) => (
-              <Checkbox key={op.value} colorScheme="purple" value={op.value}>
-                {op.label}
+              <Checkbox
+                key={op.value}
+                colorScheme="purple"
+                value={op.value}
+                alignItems="flex-start"
+              >
+                <Box marginTop={-1}> {op.label}</Box>
               </Checkbox>
             ))}
           </SimpleGrid>

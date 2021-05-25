@@ -92,7 +92,7 @@ const Locations = ({
       >
         <SimpleGrid
           ref={cardWrapperRef}
-          columns={{ base: 1, md: 2 }}
+          columns={{ base: 1, md: 1 }}
           spacing="8"
         >
           {getLocationsList()}
