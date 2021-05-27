@@ -12,6 +12,10 @@ const theme = {
         dark: "#636363",
         light: "#f3f5f6",
       },
+      secondaryColor: {
+        dark: "#2292a7",
+        light: "#2ba8bf",
+      },
     },
   },
 };

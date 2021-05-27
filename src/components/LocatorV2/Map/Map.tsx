@@ -12,6 +12,7 @@ import PlacesAutocomplete from "./PlacesAutocomplete/PlacesAutocomplete";
 import MultiSelect from "./MultiSelect/MultiSelect";
 import { sortByBooleanProperty } from "../../../utils/utils";
 import { FormatCheckBoxData, getUniqueProducts } from "../../../utils/format";
+import InfoPopover from "./InfoPopover/InfoPopover";
 
 interface MapProps {
   handleActivateLocation(location: Practice | null): void;
@@ -32,6 +33,7 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
     zoom,
     locations,
     filteredLocations,
+    activeLocation,
     dryEyeTreatmentsFilter,
     eyeCareServicesFilter,
     dryEyeProductsFilter,
@@ -244,7 +246,8 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
           position={{ base: "relative", md: "absolute" }}
           top={{ base: 0, md: 4 }}
           zIndex={999}
-          p={30}
+          py={4}
+          px={6}
           borderRadius={{ base: 0, md: 6 }}
           boxShadow="xl"
           display="grid"
@@ -348,6 +351,10 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
                   />
                 ))
               : null}
+            <InfoPopover
+              location={activeLocation}
+              onCloseClick={() => handleActivateLocation(null)}
+            />
           </GoogleMap>
         ) : (
           <Center background="brand.grey.light" width="full" height="full">

@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, HStack, Icon, Text } from "@chakra-ui/react";
+import { Box, Grid, HStack, Text } from "@chakra-ui/react";
 import { Practice } from "../../../../types/interfaces/practices";
 import { arrayToCommaString } from "../../../../utils/format";
 import {
@@ -9,8 +9,8 @@ import {
   IoMedicalSharp,
   IoMedkitSharp,
 } from "react-icons/io5";
-import { IconType } from "react-icons/lib";
 import Tag from "./Tag/Tag";
+import InfoRow from "../../../InfoRow/InfoRow";
 interface CardProps {
   location: Practice;
   isActive: boolean;
@@ -18,39 +18,6 @@ interface CardProps {
   onClick(location: Practice): void;
   treatmentsAndServices: any[] | null;
 }
-
-interface InfoRowProps {
-  title: string;
-  content: string | React.ReactNode;
-  icon: IconType;
-  isActive: boolean;
-  darkBG?: boolean;
-}
-
-const InfoRow = ({
-  title,
-  content,
-  icon,
-  isActive,
-  darkBG = false,
-}: InfoRowProps) => {
-  const textColor = isActive && darkBG ? "white" : "brand.primary";
-  return (
-    <Flex>
-      <Box pr={3}>
-        <Icon as={icon} color="brand.secondary" />
-      </Box>
-      <Box>
-        <Text fontWeight="700" color={textColor} fontSize={14} mb={1}>
-          {title}
-        </Text>
-        <Box color={textColor} fontSize={14}>
-          {content}
-        </Box>
-      </Box>
-    </Flex>
-  );
-};
 
 const Card = ({
   location,
@@ -218,7 +185,7 @@ const Card = ({
             <Text
               fontSize={24}
               fontWeight={700}
-              color={`${isActive ? "brand.primary" : "brand.primary"}`}
+              color="brand.primary"
               width="100%"
               lineHeight={1.2}
               mb={4}
