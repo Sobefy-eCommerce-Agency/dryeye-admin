@@ -1,6 +1,6 @@
 import { Marker } from "@react-google-maps/api";
 import { Practice } from "../../types/interfaces/practices";
-import MarkerIcon from "../../assets/images/location.png";
+import MarkerIcon from "../../assets/icons/marker.svg";
 
 interface LocatorMarkerProps {
   location: Practice;
