@@ -59,8 +59,7 @@ const InfoPopover = ({ location, onCloseClick }: InfoPopoverProps) => {
                 />
               ) : null}
             </Grid>
-
-            <Button
+            {/* <Button
               background="brand.secondaryColor.light"
               color="white"
               _hover={{
@@ -69,7 +68,7 @@ const InfoPopover = ({ location, onCloseClick }: InfoPopoverProps) => {
               size="xs"
             >
               More information
-            </Button>
+            </Button> */}
           </Box>
         </InfoWindow>
       );
