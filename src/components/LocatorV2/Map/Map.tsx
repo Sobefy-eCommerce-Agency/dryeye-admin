@@ -139,8 +139,9 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
         }
         // Filter by practice name
         if (practiceNameFilter) {
-          practiceNameIncluded =
-            currentPracticeName.includes(practiceNameFilter);
+          practiceNameIncluded = currentPracticeName.includes(
+            practiceNameFilter.toLocaleLowerCase()
+          );
         }
         // Filter by Dry Eye Products
         if (
@@ -169,8 +170,8 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
                 ? currentDoctor.toLowerCase()
                 : "";
               if (
-                fullName.includes(doctorsFilter) ||
-                lowerCaseDoctor.includes(doctorsFilter)
+                fullName.includes(doctorsFilter.toLocaleLowerCase()) ||
+                lowerCaseDoctor.includes(doctorsFilter.toLocaleLowerCase())
               ) {
                 return true;
               }
