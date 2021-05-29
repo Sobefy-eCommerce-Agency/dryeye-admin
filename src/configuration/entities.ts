@@ -116,6 +116,12 @@ const entities: Entity[] = [
         group: "practiceCategory",
       },
       {
+        id: "active",
+        label: "Is active?",
+        type: "switch",
+        group: "practiceCategory",
+      },
+      {
         id: "eyeCareServices",
         type: "checkboxGroup",
         list: "eyeCareServices",

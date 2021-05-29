@@ -49,6 +49,7 @@ export const GetInitialValues = (
         providerPlus: false,
         provider: false,
         partner: false,
+        active: true,
       };
     case "doctors":
       if (action === "edit" && entityData) {
@@ -124,6 +125,7 @@ export const GetInitialAddressComponents = (
           providerPlus,
           provider,
           partner,
+          active,
           ...rest
         } = entityData;
         return { ...rest };

@@ -41,6 +41,7 @@ export type Practice = {
   providerPlus: boolean;
   provider: boolean;
   partner: boolean;
+  active: boolean;
 };
 
 export type AddressComponent = {
