@@ -30,7 +30,7 @@ const Locations = ({
   const activeCardRef = useCallback(
     (node: HTMLDivElement) => {
       if (node !== null && scrolling) {
-        node.scrollIntoView({ behavior: "smooth" });
+        node.scrollIntoView({ behavior: "smooth", block: "center" });
         dispatch({
           type: "scrollLocation",
           scroll: false,

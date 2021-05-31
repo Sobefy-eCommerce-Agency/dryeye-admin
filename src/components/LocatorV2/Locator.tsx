@@ -45,7 +45,7 @@ const Locator = () => {
   }, []);
 
   return (
-    <Box __css={{ scrollBehavior: "smooth" }}>
+    <Box>
       <Header />
       <Map
         handleActivateLocation={activateLocation}
