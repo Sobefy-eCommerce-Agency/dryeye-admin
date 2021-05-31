@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import Card from "./Card/Card";
 import SkeletonCard from "../../Skeleton/SkeletonCard";
@@ -15,19 +15,30 @@ const Locations = ({
   treatmentsAndServices,
 }: LocationsProps) => {
   const { state, dispatch } = useLocator();
-  const cardWrapperRef: React.LegacyRef<HTMLDivElement> | undefined =
-    useRef(null);
-
-  const activeCardRef = useCallback((node: HTMLDivElement) => {
-    if (node !== null && cardWrapperRef.current !== null) {
-      cardWrapperRef.current.scrollTop = node.offsetTop;
-    }
-  }, []);
 
   // State
-  const { locations, filteredLocations, activeLocation, noResultsFound } =
-    state;
+  const {
+    locations,
+    filteredLocations,
+    activeLocation,
+    noResultsFound,
+    scrolling,
+  } = state;
   const currentLocations = filteredLocations || locations;
+
+  // Handlers
+  const activeCardRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (node !== null && scrolling) {
+        node.scrollIntoView({ behavior: "smooth" });
+        dispatch({
+          type: "scrollLocation",
+          scroll: false,
+        });
+      }
+    },
+    [scrolling, dispatch]
+  );
 
   const resetFilters = () => {
     dispatch({
@@ -90,11 +101,7 @@ const Locations = ({
         boxShadow="xl"
         width="full"
       >
-        <SimpleGrid
-          ref={cardWrapperRef}
-          columns={{ base: 1, md: 1 }}
-          spacing="8"
-        >
+        <SimpleGrid columns={{ base: 1, md: 1 }} spacing="8">
           {getLocationsList()}
         </SimpleGrid>
       </Box>

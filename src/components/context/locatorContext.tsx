@@ -14,7 +14,8 @@ export type Action =
   | { type: "setDoctorsFilter"; name: string }
   | { type: "setPracticeNameFilter"; name: string }
   | { type: "setNoResultsFound"; noResultsFound: boolean }
-  | { type: "resetFilters" };
+  | { type: "resetFilters" }
+  | { type: "scrollLocation"; scroll: boolean };
 type Dispatch = (action: Action) => void;
 type State = {
   center: Center;
@@ -28,12 +29,14 @@ type State = {
   practiceNameFilter: string;
   doctorsFilter: string;
   noResultsFound: boolean;
+  scrolling: boolean;
 };
 type CountProviderProps = { children: React.ReactNode };
 
-const LocatorStateContext = React.createContext<
-  { state: State; dispatch: Dispatch } | undefined
->(undefined);
+const LocatorStateContext =
+  React.createContext<{ state: State; dispatch: Dispatch } | undefined>(
+    undefined
+  );
 
 function locatorReducer(state: State, action: Action) {
   switch (action.type) {
@@ -81,6 +84,12 @@ function locatorReducer(state: State, action: Action) {
         noResultsFound: false,
       };
     }
+    case "scrollLocation": {
+      return {
+        ...state,
+        scrolling: action.scroll,
+      };
+    }
     default: {
       throw new Error(`Unhandled action type`);
     }
@@ -100,6 +109,7 @@ function LocatorProvider({ children }: CountProviderProps) {
     doctorsFilter: "",
     practiceNameFilter: "",
     noResultsFound: false,
+    scrolling: false,
   });
 
   const value = { state, dispatch };

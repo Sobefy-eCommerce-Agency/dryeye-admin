@@ -5,6 +5,7 @@ import Header from "./Header/Header";
 import Locations from "./Locations/Locations";
 import Map from "./Map/Map";
 import { ServicesAndTreatmentsApi } from "../../configuration/axiosInstances";
+import { Box } from "@chakra-ui/react";
 
 const Locator = () => {
   const { dispatch } = useLocator();
@@ -44,7 +45,7 @@ const Locator = () => {
   }, []);
 
   return (
-    <div>
+    <Box __css={{ scrollBehavior: "smooth" }}>
       <Header />
       <Map
         handleActivateLocation={activateLocation}
@@ -54,7 +55,7 @@ const Locator = () => {
         handleActivateLocation={activateLocation}
         treatmentsAndServices={treatmentsAndServices}
       />
-    </div>
+    </Box>
   );
 };
 

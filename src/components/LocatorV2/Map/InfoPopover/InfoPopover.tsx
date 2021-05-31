@@ -2,6 +2,7 @@ import { Box, Button, Grid, Text } from "@chakra-ui/react";
 import { InfoWindow } from "@react-google-maps/api";
 import { IoCallSharp, IoGlobeSharp, IoLocationSharp } from "react-icons/io5";
 import { Practice } from "../../../../types/interfaces/practices";
+import { useLocator } from "../../../context/locatorContext";
 import InfoRow from "../../../InfoRow/InfoRow";
 
 interface InfoPopoverProps {
@@ -10,9 +11,9 @@ interface InfoPopoverProps {
 }
 
 const InfoPopover = ({ location, onCloseClick }: InfoPopoverProps) => {
+  const { dispatch } = useLocator();
   if (location) {
-    const { name, latitude, longitude, address, phone, email, website } =
-      location;
+    const { name, latitude, longitude, address, phone, website } = location;
     if (typeof latitude === "number" && typeof longitude === "number") {
       return (
         <InfoWindow
@@ -59,16 +60,22 @@ const InfoPopover = ({ location, onCloseClick }: InfoPopoverProps) => {
                 />
               ) : null}
             </Grid>
-            {/* <Button
+            <Button
               background="brand.secondaryColor.light"
               color="white"
               _hover={{
                 background: "brand.secondaryColor.dark",
               }}
               size="xs"
+              onClick={() =>
+                dispatch({
+                  type: "scrollLocation",
+                  scroll: true,
+                })
+              }
             >
               More information
-            </Button> */}
+            </Button>
           </Box>
         </InfoWindow>
       );

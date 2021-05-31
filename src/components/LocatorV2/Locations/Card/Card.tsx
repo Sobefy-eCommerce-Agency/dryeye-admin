@@ -27,6 +27,7 @@ const Card = ({
   treatmentsAndServices,
 }: CardProps) => {
   const {
+    practice,
     name,
     address,
     website,
@@ -94,6 +95,7 @@ const Card = ({
           ref={reference}
           borderRadius="2xl"
           background={isActive ? "brand.primary" : "white"}
+          id={practice}
         >
           <Box p={5} width={{ base: "100%", md: "70%" }}>
             <HStack>
