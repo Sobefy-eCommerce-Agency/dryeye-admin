@@ -40,9 +40,8 @@ type DashboardProps = {
 const Dashboard = ({ entityName }: DashboardProps) => {
   const userRole: RoleType = "administrator";
   const [entityData, setEntityData] = useState<EntityDataType[] | null>(null);
-  const [filteredData, setFilteredData] = useState<EntityDataType[] | null>(
-    null
-  );
+  const [filteredData, setFilteredData] =
+    useState<EntityDataType[] | null>(null);
   const [action, setAction] = useState<ActionType>(null);
   const [searchterm, setSearchTerm] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();

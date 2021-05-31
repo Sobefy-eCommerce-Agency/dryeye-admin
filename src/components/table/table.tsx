@@ -19,6 +19,7 @@ import {
   ColumnsKey,
   EntityDataType,
 } from "../../types/commons/commons";
+import SkeletonRow from "../Skeleton/SkeletonRow";
 
 interface DashboardTableProps {
   columns: Column[];
@@ -100,7 +101,15 @@ const DashboardTable = ({
           }
           return null;
         })
-      : null;
+      : [...Array(20)].map((_, i) => (
+          <Tr key={i}>
+            {[...Array(columns.length + 1)].map((_, i) => (
+              <Td key={i}>
+                <SkeletonRow />
+              </Td>
+            ))}
+          </Tr>
+        ));
 
   return (
     <Flex flex={1} overflowY="auto" mb={8} borderWidth="1px">
