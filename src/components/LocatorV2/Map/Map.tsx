@@ -69,6 +69,7 @@ const Map = ({
     ? FormatCheckBoxData(eyeCareServices, "eyeCareServices")
     : [];
 
+  // REFACTOR: Remove duplicates
   const formattedMyDoctors = myDoctors
     ? FormatCheckBoxData(myDoctors, "myDoctors")
     : [];
