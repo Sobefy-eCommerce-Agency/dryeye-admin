@@ -68,11 +68,13 @@ const Map = ({
   const formattedEyeCareServices = eyeCareServices
     ? FormatCheckBoxData(eyeCareServices, "eyeCareServices")
     : [];
+
   const formattedMyDoctors = myDoctors
     ? FormatCheckBoxData(myDoctors, "myDoctors")
     : [];
+
   const dryEyeProducts = getUniqueProducts(locations);
-  console.log(formattedMyDoctors);
+
   // Side effects
   useEffect(() => {
     PracticesApi.get(undefined, true).then((response: { data: Practice[] }) => {
@@ -176,7 +178,9 @@ const Map = ({
           doctorsFilter?.forEach((filter) => {
             const filteredDoctors = currentDoctors
               ? currentDoctors.filter(
-                  (dr) => String(dr.doctor) === filter.value
+                  (dr) =>
+                    `${dr.firstName?.trim()} ${dr.lastName?.trim()}` ===
+                    filter.value
                 )
               : [];
             doctorsIncluded = filteredDoctors.length > 0;
