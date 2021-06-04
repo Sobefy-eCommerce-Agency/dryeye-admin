@@ -65,6 +65,17 @@ export const FormatCheckBoxData = (
         }
         return [];
       });
+    case "myDoctors":
+      return data.flatMap((el: any) => {
+        const { doctor, firstName, lastName, practice } = el;
+        if (firstName && lastName && practice !== "") {
+          return {
+            label: `${firstName} ${lastName}`,
+            value: doctor,
+          };
+        }
+        return [];
+      });
   }
 };
 

@@ -11,7 +11,7 @@ export type Action =
   | { type: "setDryEyeTreatmentsFilter"; filters: any[] | null }
   | { type: "setEyeCareServicesFilter"; filters: any[] | null }
   | { type: "setDryEyeProductsFilter"; filters: any[] | null }
-  | { type: "setDoctorsFilter"; name: string }
+  | { type: "setDoctorsFilter"; filters: any[] | null }
   | { type: "setPracticeNameFilter"; name: string }
   | { type: "setNoResultsFound"; noResultsFound: boolean }
   | { type: "resetFilters" }
@@ -27,7 +27,7 @@ type State = {
   eyeCareServicesFilter: any[] | null;
   dryEyeProductsFilter: any[] | null;
   practiceNameFilter: string;
-  doctorsFilter: string;
+  doctorsFilter: any[] | null;
   noResultsFound: boolean;
   scrolling: boolean;
 };
@@ -68,7 +68,7 @@ function locatorReducer(state: State, action: Action) {
       return { ...state, practiceNameFilter: action.name };
     }
     case "setDoctorsFilter": {
-      return { ...state, doctorsFilter: action.name };
+      return { ...state, doctorsFilter: action.filters };
     }
     case "setNoResultsFound": {
       return { ...state, noResultsFound: action.noResultsFound };
@@ -80,7 +80,7 @@ function locatorReducer(state: State, action: Action) {
         eyeCareServicesFilter: null,
         practiceNameFilter: "",
         filteredLocations: null,
-        doctorsFilter: "",
+        doctorsFilter: null,
         noResultsFound: false,
       };
     }
@@ -106,7 +106,7 @@ function LocatorProvider({ children }: CountProviderProps) {
     dryEyeTreatmentsFilter: null,
     eyeCareServicesFilter: null,
     dryEyeProductsFilter: null,
-    doctorsFilter: "",
+    doctorsFilter: null,
     practiceNameFilter: "",
     noResultsFound: false,
     scrolling: false,

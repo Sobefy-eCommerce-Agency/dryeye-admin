@@ -172,30 +172,30 @@ const Locator = () => {
           });
         }
         // Filter Doctor names
-        if (doctorsFilter && currentDoctors && currentDoctors.length > 0) {
-          const filteredDoctors = currentDoctors.filter((doc) => {
-            const { firstName, lastName } = doc;
-            if (firstName && lastName) {
-              const fullName =
-                `${firstName.trim()} ${lastName.trim()}`.toLowerCase();
-              const lowerCaseDoctor = currentDoctor
-                ? currentDoctor.toLowerCase()
-                : "";
-              if (
-                fullName.includes(doctorsFilter) ||
-                lowerCaseDoctor.includes(doctorsFilter)
-              ) {
-                return true;
-              }
-            }
-            return false;
-          });
-          if (filteredDoctors.length > 0) {
-            doctorsIncluded = true;
-          } else {
-            doctorsIncluded = false;
-          }
-        }
+        // if (doctorsFilter && currentDoctors && currentDoctors.length > 0) {
+        //   const filteredDoctors = currentDoctors.filter((doc) => {
+        //     const { firstName, lastName } = doc;
+        //     if (firstName && lastName) {
+        //       const fullName =
+        //         `${firstName.trim()} ${lastName.trim()}`.toLowerCase();
+        //       const lowerCaseDoctor = currentDoctor
+        //         ? currentDoctor.toLowerCase()
+        //         : "";
+        //       if (
+        //         fullName.includes(doctorsFilter) ||
+        //         lowerCaseDoctor.includes(doctorsFilter)
+        //       ) {
+        //         return true;
+        //       }
+        //     }
+        //     return false;
+        //   });
+        //   if (filteredDoctors.length > 0) {
+        //     doctorsIncluded = true;
+        //   } else {
+        //     doctorsIncluded = false;
+        //   }
+        // }
 
         // Check results
         if (
@@ -313,7 +313,7 @@ const Locator = () => {
             });
           }}
         />
-        <NameFilter
+        {/* <NameFilter
           id="doctors_filter"
           placeholder="Doctor name"
           label="Doctor Name"
@@ -324,7 +324,7 @@ const Locator = () => {
               name: e.target.value.toLowerCase(),
             });
           }}
-        />
+        /> */}
         <PlacesAutocomplete
           label="Location"
           id="location_filter"

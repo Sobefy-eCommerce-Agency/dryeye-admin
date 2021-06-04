@@ -37,7 +37,7 @@ export const PracticesApi = {
     }),
 };
 
-const DoctorsApi = {
+export const DoctorsApi = {
   get: () =>
     DryEyeInstance({
       method: "GET",

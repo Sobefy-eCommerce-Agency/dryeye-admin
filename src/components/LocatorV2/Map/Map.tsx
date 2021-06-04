@@ -17,9 +17,14 @@ import InfoPopover from "./InfoPopover/InfoPopover";
 interface MapProps {
   handleActivateLocation(location: Practice | null): void;
   treatmentsAndServices: any[] | null;
+  myDoctors: any[] | null;
 }
 
-const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
+const Map = ({
+  handleActivateLocation,
+  treatmentsAndServices,
+  myDoctors,
+}: MapProps) => {
   const { state, dispatch } = useLocator();
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -63,8 +68,11 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
   const formattedEyeCareServices = eyeCareServices
     ? FormatCheckBoxData(eyeCareServices, "eyeCareServices")
     : [];
+  const formattedMyDoctors = myDoctors
+    ? FormatCheckBoxData(myDoctors, "myDoctors")
+    : [];
   const dryEyeProducts = getUniqueProducts(locations);
-
+  console.log(formattedMyDoctors);
   // Side effects
   useEffect(() => {
     PracticesApi.get(undefined, true).then((response: { data: Practice[] }) => {
@@ -113,7 +121,6 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
         const currentPracticeName = loc.name.toLowerCase();
         const currentDryEyeProducts = loc.dryEyeProducts;
         const currentDoctors = loc.doctors;
-        const currentDoctor = loc.doctorName;
         let treatmentsIncluded = false;
         let servicesIncluded = false;
         let practiceNameIncluded = false;
@@ -160,29 +167,20 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
           });
         }
         // Filter Doctor names
-        if (doctorsFilter && currentDoctors && currentDoctors.length > 0) {
-          const filteredDoctors = currentDoctors.filter((doc) => {
-            const { firstName, lastName } = doc;
-            if (firstName && lastName) {
-              const fullName =
-                `${firstName.trim()} ${lastName.trim()}`.toLowerCase();
-              const lowerCaseDoctor = currentDoctor
-                ? currentDoctor.toLowerCase()
-                : "";
-              if (
-                fullName.includes(doctorsFilter.toLocaleLowerCase()) ||
-                lowerCaseDoctor.includes(doctorsFilter.toLocaleLowerCase())
-              ) {
-                return true;
-              }
-            }
-            return false;
+        if (
+          doctorsFilter &&
+          doctorsFilter.length > 0 &&
+          currentDoctors &&
+          typeof currentDoctors !== "string"
+        ) {
+          doctorsFilter?.forEach((filter) => {
+            const filteredDoctors = currentDoctors
+              ? currentDoctors.filter(
+                  (dr) => String(dr.doctor) === filter.value
+                )
+              : [];
+            doctorsIncluded = filteredDoctors.length > 0;
           });
-          if (filteredDoctors.length > 0) {
-            doctorsIncluded = true;
-          } else {
-            doctorsIncluded = false;
-          }
         }
 
         // Check results
@@ -268,14 +266,15 @@ const Map = ({ handleActivateLocation, treatmentsAndServices }: MapProps) => {
               })
             }
           />
-          <Filter
+          <MultiSelect
+            name="Doctor Name"
             placeholder="Doctor Name"
-            type="text"
+            options={formattedMyDoctors || []}
             value={doctorsFilter}
-            onChange={(value) =>
-              dispatch({
+            onSelect={(values: any[]) =>
+              changeFilter({
                 type: "setDoctorsFilter",
-                name: value,
+                filters: values && values.length > 0 ? values : null,
               })
             }
           />

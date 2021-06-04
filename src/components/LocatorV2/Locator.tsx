@@ -4,13 +4,17 @@ import { useLocator } from "../context/locatorContext";
 import Header from "./Header/Header";
 import Locations from "./Locations/Locations";
 import Map from "./Map/Map";
-import { ServicesAndTreatmentsApi } from "../../configuration/axiosInstances";
+import {
+  ServicesAndTreatmentsApi,
+  DoctorsApi,
+} from "../../configuration/axiosInstances";
 import { Box } from "@chakra-ui/react";
 
 const Locator = () => {
   const { dispatch } = useLocator();
   const [treatmentsAndServices, setTreatmentsAndServices] =
     useState<any[] | null>(null);
+  const [myDoctors, setMyDoctors] = useState<any[] | null>(null);
 
   // Handlers
   const activateLocation = (location: Practice | null) => {
@@ -42,6 +46,12 @@ const Locator = () => {
         setTreatmentsAndServices(data);
       }
     });
+    DoctorsApi.get().then((response) => {
+      const { data } = response;
+      if (data) {
+        setMyDoctors(data);
+      }
+    });
   }, []);
 
   return (
@@ -50,6 +60,7 @@ const Locator = () => {
       <Map
         handleActivateLocation={activateLocation}
         treatmentsAndServices={treatmentsAndServices}
+        myDoctors={myDoctors}
       />
       <Locations
         handleActivateLocation={activateLocation}

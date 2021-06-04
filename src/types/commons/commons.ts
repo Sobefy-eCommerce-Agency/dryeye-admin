@@ -47,7 +47,8 @@ export type SelectAutocompleteList =
   | "practices"
   | "serviceOrTreatment"
   | "eyeCareServices"
-  | "dryEyeTreatments";
+  | "dryEyeTreatments"
+  | "myDoctors";
 export type ColumnsKey = "doctor" | "practice" | "patient" | "id";
 export type Center = { lat: number; lng: number };
 export type ValueLabelPair = {
