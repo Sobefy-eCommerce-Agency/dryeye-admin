@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Box, Center, Spinner } from "@chakra-ui/react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-import { googleApiKey } from "../../../shared/environment";
+import { GoogleMap } from "@react-google-maps/api";
 import useGeolocation from "../../../hooks/useGeolocation";
 import { PracticesApi } from "../../../configuration/axiosInstances";
 import { useLocator, Action } from "../../context/locatorContext";
@@ -13,6 +12,7 @@ import MultiSelect from "./MultiSelect/MultiSelect";
 import { sortByBooleanProperty } from "../../../utils/utils";
 import { FormatCheckBoxData, getUniqueProducts } from "../../../utils/format";
 import InfoPopover from "./InfoPopover/InfoPopover";
+import { Center as CenterType } from "../../../types/commons/commons";
 
 interface MapProps {
   handleActivateLocation(location: Practice | null): void;
@@ -26,10 +26,6 @@ const Map = ({
   myDoctors,
 }: MapProps) => {
   const { state, dispatch } = useLocator();
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: googleApiKey,
-  });
   const [loading, location] = useGeolocation();
 
   // State
@@ -46,14 +42,6 @@ const Map = ({
     doctorsFilter,
   } = state;
   const currentLocations = filteredLocations || locations;
-
-  const changeFilter = (action: Action) => {
-    dispatch(action);
-    dispatch({
-      type: "setActiveLocation",
-      location: null,
-    });
-  };
 
   const dryEyeTreatments = treatmentsAndServices?.filter(
     (el) => el.type === "treatment"
@@ -75,6 +63,30 @@ const Map = ({
     : [];
 
   const dryEyeProducts = getUniqueProducts(locations);
+
+  // Handlers
+  const changeFilter = (action: Action) => {
+    dispatch(action);
+    dispatch({
+      type: "setActiveLocation",
+      location: null,
+    });
+  };
+
+  const selectPlacesAutocomplete = (center: CenterType | null) => {
+    if (center) {
+      dispatch({
+        type: "setCenter",
+        center: center,
+      });
+      dispatch({
+        type: "setZoom",
+        zoom: 10,
+      });
+    }
+  };
+
+  console.log(window.google.maps.geometry.spherical);
 
   // Side effects
   useEffect(() => {
@@ -285,19 +297,8 @@ const Map = ({
           />
           <PlacesAutocomplete
             id="location_filter"
-            placeholder="Location"
-            onSelect={(center) => {
-              if (center) {
-                dispatch({
-                  type: "setCenter",
-                  center: center,
-                });
-                dispatch({
-                  type: "setZoom",
-                  zoom: 10,
-                });
-              }
-            }}
+            placeholder="Zip code, City, State"
+            onSelect={(center) => selectPlacesAutocomplete(center)}
           />
           <MultiSelect
             name="DryEye Treatments"
@@ -338,7 +339,7 @@ const Map = ({
         </Box>
       </Box>
       <Box width="full" height={600}>
-        {isLoaded && !loading && currentLocations ? (
+        {!loading && currentLocations ? (
           <GoogleMap
             mapContainerStyle={mapContainerStyle}
             center={center}

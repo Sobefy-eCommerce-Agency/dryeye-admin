@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef } from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap } from "@react-google-maps/api";
 import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { useLocator, Action } from "../context/locatorContext";
 import useGeolocation from "../../hooks/useGeolocation";
-import { googleApiKey } from "../../shared/environment";
 import { PracticesApi } from "../../configuration/axiosInstances";
 import LocatorMarker from "./locatorMarker";
 import { Practice } from "../../types/interfaces/practices";
@@ -34,11 +33,6 @@ const Locator = () => {
     noResultsFound,
   } = state;
   const currentLocations = filteredLocations || locations;
-
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: googleApiKey,
-  });
   const [loading, location] = useGeolocation();
 
   const containerStyle = {
@@ -413,7 +407,7 @@ const Locator = () => {
           boxShadow="sm"
           order={{ base: 1, md: 2 }}
         >
-          {isLoaded && !loading ? (
+          {!loading ? (
             <GoogleMap
               mapContainerStyle={containerStyle}
               center={center}
