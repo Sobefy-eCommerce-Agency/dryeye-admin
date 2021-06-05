@@ -16,7 +16,7 @@ const Header = () => {
         <Box width="full" mb={{ base: 6, md: 0 }}>
           <Heading
             color="white"
-            fontSize={65}
+            fontSize={{ base: 50, md: 65 }}
             fontWeight="normal"
             as="h1"
             marginBottom={{ base: 6, md: 8 }}
