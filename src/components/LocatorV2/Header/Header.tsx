@@ -16,11 +16,11 @@ const Header = () => {
         <Box width="full" mb={{ base: 6, md: 0 }}>
           <Heading
             color="white"
-            fontSize={65}
+            fontSize={{ base: 50, md: 65 }}
             fontWeight="normal"
             as="h1"
-            marginBottom={{ base: 6, md: 2 }}
-            lineHeight={{ base: 1, md: 1.33 }}
+            marginBottom={{ base: 6, md: 8 }}
+            lineHeight={1}
           >
             Provider Directory
           </Heading>

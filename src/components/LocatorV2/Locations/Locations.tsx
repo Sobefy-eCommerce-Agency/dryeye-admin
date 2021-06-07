@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import Card from "./Card/Card";
-import SkeletonCard from "../../Skeleton/SkeletonCard";
+import SkeletonCard from "../../skeleton/skeletonCard";
 import { useLocator } from "../../context/locatorContext";
 import { Practice } from "../../../types/interfaces/practices";
 import useCurrentLocations from "../../../hooks/useCurrentLocations";

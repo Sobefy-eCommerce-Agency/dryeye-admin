@@ -19,7 +19,7 @@ import {
   ColumnsKey,
   EntityDataType,
 } from "../../types/commons/commons";
-import SkeletonRow from "../Skeleton/SkeletonRow";
+import SkeletonRow from "../skeleton/SkeletonRow";
 
 interface DashboardTableProps {
   columns: Column[];
