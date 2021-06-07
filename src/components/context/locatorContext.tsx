@@ -16,7 +16,8 @@ export type Action =
   | { type: "setPracticeNameFilter"; name: string }
   | { type: "setNoResultsFound"; noResultsFound: boolean }
   | { type: "resetFilters" }
-  | { type: "scrollLocation"; scroll: boolean };
+  | { type: "scrollLocation"; scroll: boolean }
+  | { type: "setSearchRadius"; radius: string };
 type Dispatch = (action: Action) => void;
 type State = {
   center: Center;
@@ -32,6 +33,7 @@ type State = {
   doctorsFilter: any[] | null;
   noResultsFound: boolean;
   scrolling: boolean;
+  searchRadius: string;
 };
 type CountProviderProps = { children: React.ReactNode };
 
@@ -118,6 +120,12 @@ function locatorReducer(state: State, action: Action) {
         scrolling: action.scroll,
       };
     }
+    case "setSearchRadius": {
+      return {
+        ...state,
+        searchRadius: action.radius,
+      };
+    }
     default: {
       throw new Error(`Unhandled action type`);
     }
@@ -139,6 +147,7 @@ function LocatorProvider({ children }: CountProviderProps) {
     practiceNameFilter: "",
     noResultsFound: false,
     scrolling: false,
+    searchRadius: "200",
   });
 
   const value = { state, dispatch };

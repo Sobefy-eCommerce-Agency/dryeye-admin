@@ -1,5 +1,15 @@
 import { useEffect, useMemo } from "react";
-import { Box, Center, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Menu,
+  MenuButton,
+  MenuList,
+  Spinner,
+  MenuOptionGroup,
+  MenuItemOption,
+  IconButton,
+} from "@chakra-ui/react";
 import { GoogleMap } from "@react-google-maps/api";
 import useGeolocation from "../../../hooks/useGeolocation";
 import { PracticesApi } from "../../../configuration/axiosInstances";
@@ -17,6 +27,7 @@ import { FormatCheckBoxData, getUniqueProducts } from "../../../utils/format";
 import InfoPopover from "./InfoPopover/InfoPopover";
 import { Center as CenterType } from "../../../types/commons/commons";
 import useCurrentLocations from "../../../hooks/useCurrentLocations";
+import { IoLocationSharp } from "react-icons/io5";
 
 interface MapProps {
   handleActivateLocation(location: Practice | null): void;
@@ -44,6 +55,8 @@ const Map = ({
     dryEyeProductsFilter,
     practiceNameFilter,
     doctorsFilter,
+    searchRadius,
+    locations,
   } = state;
 
   const currentLocations = useCurrentLocations();
@@ -81,7 +94,11 @@ const Map = ({
     });
   };
 
-  const selectPlacesAutocomplete = (center: CenterType | null) => {
+  const selectPlacesAutocomplete = (
+    center: CenterType | null,
+    calculateAgain: boolean = false,
+    radius: string | null = null
+  ) => {
     if (center) {
       dispatch({
         type: "setCenter",
@@ -91,10 +108,11 @@ const Map = ({
         type: "setZoom",
         zoom: 10,
       });
-      if (currentLocations) {
-        const geoLocations = currentLocations.filter((loc) => {
+      const loc = calculateAgain ? locations : currentLocations;
+      if (loc) {
+        const geoLocations = loc.filter((loc) => {
           if (loc.latitude && loc.longitude) {
-            return isLocationInsideRadius(center, {
+            return isLocationInsideRadius(radius || searchRadius, center, {
               lat: loc.latitude,
               lng: loc.longitude,
             });
@@ -241,7 +259,7 @@ const Map = ({
         }
         return false;
       });
-      console.log(results);
+
       if (results && results.length === 0) {
         dispatch({
           type: "setNoResultsFound",
@@ -274,6 +292,7 @@ const Map = ({
     dryEyeProductsFilter,
     doctorsFilter,
     practiceNameFilter,
+    searchRadius,
   ]);
 
   // Options
@@ -301,7 +320,10 @@ const Map = ({
           borderRadius={{ base: 0, md: 6 }}
           boxShadow="xl"
           display="grid"
-          gridTemplateColumns={{ base: "1fr", md: "repeat(6, 1fr)" }}
+          gridTemplateColumns={{
+            base: "1fr",
+            md: "1fr 1fr 1fr 1fr 1fr 1fr 40px",
+          }}
           gridColumnGap={2}
           gridRowGap={{ base: 2, md: 0 }}
           width="full"
@@ -370,6 +392,33 @@ const Map = ({
               })
             }
           />
+          <Menu placement="left-start">
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<IoLocationSharp />}
+              variant="outline"
+            />
+            <MenuList minWidth="240px">
+              <MenuOptionGroup
+                defaultValue="asc"
+                title="Search radius"
+                type="radio"
+                value={searchRadius}
+                onChange={(value) => {
+                  if (typeof value === "string") {
+                    dispatch({ type: "setSearchRadius", radius: value });
+                    selectPlacesAutocomplete(center, true, value);
+                  }
+                }}
+              >
+                <MenuItemOption value="200">200 mi</MenuItemOption>
+                <MenuItemOption value="300">300 mi</MenuItemOption>
+                <MenuItemOption value="400">400 mi</MenuItemOption>
+                <MenuItemOption value="500">500 mi</MenuItemOption>
+              </MenuOptionGroup>
+            </MenuList>
+          </Menu>
         </Box>
       </Box>
       <Box width="full" height={600}>

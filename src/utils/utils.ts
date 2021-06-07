@@ -32,10 +32,11 @@ export const getMeters = (i: number) => {
 };
 
 export const isLocationInsideRadius = (
+  radius: string,
   location: Center,
   locationToCompare: Center
 ) => {
-  const radius = getMeters(200);
+  const radiusInMeters = getMeters(Number(radius));
   const formattedCenter = new window.google.maps.LatLng(
     location.lat,
     location.lng
@@ -51,7 +52,7 @@ export const isLocationInsideRadius = (
         locationFormattedCenter
       );
 
-    if (distanceBetweenLocations <= radius) {
+    if (distanceBetweenLocations <= radiusInMeters) {
       return true;
     }
   }
