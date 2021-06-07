@@ -33,6 +33,8 @@ const MultiSelect = ({
     }),
   };
 
+  const isEnabled = options && options.length > 0 ? true : false;
+
   return (
     <Box height="full">
       <Select
@@ -47,6 +49,7 @@ const MultiSelect = ({
           }
         }}
         styles={customStyles}
+        isDisabled={!isEnabled}
       />
     </Box>
   );

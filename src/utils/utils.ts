@@ -1,3 +1,4 @@
+import { Center } from "../types/commons/commons";
 import { Practice } from "../types/interfaces/practices";
 
 export const checkForValidRoute = (route: string) => {
@@ -24,4 +25,35 @@ export const sortByBooleanProperty = (
     return 0;
   });
   return sortedArray;
+};
+
+export const getMeters = (i: number) => {
+  return i * 1609.344;
+};
+
+export const isLocationInsideRadius = (
+  location: Center,
+  locationToCompare: Center
+) => {
+  const radius = getMeters(200);
+  const formattedCenter = new window.google.maps.LatLng(
+    location.lat,
+    location.lng
+  );
+  const locationFormattedCenter = new window.google.maps.LatLng(
+    locationToCompare.lat,
+    locationToCompare.lng
+  );
+  if (locationFormattedCenter) {
+    const distanceBetweenLocations =
+      window.google.maps.geometry.spherical.computeDistanceBetween(
+        formattedCenter,
+        locationFormattedCenter
+      );
+
+    if (distanceBetweenLocations <= radius) {
+      return true;
+    }
+  }
+  return false;
 };

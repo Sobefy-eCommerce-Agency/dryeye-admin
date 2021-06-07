@@ -7,6 +7,7 @@ export type Action =
   | { type: "setZoom"; zoom: number }
   | { type: "setLocations"; locations: Practice[] }
   | { type: "setFilteredLocations"; locations: Practice[] | null }
+  | { type: "setGeoFilteredLocations"; locations: Practice[] | null }
   | { type: "setActiveLocation"; location: Practice | null }
   | { type: "setDryEyeTreatmentsFilter"; filters: any[] | null }
   | { type: "setEyeCareServicesFilter"; filters: any[] | null }
@@ -21,7 +22,8 @@ type State = {
   center: Center;
   zoom: number;
   locations: Practice[] | null;
-  filteredLocations: Practice[] | null;
+  filteredLocations: { active: boolean; locations: Practice[] | null };
+  geoFilteredLocations: { active: boolean; locations: Practice[] | null };
   activeLocation: Practice | null;
   dryEyeTreatmentsFilter: any[] | null;
   eyeCareServicesFilter: any[] | null;
@@ -50,7 +52,32 @@ function locatorReducer(state: State, action: Action) {
       return { ...state, locations: action.locations };
     }
     case "setFilteredLocations": {
-      return { ...state, filteredLocations: action.locations };
+      return {
+        ...state,
+        filteredLocations: {
+          ...state.filteredLocations,
+          locations: action.locations,
+          active: true,
+        },
+        geoFilteredLocations: {
+          ...state.geoFilteredLocations,
+          active: false,
+        },
+      };
+    }
+    case "setGeoFilteredLocations": {
+      return {
+        ...state,
+        geoFilteredLocations: {
+          ...state.geoFilteredLocations,
+          locations: action.locations,
+          active: true,
+        },
+        filteredLocations: {
+          ...state.filteredLocations,
+          active: false,
+        },
+      };
     }
     case "setActiveLocation": {
       return { ...state, activeLocation: action.location };
@@ -79,7 +106,8 @@ function locatorReducer(state: State, action: Action) {
         dryEyeTreatmentsFilter: null,
         eyeCareServicesFilter: null,
         practiceNameFilter: "",
-        filteredLocations: null,
+        filteredLocations: { active: false, locations: null },
+        geoFilteredLocations: { active: false, locations: null },
         doctorsFilter: null,
         noResultsFound: false,
       };
@@ -101,7 +129,8 @@ function LocatorProvider({ children }: CountProviderProps) {
     center: { lat: 37.09024, lng: -95.712891 },
     zoom: 4,
     locations: null,
-    filteredLocations: null,
+    filteredLocations: { active: false, locations: null },
+    geoFilteredLocations: { active: false, locations: null },
     activeLocation: null,
     dryEyeTreatmentsFilter: null,
     eyeCareServicesFilter: null,

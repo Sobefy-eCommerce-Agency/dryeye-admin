@@ -4,6 +4,7 @@ import Card from "./Card/Card";
 import SkeletonCard from "../../Skeleton/SkeletonCard";
 import { useLocator } from "../../context/locatorContext";
 import { Practice } from "../../../types/interfaces/practices";
+import useCurrentLocations from "../../../hooks/useCurrentLocations";
 
 interface LocationsProps {
   handleActivateLocation(location: Practice | null): void;
@@ -17,14 +18,8 @@ const Locations = ({
   const { state, dispatch } = useLocator();
 
   // State
-  const {
-    locations,
-    filteredLocations,
-    activeLocation,
-    noResultsFound,
-    scrolling,
-  } = state;
-  const currentLocations = filteredLocations || locations;
+  const { activeLocation, noResultsFound, scrolling } = state;
+  const currentLocations = useCurrentLocations();
 
   // Handlers
   const activeCardRef = useCallback(

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Box, Center, Spinner } from "@chakra-ui/react";
 import { GoogleMap } from "@react-google-maps/api";
 import useGeolocation from "../../../hooks/useGeolocation";
@@ -9,10 +9,14 @@ import { Practice } from "../../../types/interfaces/practices";
 import Filter from "./Filter/Filter";
 import PlacesAutocomplete from "./PlacesAutocomplete/PlacesAutocomplete";
 import MultiSelect from "./MultiSelect/MultiSelect";
-import { sortByBooleanProperty } from "../../../utils/utils";
+import {
+  sortByBooleanProperty,
+  isLocationInsideRadius,
+} from "../../../utils/utils";
 import { FormatCheckBoxData, getUniqueProducts } from "../../../utils/format";
 import InfoPopover from "./InfoPopover/InfoPopover";
 import { Center as CenterType } from "../../../types/commons/commons";
+import useCurrentLocations from "../../../hooks/useCurrentLocations";
 
 interface MapProps {
   handleActivateLocation(location: Practice | null): void;
@@ -32,8 +36,8 @@ const Map = ({
   const {
     center,
     zoom,
-    locations,
-    filteredLocations,
+    noResultsFound,
+    geoFilteredLocations,
     activeLocation,
     dryEyeTreatmentsFilter,
     eyeCareServicesFilter,
@@ -41,7 +45,8 @@ const Map = ({
     practiceNameFilter,
     doctorsFilter,
   } = state;
-  const currentLocations = filteredLocations || locations;
+
+  const currentLocations = useCurrentLocations();
 
   const dryEyeTreatments = treatmentsAndServices?.filter(
     (el) => el.type === "treatment"
@@ -62,7 +67,10 @@ const Map = ({
     ? FormatCheckBoxData(myDoctors, "myDoctors")
     : [];
 
-  const dryEyeProducts = getUniqueProducts(locations);
+  const dryEyeProducts = useMemo(
+    () => getUniqueProducts(currentLocations),
+    [currentLocations]
+  );
 
   // Handlers
   const changeFilter = (action: Action) => {
@@ -83,10 +91,31 @@ const Map = ({
         type: "setZoom",
         zoom: 10,
       });
+      if (currentLocations) {
+        const geoLocations = currentLocations.filter((loc) => {
+          if (loc.latitude && loc.longitude) {
+            return isLocationInsideRadius(center, {
+              lat: loc.latitude,
+              lng: loc.longitude,
+            });
+          }
+          return false;
+        });
+        console.log(geoLocations);
+        if (geoLocations.length > 0) {
+          dispatch({
+            type: "setGeoFilteredLocations",
+            locations: geoLocations,
+          });
+        }
+      }
+    } else {
+      dispatch({
+        type: "setGeoFilteredLocations",
+        locations: null,
+      });
     }
   };
-
-  console.log(window.google.maps.geometry.spherical);
 
   // Side effects
   useEffect(() => {
@@ -122,7 +151,6 @@ const Map = ({
 
   useEffect(() => {
     let newLocations: Practice[] | null = null;
-    const currentLocations = locations;
     if (
       dryEyeTreatmentsFilter ||
       eyeCareServicesFilter ||
@@ -201,17 +229,19 @@ const Map = ({
         }
 
         // Check results
-        if (
+        const resultIncluded =
           treatmentsIncluded ||
           servicesIncluded ||
           practiceNameIncluded ||
           productsIncluded ||
-          doctorsIncluded
-        ) {
+          doctorsIncluded;
+
+        if (resultIncluded) {
           return true;
         }
         return false;
       });
+      console.log(results);
       if (results && results.length === 0) {
         dispatch({
           type: "setNoResultsFound",
@@ -228,9 +258,13 @@ const Map = ({
         type: "setFilteredLocations",
         locations: newLocations,
       });
-    } else {
+    } else if (
+      geoFilteredLocations.active === false &&
+      geoFilteredLocations.locations !== null
+    ) {
       dispatch({
-        type: "resetFilters",
+        type: "setGeoFilteredLocations",
+        locations: geoFilteredLocations.locations,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -346,7 +380,7 @@ const Map = ({
             zoom={zoom}
             options={mapOptions}
           >
-            {currentLocations
+            {currentLocations && !noResultsFound
               ? currentLocations.map((loc) => (
                   <LocatorMarker
                     key={loc.practice}

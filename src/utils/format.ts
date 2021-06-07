@@ -195,18 +195,16 @@ export const getUniqueProducts = (practices: Practice[] | null) => {
       const practice = practices[i];
       const { dryEyeProducts } = practice;
       if (dryEyeProducts) {
-        if (dryEyeProducts) {
-          for (let j = 0; j < dryEyeProducts.length; j++) {
-            const product = dryEyeProducts[j];
-            const existingProduct = products.filter(
-              (pr) => pr.value === String(product.id)
-            );
-            if (existingProduct.length === 0) {
-              products.push({
-                value: String(product.id),
-                label: product.title,
-              });
-            }
+        for (let j = 0; j < dryEyeProducts.length; j++) {
+          const product = dryEyeProducts[j];
+          const existingProduct = products.filter(
+            (pr) => pr.value === String(product.id)
+          );
+          if (existingProduct.length === 0 && typeof product !== "string") {
+            products.push({
+              value: String(product.id),
+              label: product.title,
+            });
           }
         }
       }
