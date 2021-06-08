@@ -119,7 +119,6 @@ const Map = ({
           }
           return false;
         });
-        console.log(geoLocations);
         if (geoLocations.length > 0) {
           dispatch({
             type: "setGeoFilteredLocations",
@@ -156,16 +155,27 @@ const Map = ({
 
   useEffect(() => {
     if (location) {
+      const newCenter = { lat: location.latitude, lng: location.longitude };
       dispatch({
         type: "setCenter",
-        center: { lat: location.latitude, lng: location.longitude },
+        center: newCenter,
       });
       dispatch({
         type: "setZoom",
         zoom: 10,
       });
+      const geocoder = new window.google.maps.Geocoder();
+      geocoder.geocode({ location: newCenter }, (results, status) => {
+        if (status === "OK" && results[0]) {
+          console.log(results[0].formatted_address);
+        }
+      });
+      if (locations && !loading) {
+        selectPlacesAutocomplete(newCenter, true);
+      }
     }
-  }, [location, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location, dispatch, loading, locations]);
 
   useEffect(() => {
     let newLocations: Practice[] | null = null;
