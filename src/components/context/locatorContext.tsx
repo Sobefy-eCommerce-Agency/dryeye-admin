@@ -147,7 +147,7 @@ function LocatorProvider({ children }: CountProviderProps) {
     practiceNameFilter: "",
     noResultsFound: false,
     scrolling: false,
-    searchRadius: "200",
+    searchRadius: "50",
   });
 
   const value = { state, dispatch };
