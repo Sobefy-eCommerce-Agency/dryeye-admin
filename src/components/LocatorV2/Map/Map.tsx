@@ -422,6 +422,11 @@ const Map = ({
                   }
                 }}
               >
+                <MenuItemOption value="5">5 mi</MenuItemOption>
+                <MenuItemOption value="10">10 mi</MenuItemOption>
+                <MenuItemOption value="20">20 mi</MenuItemOption>
+                <MenuItemOption value="50">50 mi</MenuItemOption>
+                <MenuItemOption value="100">100 mi</MenuItemOption>
                 <MenuItemOption value="200">200 mi</MenuItemOption>
                 <MenuItemOption value="300">300 mi</MenuItemOption>
                 <MenuItemOption value="400">400 mi</MenuItemOption>
