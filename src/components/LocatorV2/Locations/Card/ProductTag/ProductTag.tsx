@@ -1,17 +1,17 @@
 import {
   Tag,
   TagLabel,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalHeader,
-  ModalContent,
-  ModalCloseButton,
-  ModalBody,
   Box,
   Grid,
   Text,
   Image,
+  Popover,
+  PopoverArrow,
+  PopoverContent,
+  PopoverHeader,
+  PopoverCloseButton,
+  PopoverBody,
+  PopoverTrigger,
 } from "@chakra-ui/react";
 import { Product } from "../../../../../types/commons/commons";
 
@@ -49,19 +49,13 @@ const ProductTag = ({
           <Image src={image} width="full" />
         </Box>
         <Box width={{ base: "50%", md: "full" }}>
-          <Text fontSize="sm" fontWeight="semibold">
-            {title}
-          </Text>
+          <Text fontSize="sm">{title}</Text>
         </Box>
       </Box>
     );
   };
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const backgroundColor = () => {
-    if (isActive && isOpen) {
-      return "brand.secondary";
-    }
     if (isActive) {
       return "brand.primaryColor.light";
     }
@@ -71,29 +65,33 @@ const ProductTag = ({
 
   return (
     <>
-      <Tag
-        mr={1}
-        mb={1}
-        onClick={onOpen}
-        background={backgroundColor()}
-        color={color}
+      <Popover
+        size="xl"
+        closeOnBlur
+        returnFocusOnClose={false}
+        isLazy
+        autoFocus
       >
-        <TagLabel>{vendor}</TagLabel>
-      </Tag>
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{`${vendor} - ${practiceName}`}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={7}>
-            <Grid templateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }} gap={3}>
+        <PopoverTrigger>
+          <Tag mr={1} mb={1} background={backgroundColor()} color={color}>
+            <TagLabel>{vendor}</TagLabel>
+          </Tag>
+        </PopoverTrigger>
+        <PopoverContent color="brand.grey.dark">
+          <PopoverHeader>
+            <Text fontWeight="semibold">{vendor}</Text>
+          </PopoverHeader>
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverBody pb={3}>
+            <Grid templateColumns={{ base: "1fr", md: "1fr 1fr" }} gap={3}>
               {products.map((product) => {
                 return <ProductCard product={product} />;
               })}
             </Grid>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
     </>
   );
 };
