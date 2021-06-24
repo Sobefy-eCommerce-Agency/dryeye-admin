@@ -3,6 +3,7 @@ import {
   addressComponentNameLength,
   EntityDataType,
   EntityType,
+  Product,
   SelectAutocompleteList,
   ValueLabelPair,
 } from "../types/commons/commons";
@@ -210,6 +211,14 @@ export const getUniqueProducts = (practices: Practice[] | null) => {
       }
     }
     return products;
+  }
+  return null;
+};
+
+export const getUniqueVendors = (products: Product[]) => {
+  if (products) {
+    const vendors = Array.from(new Set(products.map((item) => item.vendor)));
+    return vendors;
   }
   return null;
 };

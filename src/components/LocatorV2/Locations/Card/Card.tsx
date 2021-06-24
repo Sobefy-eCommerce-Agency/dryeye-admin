@@ -1,6 +1,6 @@
 import { Box, Grid, HStack, Text } from "@chakra-ui/react";
 import { Practice } from "../../../../types/interfaces/practices";
-import { arrayToCommaString } from "../../../../utils/format";
+import { arrayToCommaString, getUniqueVendors } from "../../../../utils/format";
 import {
   IoLocationSharp,
   IoCallSharp,
@@ -11,6 +11,9 @@ import {
 } from "react-icons/io5";
 import Tag from "./Tag/Tag";
 import InfoRow from "../../../InfoRow/InfoRow";
+import { Product } from "../../../../types/commons/commons";
+import ProductTag from "./ProductTag/ProductTag";
+
 interface CardProps {
   location: Practice;
   isActive: boolean;
@@ -74,6 +77,26 @@ const Card = ({
   const eyeCareServicesString = eyeCareServicesObject
     ? arrayToCommaString(eyeCareServicesObject, "services")
     : "";
+
+  const renderProductBrands = (products: Product[]) => {
+    const uniqueVendors = getUniqueVendors(products);
+    if (uniqueVendors) {
+      const vendors = uniqueVendors.map((vendor) => {
+        const vendorProducts = products.filter((p) => p.vendor === vendor);
+        return (
+          <ProductTag
+            key={vendor}
+            products={vendorProducts}
+            vendor={vendor}
+            practiceName={location.name}
+            isActive={isActive}
+          />
+        );
+      });
+      return <Box mt={3}>{vendors}</Box>;
+    }
+    return null;
+  };
 
   const hasCoordinates = latitude && longitude;
   return (
@@ -150,12 +173,7 @@ const Card = ({
               {dryEyeProducts && typeof dryEyeProducts !== "string" ? (
                 <InfoRow
                   title="DryEye Products:"
-                  content={dryEyeProducts.map((product, i) => {
-                    if (i < 10) {
-                      return <p key={product.id}>{product.title}</p>;
-                    }
-                    return null;
-                  })}
+                  content={renderProductBrands(dryEyeProducts)}
                   icon={IoMedkitSharp}
                   isActive={isActive}
                   darkBG
