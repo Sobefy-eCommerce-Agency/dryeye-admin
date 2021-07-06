@@ -4,7 +4,7 @@ import Dashboard from "../components/screens/dashboard/dashboard";
 import PrivateRoute from "./privateRoute";
 import { checkForValidRoute } from "../utils/utils";
 import { LocatorProvider } from "../components/context/locatorContext";
-import Locator from "../components/locator/locator";
+import LocatorV2 from "../components/LocatorV2/Locator";
 import AppContainer from "../components/container/appContainer";
 import Sidebar from "../components/sidebar/sidebar";
 
@@ -31,7 +31,7 @@ export default function PrivateRoutes() {
         <LocatorProvider>
           <AppContainer>
             <Sidebar />
-            <Locator />
+            <LocatorV2 />
           </AppContainer>
         </LocatorProvider>
       </PrivateRoute>
