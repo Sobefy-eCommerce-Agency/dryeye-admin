@@ -73,7 +73,13 @@ const ProductTag = ({
         autoFocus
       >
         <PopoverTrigger>
-          <Tag mr={1} mb={1} background={backgroundColor()} color={color}>
+          <Tag
+            mr={1}
+            mb={1}
+            background={backgroundColor()}
+            color={color}
+            cursor="zoom-in"
+          >
             <TagLabel>{vendor}</TagLabel>
           </Tag>
         </PopoverTrigger>

@@ -225,6 +225,7 @@ const Card = ({
                   content={phone}
                   icon={IoCallSharp}
                   isActive={isActive}
+                  behavior="phone"
                 />
               ) : null}
               {website ? (
@@ -233,6 +234,7 @@ const Card = ({
                   content={website}
                   icon={IoGlobeSharp}
                   isActive={isActive}
+                  behavior="website"
                 />
               ) : null}
             </Grid>
