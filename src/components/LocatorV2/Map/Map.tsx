@@ -59,8 +59,13 @@ const Map = ({
     locations,
   } = state;
 
+  const hasActiveFilters =
+    dryEyeTreatmentsFilter ||
+    eyeCareServicesFilter ||
+    practiceNameFilter ||
+    dryEyeProductsFilter ||
+    doctorsFilter;
   const currentLocations = useCurrentLocations();
-
   const dryEyeTreatments = treatmentsAndServices?.filter(
     (el) => el.type === "treatment"
   );
@@ -179,13 +184,7 @@ const Map = ({
 
   useEffect(() => {
     let newLocations: Practice[] | null = null;
-    if (
-      dryEyeTreatmentsFilter ||
-      eyeCareServicesFilter ||
-      practiceNameFilter ||
-      dryEyeProductsFilter ||
-      doctorsFilter
-    ) {
+    if (hasActiveFilters) {
       const results = currentLocations?.filter((loc) => {
         const currentDryEyeTreatments = loc.dryEyeTreatments;
         const currentEyeCareServices = loc.eyeCareServices;
@@ -294,7 +293,13 @@ const Map = ({
         type: "setGeoFilteredLocations",
         locations: geoFilteredLocations.locations,
       });
+    } else {
+      dispatch({
+        type: "setFilteredLocations",
+        locations: null,
+      });
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     dryEyeTreatmentsFilter,

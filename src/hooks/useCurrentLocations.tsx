@@ -9,6 +9,7 @@ const useCurrentLocations = () => {
   const filteredLocationsValue = filteredLocations.active
     ? filteredLocations.locations
     : null;
+  console.log(locations, filteredLocations, geoFilteredLocations);
   return geoFilteredLocationsValue || filteredLocationsValue || locations;
 };
 
