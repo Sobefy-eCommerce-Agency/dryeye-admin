@@ -1,5 +1,6 @@
 import { Box, Flex, Icon, Link, Text } from "@chakra-ui/react";
 import { IconType } from "react-icons/lib";
+import { formatURL } from "../../utils/format";
 
 interface InfoRowProps {
   title: string;
@@ -25,12 +26,14 @@ const InfoRow = ({
   const RenderContent = () => {
     switch (behavior) {
       case "website":
-        if (typeof content === "string")
+        if (typeof content === "string") {
+          const formattedWebsite = formatURL(content);
           return (
-            <Link href={content} isExternal>
-              {content}
+            <Link href={formattedWebsite} isExternal>
+              {formattedWebsite}
             </Link>
           );
+        }
         return null;
       case "phone":
         if (typeof content === "string")

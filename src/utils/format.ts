@@ -222,3 +222,12 @@ export const getUniqueVendors = (products: Product[]) => {
   }
   return null;
 };
+
+export const formatURL = (url: string) => {
+  const httpPattern = "http://";
+  const httpsPattern = "https://";
+  const urlIncludesHTTPPattern = url.includes(httpPattern);
+  const urlIncludesHTTPSPattern = url.includes(httpsPattern);
+  const urlHasAnyPattern = urlIncludesHTTPPattern || urlIncludesHTTPSPattern;
+  return urlHasAnyPattern ? url : `${httpsPattern}${url}`;
+};
