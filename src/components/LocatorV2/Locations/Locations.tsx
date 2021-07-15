@@ -70,7 +70,11 @@ const Locations = ({ treatmentsAndServices }: LocationsProps) => {
             location={loc}
             isActive={isActive}
             onClick={() => {
-              window.location.href = `https://store.dryeyerescue.com/pages/practice/${loc.practice}`;
+              if (window.self !== window.top) {
+                window.parent.location.href = `https://store.dryeyerescue.com/pages/practice/${loc.practice}`;
+              } else {
+                window.location.href = `https://store.dryeyerescue.com/pages/practice/${loc.practice}`;
+              }
             }}
             treatmentsAndServices={treatmentsAndServices}
           />
