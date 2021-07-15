@@ -12,8 +12,9 @@ import { Box } from "@chakra-ui/react";
 
 const Locator = () => {
   const { dispatch } = useLocator();
-  const [treatmentsAndServices, setTreatmentsAndServices] =
-    useState<any[] | null>(null);
+  const [treatmentsAndServices, setTreatmentsAndServices] = useState<
+    any[] | null
+  >(null);
   const [myDoctors, setMyDoctors] = useState<any[] | null>(null);
 
   // Handlers
@@ -62,10 +63,7 @@ const Locator = () => {
         treatmentsAndServices={treatmentsAndServices}
         myDoctors={myDoctors}
       />
-      <Locations
-        handleActivateLocation={activateLocation}
-        treatmentsAndServices={treatmentsAndServices}
-      />
+      <Locations treatmentsAndServices={treatmentsAndServices} />
     </Box>
   );
 };

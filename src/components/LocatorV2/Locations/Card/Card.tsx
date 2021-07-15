@@ -13,12 +13,13 @@ import Tag from "./Tag/Tag";
 import InfoRow from "../../../InfoRow/InfoRow";
 import { Product } from "../../../../types/commons/commons";
 import ProductTag from "./ProductTag/ProductTag";
+import React from "react";
 
 interface CardProps {
   location: Practice;
   isActive: boolean;
   reference: ((node: HTMLDivElement) => void) | null;
-  onClick(location: Practice): void;
+  onClick: (e: React.MouseEvent) => void;
   treatmentsAndServices: any[] | null;
 }
 
@@ -107,7 +108,7 @@ const Card = ({
           flexDirection={{ base: "column-reverse", md: "row" }}
           boxShadow={isActive ? "xl" : "xl"}
           cursor="pointer"
-          onClick={() => onClick(location)}
+          onClick={onClick}
           _hover={{
             boxShadow: "md",
           }}

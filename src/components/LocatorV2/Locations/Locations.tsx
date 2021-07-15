@@ -1,20 +1,15 @@
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { Box, Button, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import Card from "./Card/Card";
 import SkeletonCard from "../../skeleton/skeletonCard";
 import { useLocator } from "../../context/locatorContext";
-import { Practice } from "../../../types/interfaces/practices";
 import useCurrentLocations from "../../../hooks/useCurrentLocations";
 
 interface LocationsProps {
-  handleActivateLocation(location: Practice | null): void;
   treatmentsAndServices: any[] | null;
 }
 
-const Locations = ({
-  handleActivateLocation,
-  treatmentsAndServices,
-}: LocationsProps) => {
+const Locations = ({ treatmentsAndServices }: LocationsProps) => {
   const { state, dispatch } = useLocator();
 
   // State
@@ -74,7 +69,9 @@ const Locations = ({
             key={loc.practice}
             location={loc}
             isActive={isActive}
-            onClick={(location) => handleActivateLocation(location)}
+            onClick={() => {
+              window.location.href = `https://store.dryeyerescue.com/pages/practice/${loc.practice}`;
+            }}
             treatmentsAndServices={treatmentsAndServices}
           />
         );

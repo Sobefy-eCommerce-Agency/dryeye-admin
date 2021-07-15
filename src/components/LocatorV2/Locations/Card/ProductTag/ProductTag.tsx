@@ -78,12 +78,19 @@ const ProductTag = ({
             mb={1}
             background={backgroundColor()}
             color={color}
-            cursor="zoom-in"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             <TagLabel>{vendor}</TagLabel>
           </Tag>
         </PopoverTrigger>
-        <PopoverContent color="brand.grey.dark">
+        <PopoverContent
+          color="brand.grey.dark"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <PopoverHeader>
             <Text fontWeight="semibold">{vendor}</Text>
           </PopoverHeader>
