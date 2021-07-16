@@ -1,4 +1,4 @@
-import { Box, Grid, HStack, Text } from "@chakra-ui/react";
+import { Box, Button, Grid, HStack, Text } from "@chakra-ui/react";
 import { Practice } from "../../../../types/interfaces/practices";
 import { arrayToCommaString, getUniqueVendors } from "../../../../utils/format";
 import {
@@ -21,6 +21,7 @@ interface CardProps {
   reference: ((node: HTMLDivElement) => void) | null;
   onClick: (e: React.MouseEvent) => void;
   treatmentsAndServices: any[] | null;
+  navigateToLocation(id: string): void;
 }
 
 const Card = ({
@@ -29,6 +30,7 @@ const Card = ({
   onClick,
   reference,
   treatmentsAndServices,
+  navigateToLocation,
 }: CardProps) => {
   const {
     name,
@@ -44,6 +46,7 @@ const Card = ({
     provider,
     partner,
     doctors,
+    practice,
   } = location;
 
   // Convert array to comma string
@@ -211,7 +214,7 @@ const Card = ({
             >
               {name}
             </Text>
-            <Grid column={1} rowGap={3}>
+            <Grid column={1} rowGap={3} mb={4}>
               {address ? (
                 <InfoRow
                   title="Address:"
@@ -239,6 +242,15 @@ const Card = ({
                 />
               ) : null}
             </Grid>
+            <Button
+              size="sm"
+              background="brand.primary"
+              color="white"
+              onClick={() => (practice ? navigateToLocation(practice) : {})}
+              _hover={{ background: "brand.primaryColor.light" }}
+            >
+              View location
+            </Button>
           </Box>
         </Box>
       ) : null}

@@ -7,9 +7,13 @@ import useCurrentLocations from "../../../hooks/useCurrentLocations";
 
 interface LocationsProps {
   treatmentsAndServices: any[] | null;
+  navigateToLocation(id: string): void;
 }
 
-const Locations = ({ treatmentsAndServices }: LocationsProps) => {
+const Locations = ({
+  treatmentsAndServices,
+  navigateToLocation,
+}: LocationsProps) => {
   const { state, dispatch } = useLocator();
 
   // State
@@ -69,14 +73,9 @@ const Locations = ({ treatmentsAndServices }: LocationsProps) => {
             key={loc.practice}
             location={loc}
             isActive={isActive}
-            onClick={() => {
-              if (window.self !== window.top) {
-                window.parent.location.href = `https://store.dryeyerescue.com/pages/practice/${loc.practice}`;
-              } else {
-                window.location.href = `https://store.dryeyerescue.com/pages/practice/${loc.practice}`;
-              }
-            }}
+            onClick={() => {}}
             treatmentsAndServices={treatmentsAndServices}
+            navigateToLocation={navigateToLocation}
           />
         );
       });

@@ -39,6 +39,14 @@ const Locator = () => {
     });
   };
 
+  const navigateToLocation = (id: string) => {
+    if (window.self !== window.top) {
+      window.parent.location.href = `https://store.dryeyerescue.com/pages/practice/${id}`;
+    } else {
+      window.location.href = `https://store.dryeyerescue.com/pages/practice/${id}`;
+    }
+  };
+
   // Side effects
   useEffect(() => {
     ServicesAndTreatmentsApi.get().then((response) => {
@@ -63,7 +71,10 @@ const Locator = () => {
         treatmentsAndServices={treatmentsAndServices}
         myDoctors={myDoctors}
       />
-      <Locations treatmentsAndServices={treatmentsAndServices} />
+      <Locations
+        treatmentsAndServices={treatmentsAndServices}
+        navigateToLocation={navigateToLocation}
+      />
     </Box>
   );
 };
