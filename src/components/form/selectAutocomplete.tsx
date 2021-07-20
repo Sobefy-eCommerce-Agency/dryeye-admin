@@ -110,7 +110,17 @@ const SelectAutocomplete = ({
         const data = [
           { id: "service", label: "Service" },
           { id: "treatment", label: "Treatment" },
+          { id: "testing", label: "Testing" },
         ];
+        if (field.name && field.value) {
+          const filteredValue = data.filter((el) => el.id === field.value);
+          if (filteredValue[0]) {
+            setValue({
+              id: filteredValue[0].id,
+              label: filteredValue[0].label,
+            });
+          }
+        }
         setData(data);
         setDisabled(false);
       }
