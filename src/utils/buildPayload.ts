@@ -78,7 +78,7 @@ export const buildEntityPayload = (
       }
       return null;
 
-    case "servicesAndTreatments":
+    case "practiceAttributes":
       if (data) {
         if (action === "create") {
           const { createdAt, ...rest } = data;

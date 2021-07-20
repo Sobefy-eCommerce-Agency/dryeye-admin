@@ -6,7 +6,7 @@ export type EntityType =
   | "practices"
   | "doctors"
   | "patients"
-  | "servicesAndTreatments";
+  | "practiceAttributes";
 export type EntityDataType = Practice | Doctors | Patients;
 export type RoleType = "administrator" | "editor" | "viewOnly";
 export type ActionType = "view" | "create" | "edit" | "delete" | null;
@@ -32,7 +32,8 @@ export type FieldGroupType =
   | "eyeCareServices"
   | "dryEyeTreatments"
   | "dryEyeProducts"
-  | "practiceCategory";
+  | "practiceCategory"
+  | "tests";
 export type addressComponentField =
   | "street_number"
   | "route"
@@ -48,7 +49,8 @@ export type SelectAutocompleteList =
   | "serviceOrTreatment"
   | "eyeCareServices"
   | "dryEyeTreatments"
-  | "myDoctors";
+  | "myDoctors"
+  | "tests";
 export type ColumnsKey = "doctor" | "practice" | "patient" | "id";
 export type Center = { lat: number; lng: number };
 export type ValueLabelPair = {

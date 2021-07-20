@@ -38,6 +38,7 @@ export type Practice = {
   dryEyeProducts: Product[];
   eyeCareServices: any[];
   dryEyeTreatments: any[];
+  tests: any[];
   providerPlus: boolean;
   provider: boolean;
   partner: boolean;

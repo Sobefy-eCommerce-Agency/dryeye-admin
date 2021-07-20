@@ -1,4 +1,5 @@
 import axios from "axios";
+import { EntityType } from "../types/commons/commons";
 
 const DryEyeInstance = axios.create({
   baseURL: "https://api.dryeyerescue.com",
@@ -89,8 +90,8 @@ const PatientsApi = {
     }),
 };
 
-export const ServicesAndTreatmentsApi = {
-  get: (type?: "treatment" | "service") =>
+export const PracticeAttributesApi = {
+  get: (type?: "treatment" | "service" | "test") =>
     DryEyeInstance({
       method: "GET",
       url: `/services-and-treatments${type ? `?type=${type}` : ""}`,
@@ -116,22 +117,22 @@ export const ServicesAndTreatmentsApi = {
 };
 
 export const CustomersApi = {
-  get: (id?: string) =>
+  get: () =>
     DryEyeInstance({
       method: "GET",
       url: "/customers",
     }),
 };
 
-export const getEntityAPI = (id: string) => {
-  switch (id) {
+export const getEntityAPI = (entity: EntityType) => {
+  switch (entity) {
     case "practices":
       return PracticesApi;
     case "doctors":
       return DoctorsApi;
     case "patients":
       return PatientsApi;
-    case "servicesAndTreatments":
-      return ServicesAndTreatmentsApi;
+    case "practiceAttributes":
+      return PracticeAttributesApi;
   }
 };

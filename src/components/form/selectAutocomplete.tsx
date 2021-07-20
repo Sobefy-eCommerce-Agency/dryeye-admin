@@ -110,7 +110,7 @@ const SelectAutocomplete = ({
         const data = [
           { id: "service", label: "Service" },
           { id: "treatment", label: "Treatment" },
-          { id: "testing", label: "Testing" },
+          { id: "test", label: "Test" },
         ];
         if (field.name && field.value) {
           const filteredValue = data.filter((el) => el.id === field.value);

@@ -5,7 +5,7 @@ import Header from "./Header/Header";
 import Locations from "./Locations/Locations";
 import Map from "./Map/Map";
 import {
-  ServicesAndTreatmentsApi,
+  PracticeAttributesApi,
   DoctorsApi,
 } from "../../configuration/axiosInstances";
 import { Box } from "@chakra-ui/react";
@@ -49,7 +49,7 @@ const Locator = () => {
 
   // Side effects
   useEffect(() => {
-    ServicesAndTreatmentsApi.get().then((response) => {
+    PracticeAttributesApi.get().then((response) => {
       const { data } = response;
       if (data) {
         setTreatmentsAndServices(data);

@@ -46,8 +46,8 @@ const Sidebar = () => {
         <Grid gridRowGap={4}>
           <SidebarLink label="Practices" route="/practices" />
           <SidebarLink
-            label="Services & Treatments"
-            route="/services-and-treatments"
+            label="Practice attributes"
+            route="/practice-attributes"
           />
           <SidebarLink label="Doctors" route="/doctors" />
           <SidebarLink label="Patients" route="/patients" />

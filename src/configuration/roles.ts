@@ -35,7 +35,7 @@ const roles: Role[] = [
         },
       },
       {
-        id: "servicesAndTreatments",
+        id: "practiceAttributes",
         actions: {
           view: true,
           create: true,

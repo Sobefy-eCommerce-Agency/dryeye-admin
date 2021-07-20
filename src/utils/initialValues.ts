@@ -79,7 +79,7 @@ export const GetInitialValues = (
         state: "",
         zip: "",
       };
-    case "servicesAndTreatments":
+    case "practiceAttributes":
       if (action === "edit" && entityData) {
         const { createdAt, ...rest } = entityData;
         return { ...rest };
@@ -120,6 +120,7 @@ export const GetInitialAddressComponents = (
           createdAt,
           eyeCareServices,
           dryEyeTreatments,
+          tests,
           dryEyeProducts,
           suite_number,
           providerPlus,
@@ -135,7 +136,7 @@ export const GetInitialAddressComponents = (
       return null;
     case "patients":
       return null;
-    case "servicesAndTreatments":
+    case "practiceAttributes":
       return null;
   }
 };

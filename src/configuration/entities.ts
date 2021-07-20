@@ -136,6 +136,13 @@ const entities: Entity[] = [
         async: true,
       },
       {
+        id: "tests",
+        type: "checkboxGroup",
+        list: "tests",
+        group: "tests",
+        async: true,
+      },
+      {
         id: "dryEyeProducts",
         placeholder: "Products separated by commas",
         type: "multiProducts",
@@ -217,6 +224,7 @@ const entities: Entity[] = [
       { id: "practiceCategory", label: "Category", columns: 3 },
       { id: "eyeCareServices", label: "Eye Care Services", columns: 1 },
       { id: "dryEyeTreatments", label: "DryEye Treatments", columns: 1 },
+      { id: "tests", label: "Tests", columns: 1 },
       { id: "dryEyeProducts", label: "DryEye Products", columns: 1 },
       { id: "socialMedia", label: "Social Media", columns: 3 },
       { id: "openingHours", label: "Hours of operation", columns: 3 },
@@ -496,9 +504,9 @@ const entities: Entity[] = [
     },
   },
   {
-    id: "servicesAndTreatments",
-    label: "Services & treatments",
-    route: "/services-and-treatments",
+    id: "practiceAttributes",
+    label: "Practice attributes",
+    route: "/practice-attributes",
     columnsKey: "id",
     columns: [
       {
@@ -541,12 +549,12 @@ const entities: Entity[] = [
     fieldSetGroups: [{ id: "general", label: "General", columns: 3 }],
     lang: {
       dashboard: {
-        title: "Services & Treatments",
+        title: "Practice attributes",
         searchBar: "Label",
         addEntityButton: "Add",
       },
       form: {
-        createEntityTitle: "Create",
+        createEntityTitle: "Create attribute",
         createEntityButton: "Create",
         updateEntityTitle: (label) => `Update ${label}`,
         updateEntityButton: "Save",
@@ -559,13 +567,13 @@ const entities: Entity[] = [
       userFeedback: {
         entityCreatedTitle: "Created.",
         entityCreatedDescription: (label) =>
-          `The service ${label} has been created.`,
-        entityUpdatedTitle: "Service updated.",
+          `The attribute ${label} has been created.`,
+        entityUpdatedTitle: "Attribute updated.",
         entityUpdatedDescription: (label) =>
-          `The service ${label} has been updated.`,
+          `The attribute ${label} has been updated.`,
         entityDeletedTitle: "Patient deleted.",
         entityDeletedDescription: (label) =>
-          `The service ${label} has been deleted.`,
+          `The attribute ${label} has been deleted.`,
       },
     },
   },

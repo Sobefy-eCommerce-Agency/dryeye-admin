@@ -56,6 +56,7 @@ export const FormatCheckBoxData = (
   switch (list) {
     case "eyeCareServices":
     case "dryEyeTreatments":
+    case "tests":
       return data.flatMap((el: any) => {
         const { id, label } = el;
         if (id && label) {

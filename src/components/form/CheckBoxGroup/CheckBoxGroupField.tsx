@@ -3,7 +3,7 @@ import { FieldProps } from "formik";
 import { useEffect, useState } from "react";
 import { SelectAutocompleteList } from "../../../types/commons/commons";
 import { FieldOptions } from "../../../types/interfaces/entities";
-import { ServicesAndTreatmentsApi } from "../../../configuration/axiosInstances";
+import { PracticeAttributesApi } from "../../../configuration/axiosInstances";
 import { FormatCheckBoxData } from "../../../utils/format";
 
 interface CheckBoxGroupFieldProps {
@@ -21,11 +21,24 @@ const CheckBoxGroupField = ({
   const { value } = field;
   const { setFieldValue, setFieldTouched } = form;
 
+  const getAttributeService = () => {
+    switch (list) {
+      case "dryEyeTreatments":
+        return "treatment";
+      case "eyeCareServices":
+        return "service";
+      case "tests":
+        return "test";
+      default:
+        return "";
+    }
+  };
+
+  const service = getAttributeService();
+
   useEffect(() => {
-    if (options === null) {
-      ServicesAndTreatmentsApi.get(
-        list === "dryEyeTreatments" ? "treatment" : "service"
-      ).then((response) => {
+    if (options === null && service) {
+      PracticeAttributesApi.get(service).then((response) => {
         const { data } = response;
         if (data) {
           // convert to value label
@@ -36,7 +49,7 @@ const CheckBoxGroupField = ({
         }
       });
     }
-  }, [options, list]);
+  }, [options, list, service]);
 
   return (
     <>
