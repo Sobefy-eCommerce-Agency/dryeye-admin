@@ -8,6 +8,7 @@ import {
   IoEyeSharp,
   IoMedicalSharp,
   IoMedkitSharp,
+  IoDocumentTextSharp,
 } from "react-icons/io5";
 import Tag from "./Tag/Tag";
 import InfoRow from "../../../InfoRow/InfoRow";
@@ -47,6 +48,7 @@ const Card = ({
     partner,
     doctors,
     practice,
+    tests,
   } = location;
 
   // Convert array to comma string
@@ -55,6 +57,9 @@ const Card = ({
   );
   const currentEyeCareServices = treatmentsAndServices?.filter(
     (el) => el.type === "service"
+  );
+  const currentTests = treatmentsAndServices?.filter(
+    (el) => el.type === "test"
   );
 
   const dryeyeTeatmentsObject: any[] = [];
@@ -75,11 +80,23 @@ const Card = ({
     });
   });
 
+  const currentTestsObject: any[] = [];
+  tests?.forEach((test) => {
+    currentTests?.forEach((definedTest) => {
+      if (test === definedTest.id) {
+        currentTestsObject.push(definedTest);
+      }
+    });
+  });
+
   const dryEyeTreatmentsString = dryeyeTeatmentsObject
     ? arrayToCommaString(dryeyeTeatmentsObject, "treatments")
     : "";
   const eyeCareServicesString = eyeCareServicesObject
     ? arrayToCommaString(eyeCareServicesObject, "services")
+    : "";
+  const testsString = currentTestsObject
+    ? arrayToCommaString(currentTestsObject, "tests")
     : "";
 
   const renderProductBrands = (products: Product[]) => {
@@ -183,17 +200,28 @@ const Card = ({
                   darkBG
                 />
               ) : null}
-              {doctors ? (
-                <InfoRow
-                  title="Doctors:"
-                  content={doctors.map((dr) => (
-                    <p key={dr.doctor}>{`${dr.firstName} ${dr.lastName}`}</p>
-                  ))}
-                  icon={IoMedkitSharp}
-                  isActive={isActive}
-                  darkBG
-                />
-              ) : null}
+              <Grid templateColumns="1fr" rowGap={3}>
+                {tests && tests.length > 0 ? (
+                  <InfoRow
+                    title="Tests:"
+                    content={testsString}
+                    icon={IoDocumentTextSharp}
+                    isActive={isActive}
+                    darkBG
+                  />
+                ) : null}
+                {doctors ? (
+                  <InfoRow
+                    title="Doctors:"
+                    content={doctors.map((dr) => (
+                      <p key={dr.doctor}>{`${dr.firstName} ${dr.lastName}`}</p>
+                    ))}
+                    icon={IoMedkitSharp}
+                    isActive={isActive}
+                    darkBG
+                  />
+                ) : null}
+              </Grid>
             </Grid>
           </Box>
           <Box

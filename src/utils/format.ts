@@ -172,7 +172,7 @@ export const SearchByEntity = (
 
 export const arrayToCommaString = (
   arr: any[],
-  type: "treatments" | "services" | "doctors"
+  type: "treatments" | "services" | "doctors" | "tests"
 ) => {
   let str = "";
   if (arr && arr.length > 0) {
@@ -181,6 +181,7 @@ export const arrayToCommaString = (
       switch (type) {
         case "treatments":
         case "services":
+        case "tests":
           element = arr[i].label;
           break;
       }
