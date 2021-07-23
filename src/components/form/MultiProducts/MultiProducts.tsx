@@ -16,9 +16,7 @@ const MultiProducts = ({
   const { setFieldValue } = form;
   const { value } = field;
   const [products, setProducts] = useState<Product[] | null>(null);
-  const [selectedProducts, setSelectedProducts] = useState<Product[] | []>(
-    value && typeof value !== "string" ? value : []
-  );
+  const [selectedProducts, setSelectedProducts] = useState<Product[] | []>([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
   const handleSelectProduct = (product: Product, selected: boolean) => {
@@ -65,6 +63,24 @@ const MultiProducts = ({
             }
           );
           setProducts(sortedProducts);
+          const selectedProducts =
+            value && typeof value !== "string"
+              ? value.map((val: any) => {
+                  const id = val.id;
+                  const filtered = sortedProducts.filter(
+                    (sorted: any) => sorted.id === id
+                  );
+                  if (filtered.length === 1) return filtered[0];
+                  return null;
+                })
+              : [];
+          const notNullSelectedProducts = selectedProducts.filter(
+            (el: any) => el !== null
+          );
+          if (notNullSelectedProducts.length > 0) {
+            setSelectedProducts(notNullSelectedProducts);
+            setFieldValue(id, notNullSelectedProducts);
+          }
         }
       });
     }
