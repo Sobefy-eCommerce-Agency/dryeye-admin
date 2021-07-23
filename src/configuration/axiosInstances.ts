@@ -90,7 +90,7 @@ const PatientsApi = {
     }),
 };
 
-export const PracticeAttributesApi = {
+export const ServicesApi = {
   get: (type?: "treatment" | "service" | "test") =>
     DryEyeInstance({
       method: "GET",
@@ -132,7 +132,7 @@ export const getEntityAPI = (entity: EntityType) => {
       return DoctorsApi;
     case "patients":
       return PatientsApi;
-    case "practiceAttributes":
-      return PracticeAttributesApi;
+    case "services":
+      return ServicesApi;
   }
 };

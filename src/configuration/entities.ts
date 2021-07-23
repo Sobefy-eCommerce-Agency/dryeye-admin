@@ -504,9 +504,9 @@ const entities: Entity[] = [
     },
   },
   {
-    id: "practiceAttributes",
-    label: "Practice attributes",
-    route: "/practice-attributes",
+    id: "services",
+    label: "Services",
+    route: "/services",
     columnsKey: "id",
     columns: [
       {
@@ -549,12 +549,12 @@ const entities: Entity[] = [
     fieldSetGroups: [{ id: "general", label: "General", columns: 3 }],
     lang: {
       dashboard: {
-        title: "Practice attributes",
+        title: "Services",
         searchBar: "Label",
         addEntityButton: "Add",
       },
       form: {
-        createEntityTitle: "Create attribute",
+        createEntityTitle: "Create service",
         createEntityButton: "Create",
         updateEntityTitle: (label) => `Update ${label}`,
         updateEntityButton: "Save",
@@ -567,13 +567,13 @@ const entities: Entity[] = [
       userFeedback: {
         entityCreatedTitle: "Created.",
         entityCreatedDescription: (label) =>
-          `The attribute ${label} has been created.`,
-        entityUpdatedTitle: "Attribute updated.",
+          `The service ${label} has been created.`,
+        entityUpdatedTitle: "Service updated.",
         entityUpdatedDescription: (label) =>
-          `The attribute ${label} has been updated.`,
+          `The service ${label} has been updated.`,
         entityDeletedTitle: "Patient deleted.",
         entityDeletedDescription: (label) =>
-          `The attribute ${label} has been deleted.`,
+          `The service ${label} has been deleted.`,
       },
     },
   },

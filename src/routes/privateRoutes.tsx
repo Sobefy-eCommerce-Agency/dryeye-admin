@@ -18,8 +18,8 @@ export default function PrivateRoutes() {
       <PrivateRoute path="/practices" exact>
         <Dashboard entityName="practices" />
       </PrivateRoute>
-      <PrivateRoute path="/practice-attributes" exact>
-        <Dashboard entityName="practiceAttributes" />
+      <PrivateRoute path="/services" exact>
+        <Dashboard entityName="services" />
       </PrivateRoute>
       <PrivateRoute path="/doctors" exact>
         <Dashboard entityName="doctors" />

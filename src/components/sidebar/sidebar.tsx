@@ -45,10 +45,7 @@ const Sidebar = () => {
         </Flex>
         <Grid gridRowGap={4}>
           <SidebarLink label="Practices" route="/practices" />
-          <SidebarLink
-            label="Practice attributes"
-            route="/practice-attributes"
-          />
+          <SidebarLink label="Services" route="/services" />
           <SidebarLink label="Doctors" route="/doctors" />
           <SidebarLink label="Patients" route="/patients" />
           <SidebarLink label="Locator" route="/locator-admin" />
