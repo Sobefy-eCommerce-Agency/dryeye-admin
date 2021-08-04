@@ -16,13 +16,13 @@ const MultiProducts = ({
   const { setFieldValue } = form;
   const { value } = field;
   const [products, setProducts] = useState<Product[] | null>(null);
-  const [selectedProducts, setSelectedProducts] = useState<Product[] | []>([]);
+  const [selectedProducts, setSelectedProducts] = useState<number[] | []>([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
 
-  const handleSelectProduct = (product: Product, selected: boolean) => {
+  const handleSelectProduct = (product: number, selected: boolean) => {
     if (selected) {
       const filteredProducts = selectedProducts.filter(
-        (prod) => prod.id !== product.id
+        (prod) => prod !== product
       );
       setSelectedProducts(filteredProducts);
       setFieldValue(id, filteredProducts);
@@ -65,12 +65,11 @@ const MultiProducts = ({
           setProducts(sortedProducts);
           const selectedProducts =
             value && typeof value !== "string"
-              ? value.map((val: any) => {
-                  const id = val.id;
+              ? value.map((val: number) => {
                   const filtered = sortedProducts.filter(
-                    (sorted: any) => sorted.id === id
+                    (sorted: any) => sorted.id === val
                   );
-                  if (filtered.length === 1) return filtered[0];
+                  if (filtered.length === 1) return filtered[0].id;
                   return null;
                 })
               : [];
@@ -100,7 +99,7 @@ const MultiProducts = ({
           {products.map((product) => {
             const { id, title } = product;
             const isSelected = selectedProducts
-              ? selectedProducts.filter((prod) => prod.id === id).length === 1
+              ? selectedProducts.filter((prod) => prod === id).length === 1
               : false;
 
             return (
@@ -108,7 +107,7 @@ const MultiProducts = ({
                 <Checkbox
                   colorScheme="purple"
                   isChecked={isSelected}
-                  onChange={() => handleSelectProduct(product, isSelected)}
+                  onChange={() => handleSelectProduct(id, isSelected)}
                   alignItems="flex-start"
                 >
                   <Box marginTop={-1}>{title}</Box>
