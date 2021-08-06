@@ -23,9 +23,13 @@ import {
   sortByBooleanProperty,
   isLocationInsideRadius,
 } from "../../../utils/utils";
-import { FormatCheckBoxData, getUniqueProducts } from "../../../utils/format";
+import {
+  filterShopifyProducts,
+  FormatCheckBoxData,
+  getUniqueProducts,
+} from "../../../utils/format";
 import InfoPopover from "./InfoPopover/InfoPopover";
-import { Center as CenterType } from "../../../types/commons/commons";
+import { Center as CenterType, Product } from "../../../types/commons/commons";
 import useCurrentLocations from "../../../hooks/useCurrentLocations";
 import { IoLocationSharp } from "react-icons/io5";
 
@@ -33,12 +37,14 @@ interface MapProps {
   handleActivateLocation(location: Practice | null): void;
   treatmentsAndServices: any[] | null;
   myDoctors: any[] | null;
+  shopifyProducts: Product[] | null;
 }
 
 const Map = ({
   handleActivateLocation,
   treatmentsAndServices,
   myDoctors,
+  shopifyProducts,
 }: MapProps) => {
   const { state, dispatch } = useLocator();
   const [loading, location] = useGeolocation();
@@ -86,7 +92,7 @@ const Map = ({
     : [];
 
   const dryEyeProducts = useMemo(
-    () => getUniqueProducts(currentLocations),
+    () => getUniqueProducts(currentLocations, shopifyProducts),
     [currentLocations]
   );
 
@@ -189,7 +195,10 @@ const Map = ({
         const currentDryEyeTreatments = loc.dryEyeTreatments;
         const currentEyeCareServices = loc.eyeCareServices;
         const currentPracticeName = loc.name.toLowerCase();
-        const currentDryEyeProducts = loc.dryEyeProducts;
+        const currentDryEyeProducts = filterShopifyProducts(
+          loc.dryEyeProducts,
+          shopifyProducts
+        );
         const currentDoctors = loc.doctors;
         let treatmentsIncluded = false;
         let servicesIncluded = false;

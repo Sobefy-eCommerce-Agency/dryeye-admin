@@ -8,6 +8,13 @@ const DryEyeInstance = axios.create({
   },
 });
 
+const ShopifyPublicInstance = axios.create({
+  baseURL: "https://shop.dryeyerescue.com",
+  headers: {
+    "content-type": "application/json",
+  },
+});
+
 export const PracticesApi = {
   get: (id?: string, allDoctors?: boolean) =>
     DryEyeInstance({
@@ -121,6 +128,14 @@ export const CustomersApi = {
     DryEyeInstance({
       method: "GET",
       url: "/customers",
+    }),
+};
+
+export const ShopifyPublicApi = {
+  getProducts: () =>
+    ShopifyPublicInstance({
+      method: "GET",
+      url: "/products.json?limit=250&page=1",
     }),
 };
 

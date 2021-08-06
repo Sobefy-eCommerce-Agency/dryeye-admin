@@ -4,14 +4,22 @@ import { useLocator } from "../context/locatorContext";
 import Header from "./Header/Header";
 import Locations from "./Locations/Locations";
 import Map from "./Map/Map";
-import { ServicesApi, DoctorsApi } from "../../configuration/axiosInstances";
+import {
+  ServicesApi,
+  DoctorsApi,
+  ShopifyPublicApi,
+} from "../../configuration/axiosInstances";
 import { Box } from "@chakra-ui/react";
+import { Product } from "../../types/commons/commons";
 
 const Locator = () => {
   const { dispatch } = useLocator();
   const [treatmentsAndServices, setTreatmentsAndServices] = useState<
     any[] | null
   >(null);
+  const [shopifyProducts, setShopifyProducts] = useState<Product[] | null>(
+    null
+  );
   const [myDoctors, setMyDoctors] = useState<any[] | null>(null);
 
   // Handlers
@@ -58,6 +66,12 @@ const Locator = () => {
         setMyDoctors(data);
       }
     });
+    ShopifyPublicApi.getProducts().then((response) => {
+      const { data } = response;
+      if (data) {
+        setShopifyProducts(data.products);
+      }
+    });
   }, []);
 
   return (
@@ -67,10 +81,12 @@ const Locator = () => {
         handleActivateLocation={activateLocation}
         treatmentsAndServices={treatmentsAndServices}
         myDoctors={myDoctors}
+        shopifyProducts={shopifyProducts}
       />
       <Locations
         treatmentsAndServices={treatmentsAndServices}
         navigateToLocation={navigateToLocation}
+        shopifyProducts={shopifyProducts}
       />
     </Box>
   );

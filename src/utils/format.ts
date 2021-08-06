@@ -191,15 +191,22 @@ export const arrayToCommaString = (
   return str;
 };
 
-export const getUniqueProducts = (practices: Practice[] | null) => {
+export const getUniqueProducts = (
+  practices: Practice[] | null,
+  shopifyProducts: Product[] | null
+) => {
   if (practices) {
     let products: ValueLabelPair[] = [];
     for (let i = 0; i < practices.length; i++) {
       const practice = practices[i];
       const { dryEyeProducts } = practice;
-      if (dryEyeProducts) {
-        for (let j = 0; j < dryEyeProducts.length; j++) {
-          const product = dryEyeProducts[j];
+      const fileteredProducts = filterShopifyProducts(
+        dryEyeProducts,
+        shopifyProducts
+      );
+      if (fileteredProducts) {
+        for (let j = 0; j < fileteredProducts.length; j++) {
+          const product = fileteredProducts[j];
           const existingProduct = products.filter(
             (pr) => pr.value === String(product.id)
           );
@@ -232,4 +239,33 @@ export const formatURL = (url: string) => {
   const urlIncludesHTTPSPattern = url.includes(httpsPattern);
   const urlHasAnyPattern = urlIncludesHTTPPattern || urlIncludesHTTPSPattern;
   return urlHasAnyPattern ? url : `${httpsPattern}${url}`;
+};
+
+export const filterShopifyProducts = (
+  practiceProducts: number[],
+  shopifyProducts: Product[] | null
+) => {
+  const filteredProducts: Product[] = [];
+  console.log(practiceProducts);
+  if (
+    practiceProducts &&
+    practiceProducts.length > 0 &&
+    typeof practiceProducts !== "string" &&
+    shopifyProducts &&
+    shopifyProducts.length > 0
+  ) {
+    practiceProducts.forEach((practiceProduct) => {
+      const filteredProduct = shopifyProducts.filter((shopifyProduct) => {
+        if (
+          typeof practiceProduct === "number" &&
+          practiceProduct === shopifyProduct.id
+        )
+          return true;
+        return false;
+      });
+      if (filteredProduct.length === 1)
+        filteredProducts.push(filteredProduct[0]);
+    });
+  }
+  return filteredProducts;
 };

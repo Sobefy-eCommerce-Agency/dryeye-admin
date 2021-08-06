@@ -4,15 +4,18 @@ import Card from "./Card/Card";
 import SkeletonCard from "../../skeleton/skeletonCard";
 import { useLocator } from "../../context/locatorContext";
 import useCurrentLocations from "../../../hooks/useCurrentLocations";
+import { Product } from "../../../types/commons/commons";
 
 interface LocationsProps {
   treatmentsAndServices: any[] | null;
   navigateToLocation(id: string): void;
+  shopifyProducts: Product[] | null;
 }
 
 const Locations = ({
   treatmentsAndServices,
   navigateToLocation,
+  shopifyProducts,
 }: LocationsProps) => {
   const { state, dispatch } = useLocator();
 
@@ -76,6 +79,7 @@ const Locations = ({
             onClick={() => {}}
             treatmentsAndServices={treatmentsAndServices}
             navigateToLocation={navigateToLocation}
+            shopifyProducts={shopifyProducts}
           />
         );
       });

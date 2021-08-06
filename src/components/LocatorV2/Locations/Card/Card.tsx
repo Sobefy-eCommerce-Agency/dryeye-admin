@@ -1,6 +1,10 @@
 import { Box, Button, Grid, HStack, Text } from "@chakra-ui/react";
 import { Practice } from "../../../../types/interfaces/practices";
-import { arrayToCommaString, getUniqueVendors } from "../../../../utils/format";
+import {
+  arrayToCommaString,
+  filterShopifyProducts,
+  getUniqueVendors,
+} from "../../../../utils/format";
 import {
   IoLocationSharp,
   IoCallSharp,
@@ -23,6 +27,7 @@ interface CardProps {
   onClick: (e: React.MouseEvent) => void;
   treatmentsAndServices: any[] | null;
   navigateToLocation(id: string): void;
+  shopifyProducts: Product[] | null;
 }
 
 const Card = ({
@@ -32,6 +37,7 @@ const Card = ({
   reference,
   treatmentsAndServices,
   navigateToLocation,
+  shopifyProducts,
 }: CardProps) => {
   const {
     name,
@@ -50,6 +56,8 @@ const Card = ({
     practice,
     tests,
   } = location;
+
+  const products = filterShopifyProducts(dryEyeProducts, shopifyProducts);
 
   // Convert array to comma string
   const currentDryeyeTreatments = treatmentsAndServices?.filter(
@@ -194,7 +202,7 @@ const Card = ({
               {dryEyeProducts && typeof dryEyeProducts !== "string" ? (
                 <InfoRow
                   title="DryEye Products:"
-                  content={renderProductBrands(dryEyeProducts)}
+                  content={renderProductBrands(products)}
                   icon={IoMedkitSharp}
                   isActive={isActive}
                   darkBG

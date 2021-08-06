@@ -1,4 +1,3 @@
-import { Product } from "../commons/commons";
 import { Doctors } from "./doctors";
 
 export type Practice = {
@@ -35,7 +34,7 @@ export type Practice = {
   friday_op_hours: string;
   saturday_op_hours: string;
   sunday_op_hours: string;
-  dryEyeProducts: Product[];
+  dryEyeProducts: number[];
   eyeCareServices: any[];
   dryEyeTreatments: any[];
   tests: any[];
