@@ -9,7 +9,7 @@ const DryEyeInstance = axios.create({
 });
 
 const ShopifyPublicInstance = axios.create({
-  baseURL: "https://shop.dryeyerescue.com",
+  baseURL: "https://wholesale.dryeyerescue.com",
   headers: {
     "content-type": "application/json",
   },

@@ -46,9 +46,9 @@ const Locator = () => {
 
   const navigateToLocation = (id: string) => {
     if (window.self !== window.top) {
-      window.parent.location.href = `https://store.dryeyerescue.com/pages/practice/${id}`;
+      window.parent.location.href = `https://wholesale.dryeyerescue.com/pages/practice/${id}`;
     } else {
-      window.location.href = `https://store.dryeyerescue.com/pages/practice/${id}`;
+      window.location.href = `https://wholesale.dryeyerescue.com/pages/practice/${id}`;
     }
   };
 

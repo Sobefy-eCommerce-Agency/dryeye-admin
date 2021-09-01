@@ -36,7 +36,7 @@ const MultiProducts = ({
   useEffect(() => {
     if (loadingProducts) {
       axios({
-        url: "https://shop.dryeyerescue.com/products.json?limit=250&page=1",
+        url: "https://wholesale.dryeyerescue.com/products.json?limit=250&page=1",
       }).then((response) => {
         const {
           data: { products: productsResult },
