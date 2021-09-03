@@ -368,6 +368,7 @@ const Map = ({
             placeholder="Doctor Name"
             options={formattedMyDoctors || []}
             value={doctorsFilter}
+            instanceId="doctorName"
             onSelect={(values: any[]) =>
               changeFilter({
                 type: "setDoctorsFilter",
@@ -385,6 +386,7 @@ const Map = ({
             placeholder="Treatments"
             options={formattedDryEyeTreatments || []}
             value={dryEyeTreatmentsFilter}
+            instanceId="dryEyeTreatments"
             onSelect={(values: any[]) =>
               changeFilter({
                 type: "setDryEyeTreatmentsFilter",
@@ -397,6 +399,7 @@ const Map = ({
             placeholder="Services"
             options={formattedEyeCareServices || []}
             value={eyeCareServicesFilter}
+            instanceId="eyeCareServices"
             onSelect={(values: any[]) =>
               changeFilter({
                 type: "setEyeCareServicesFilter",
@@ -409,6 +412,7 @@ const Map = ({
             placeholder="Products"
             options={dryEyeProducts}
             value={dryEyeProductsFilter}
+            instanceId="dryEyeProducts"
             onSelect={(values: any[]) =>
               changeFilter({
                 type: "setDryEyeProductsFilter",

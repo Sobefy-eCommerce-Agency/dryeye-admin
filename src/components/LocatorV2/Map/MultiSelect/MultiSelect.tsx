@@ -7,6 +7,7 @@ interface MultiSelectProps {
   options: { label: string; value: string }[] | null;
   onSelect(values: any[]): void;
   value: any[] | null;
+  instanceId: string;
 }
 
 const MultiSelect = ({
@@ -15,6 +16,7 @@ const MultiSelect = ({
   options,
   onSelect,
   value,
+  instanceId,
 }: MultiSelectProps) => {
   const customStyles = {
     control: (provided: any, state: any) => ({
@@ -38,6 +40,8 @@ const MultiSelect = ({
   return (
     <Box height="full">
       <Select
+        id={instanceId}
+        instanceId={instanceId}
         value={value}
         isMulti
         name={name}
