@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 const AppContainer = ({ children }: { children: ReactNode }) => {
   return (
-    <Grid templateColumns=".2fr 1fr" width="100%" height="100%">
+    <Grid templateColumns=".2fr 1fr" width="full" height="full">
       {children}
     </Grid>
   );
