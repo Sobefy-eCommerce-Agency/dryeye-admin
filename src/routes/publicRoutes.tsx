@@ -1,7 +1,5 @@
-import { Redirect, Route, Switch } from "react-router-dom";
-import LocatorV2 from "../components/LocatorV2/Locator";
+import { Redirect, Switch } from "react-router-dom";
 import Login from "../components/login/login";
-import { LocatorProvider } from "../components/context/locatorContext";
 import PublicRoute from "./publicRoute";
 import { useAuth } from "../components/context/context";
 
@@ -13,16 +11,6 @@ export default function PublicRoutes() {
       <PublicRoute path="/login" exact>
         <Login />
       </PublicRoute>
-      <Route path="/locator" exact>
-        <LocatorProvider>
-          <LocatorV2 />
-        </LocatorProvider>
-      </Route>
-      <Route path="/locator-new" exact>
-        <LocatorProvider>
-          <LocatorV2 />
-        </LocatorProvider>
-      </Route>
       {!authenticated ? <Redirect to={`/login`} /> : null}
     </Switch>
   );

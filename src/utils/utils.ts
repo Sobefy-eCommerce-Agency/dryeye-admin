@@ -1,11 +1,6 @@
 import { Center } from "../types/commons/commons";
 import { Practice } from "../types/interfaces/practices";
 
-export const checkForValidRoute = (route: string) => {
-  const validRoutes = ["/locator", "/locator-new"];
-  return validRoutes.includes(route);
-};
-
 export const sortByBooleanProperty = (
   practices: Practice[],
   property: "providerPlus" | "provider" | "partner"

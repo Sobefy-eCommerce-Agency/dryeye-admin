@@ -48,7 +48,6 @@ const Sidebar = () => {
           <SidebarLink label="Services" route="/services" />
           <SidebarLink label="Doctors" route="/doctors" />
           <SidebarLink label="Patients" route="/patients" />
-          <SidebarLink label="Locator" route="/locator-admin" />
         </Grid>
       </Box>
       <Box width="full">
