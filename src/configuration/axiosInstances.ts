@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { CancelToken } from "axios";
 import { EntityType } from "../types/commons/commons";
 
 const DryEyeInstance = axios.create({
@@ -16,14 +16,16 @@ const ShopifyPublicInstance = axios.create({
 });
 
 export const PracticesApi = {
-  get: (id?: string, allDoctors?: boolean) =>
+  get: (cancelToken: CancelToken) =>
+    DryEyeInstance({
+      cancelToken,
+      method: "GET",
+      url: "practices",
+    }),
+  getById: (doctorId: string) =>
     DryEyeInstance({
       method: "GET",
-      url: id
-        ? `/practices?doctor=${id}`
-        : allDoctors
-        ? "/practices?all_doctors=true&total_spent=true&treatments=true&activeOnly=true"
-        : "/practices",
+      url: `/practices?doctor=${doctorId}`,
     }),
   create: (data: object) =>
     DryEyeInstance({
@@ -46,8 +48,9 @@ export const PracticesApi = {
 };
 
 export const DoctorsApi = {
-  get: () =>
+  get: (cancelToken?: CancelToken) =>
     DryEyeInstance({
+      cancelToken,
       method: "GET",
       url: "/my-doctors",
     }),
@@ -72,8 +75,9 @@ export const DoctorsApi = {
 };
 
 const PatientsApi = {
-  get: () =>
+  get: (cancelToken: CancelToken) =>
     DryEyeInstance({
+      cancelToken,
       method: "GET",
       url: "/patients",
     }),
@@ -98,10 +102,20 @@ const PatientsApi = {
 };
 
 export const ServicesApi = {
-  get: (type?: "treatment" | "service" | "test") =>
+  get: (cancelToken: CancelToken) =>
     DryEyeInstance({
+      cancelToken,
       method: "GET",
-      url: `/services-and-treatments${type ? `?type=${type}` : ""}`,
+      url: "/services-and-treatments",
+    }),
+  getByType: (
+    type: "treatment" | "service" | "test",
+    cancelToken: CancelToken
+  ) =>
+    DryEyeInstance({
+      cancelToken,
+      method: "GET",
+      url: `/services-and-treatments?type=${type}`,
     }),
   create: (data: object) =>
     DryEyeInstance({
@@ -124,7 +138,7 @@ export const ServicesApi = {
 };
 
 export const CustomersApi = {
-  get: () =>
+  getById: () =>
     DryEyeInstance({
       method: "GET",
       url: "/customers",

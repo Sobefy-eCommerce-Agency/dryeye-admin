@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { Checkbox, CheckboxGroup, SimpleGrid, Box } from "@chakra-ui/react";
 import { FieldProps } from "formik";
-import { useEffect, useState } from "react";
+import axios from "axios";
+
 import { SelectAutocompleteList } from "../../../types/commons/commons";
 import { FieldOptions } from "../../../types/interfaces/entities";
 import { ServicesApi } from "../../../configuration/axiosInstances";
@@ -17,6 +19,7 @@ const CheckBoxGroupField = ({
   field,
   form,
 }: CheckBoxGroupFieldProps & FieldProps) => {
+  const cancelTokenSource = axios.CancelToken.source();
   const [options, setOptions] = useState<FieldOptions[] | null>(null);
   const { value } = field;
   const { setFieldValue, setFieldTouched } = form;
@@ -38,17 +41,24 @@ const CheckBoxGroupField = ({
 
   useEffect(() => {
     if (options === null && service) {
-      ServicesApi.get(service).then((response) => {
-        const { data } = response;
-        if (data) {
-          // convert to value label
-          const valueLabelData = FormatCheckBoxData(data, list);
-          if (valueLabelData) {
-            setOptions(valueLabelData);
+      ServicesApi.getByType(service, cancelTokenSource.token).then(
+        (response) => {
+          const { data } = response;
+          if (data) {
+            // convert to value label
+            const valueLabelData = FormatCheckBoxData(data, list);
+            if (valueLabelData) {
+              setOptions(valueLabelData);
+            }
           }
         }
-      });
+      );
     }
+    return () => {
+      cancelTokenSource.cancel(
+        `The CheckBoxGroupField component was unmounted.`
+      );
+    };
   }, [options, list, service]);
 
   return (

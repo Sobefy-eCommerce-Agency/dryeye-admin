@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+
 import entities from "../../../configuration/entities";
 import roles from "../../../configuration/roles";
 import {
@@ -38,10 +40,12 @@ type DashboardProps = {
 };
 
 const Dashboard = ({ entityName }: DashboardProps) => {
+  const cancelTokenSource = axios.CancelToken.source();
   const userRole: RoleType = "administrator";
   const [entityData, setEntityData] = useState<EntityDataType[] | null>(null);
-  const [filteredData, setFilteredData] =
-    useState<EntityDataType[] | null>(null);
+  const [filteredData, setFilteredData] = useState<EntityDataType[] | null>(
+    null
+  );
   const [action, setAction] = useState<ActionType>(null);
   const [searchterm, setSearchTerm] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -95,12 +99,17 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     getEntityData();
     setSearchTerm("");
     setFilteredData([]);
+    return () => {
+      cancelTokenSource.cancel(
+        `The component attached to the entity ${id} was unmounted.`
+      );
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   // Fetch actions
   const getEntityData = () => {
-    EntityAPI?.get().then((response) => {
+    EntityAPI.get(cancelTokenSource.token).then((response) => {
       const { data } = response;
       if (data) {
         setEntityData(data);
@@ -109,7 +118,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
   };
 
   const createEntity = (data: object) => {
-    EntityAPI?.create(data).then((response) => {
+    EntityAPI.create(data).then((response) => {
       const { data } = response;
       if (data) {
         const toast = createStandaloneToast();

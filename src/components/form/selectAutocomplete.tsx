@@ -62,7 +62,7 @@ const SelectAutocomplete = ({
     const FetchEntityData = (value?: string) => {
       if (async) {
         EntityAPI()
-          .get(value)
+          .getById(list === "practices" ? String(value) : "")
           .then((response) => {
             const { data } = response;
             if (data) {
