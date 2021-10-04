@@ -6,9 +6,9 @@ import {
   Input,
   Switch,
   Textarea,
-  Box,
 } from "@chakra-ui/react";
 import { FieldProps } from "formik";
+
 import { FieldSet } from "../../types/interfaces/entities";
 import { AddressComponent } from "../../types/interfaces/practices";
 import CheckBoxGroupField from "./CheckBoxGroup/CheckBoxGroupField";
