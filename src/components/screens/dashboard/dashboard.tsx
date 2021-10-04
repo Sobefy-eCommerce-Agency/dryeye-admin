@@ -100,6 +100,9 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     setSearchTerm("");
     setFilteredData([]);
     return () => {
+      setEntityData(null);
+      setSearchTerm("");
+      setFilteredData([]);
       cancelTokenSource.cancel(
         `The component attached to the entity ${id} was unmounted.`
       );
@@ -131,7 +134,10 @@ const Dashboard = ({ entityName }: DashboardProps) => {
           duration: 4000,
           isClosable: true,
         });
+        setEntityData(null);
         getEntityData();
+        setFilteredData(null);
+        setSearchTerm("");
       }
     });
   };
@@ -150,6 +156,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
           duration: 4000,
           isClosable: true,
         });
+        setEntityData(null);
         getEntityData();
         setFilteredData(null);
         setSearchTerm("");
@@ -173,6 +180,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
               duration: 4000,
               isClosable: true,
             });
+            setEntityData(null);
             getEntityData();
             setFilteredData(null);
             setSearchTerm("");

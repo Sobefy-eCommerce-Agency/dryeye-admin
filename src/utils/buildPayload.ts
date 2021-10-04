@@ -40,13 +40,23 @@ export const buildEntityPayload = (
           return payload;
         }
         if (action === "edit") {
-          const { doctor, owner, firstName, lastName, practice } = data;
+          const {
+            doctor,
+            owner,
+            firstName,
+            lastName,
+            email,
+            practice,
+            createAffiliateAccount,
+          } = data;
           return {
             doctor,
             customer: owner,
             firstName,
             lastName,
+            email,
             practice,
+            createAffiliateAccount,
           };
         }
         const { doctor, owner } = data;

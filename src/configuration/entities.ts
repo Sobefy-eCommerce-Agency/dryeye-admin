@@ -278,6 +278,12 @@ const entities: Entity[] = [
         sort: true,
       },
       {
+        column: "email",
+        label: "Email",
+        type: "text",
+        sort: true,
+      },
+      {
         column: "practiceName",
         label: "Practice",
         type: "text",
@@ -306,6 +312,13 @@ const entities: Entity[] = [
         group: "general",
       },
       {
+        id: "email",
+        label: "Email",
+        placeholder: "Email",
+        type: "email",
+        group: "general",
+      },
+      {
         id: "owner",
         label: "Owner",
         placeholder: "Select a doctor",
@@ -324,6 +337,13 @@ const entities: Entity[] = [
         group: "general",
         async: true,
       },
+      {
+        id: "createAffiliateAccount",
+        label: "Create affiliate account?",
+        placeholder: "Check to create an affiliate account",
+        type: "switch",
+        group: "general",
+      },
     ],
     fieldSetGroups: [
       { id: "general", label: "General information", columns: 3 },
@@ -335,7 +355,7 @@ const entities: Entity[] = [
         addEntityButton: "Add doctor",
       },
       form: {
-        createEntityTitle: "Create doctor",
+        createEntityTitle: "Create a doctor",
         createEntityButton: "Create",
         updateEntityTitle: (name) => `Update doctor ${name}`,
         updateEntityButton: "Save",
