@@ -62,7 +62,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     (entity) => entity.id === entityName
   );
   const currentEntity = filteredEntities[0];
-  const { columns, columnsKey, id, lang } = currentEntity;
+  const { columns, columnsKey, secondaryColumnKey, lang } = currentEntity;
 
   // Get entity lang
   const {
@@ -83,7 +83,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
   const currentRole = filteredRoles[0];
   const { entities: roleEntities } = currentRole;
   const filteredEntityPermissions = roleEntities.filter(
-    (entity) => entity.id === id
+    (entity) => entity.id === entityName
   );
   const currentEntityPermissions = filteredEntityPermissions[0];
   const {
@@ -91,24 +91,20 @@ const Dashboard = ({ entityName }: DashboardProps) => {
   } = currentEntityPermissions;
 
   // Entity API
-  const EntityAPI = getEntityAPI(id);
+  const EntityAPI = getEntityAPI(entityName);
 
   // Fetch context
   useEffect(() => {
     setEntityData(null);
-    getEntityData();
     setSearchTerm("");
     setFilteredData([]);
+    getEntityData();
     return () => {
-      setEntityData(null);
-      setSearchTerm("");
-      setFilteredData([]);
       cancelTokenSource.cancel(
-        `The component attached to the entity ${id} was unmounted.`
+        `The component attached to the entity ${entityName} was unmounted.`
       );
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [entityName]);
 
   // Fetch actions
   const getEntityData = () => {
@@ -166,7 +162,12 @@ const Dashboard = ({ entityName }: DashboardProps) => {
 
   const deleteEntity = () => {
     if (activeData) {
-      const payload = buildEntityPayload(id, "delete", activeData, null);
+      const payload = buildEntityPayload(
+        entityName,
+        "delete",
+        activeData,
+        null
+      );
       if (payload) {
         EntityAPI?.delete(payload).then((response) => {
           const { data } = response;
@@ -203,7 +204,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     setSearchTerm(term);
     // filter by entity
     if (term) {
-      const results = SearchByEntity(id, entityData, term);
+      const results = SearchByEntity(entityName, entityData, term);
       if (results.length > 0) {
         setFilteredData(results);
         return;
@@ -269,6 +270,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
         <DashboardTable
           columns={columns}
           columnsKey={columnsKey}
+          secondaryColumnKey={secondaryColumnKey}
           entityData={filteredData && searchterm ? filteredData : entityData}
           permissions={currentEntityPermissions}
           onDelete={() => onOpenAlert()}

@@ -18,6 +18,7 @@ import {
   ActionType,
   ColumnsKey,
   EntityDataType,
+  SecondaryColumnKey,
 } from "../../types/commons/commons";
 import SkeletonRow from "../skeleton/SkeletonRow";
 
@@ -25,6 +26,7 @@ interface DashboardTableProps {
   columns: Column[];
   entityData: EntityDataType[] | null;
   columnsKey: ColumnsKey;
+  secondaryColumnKey: SecondaryColumnKey;
   permissions: any;
   onDelete(): void;
   setAction: React.Dispatch<React.SetStateAction<ActionType | null>>;
@@ -37,6 +39,7 @@ const DashboardTable = ({
   entityData,
   permissions,
   columnsKey,
+  secondaryColumnKey = "",
   onDelete,
   setAction,
   onOpen,
@@ -53,8 +56,13 @@ const DashboardTable = ({
   const listRows =
     entityData && entityData.length > 0
       ? entityData.map((result: EntityDataType) => {
-          const key = result[columnsKey];
-          if (typeof key === "string" || typeof key === "number") {
+          const primaryKey = result[columnsKey];
+          const secondaryKey = result[secondaryColumnKey];
+          const key = `${primaryKey}-${secondaryKey}`;
+          if (
+            (typeof key === "string" || typeof key === "number") &&
+            secondaryKey
+          ) {
             return (
               <Tr key={key}>
                 {columns.map((column) => {

@@ -6,6 +6,7 @@ const entities: Entity[] = [
     label: "Medical Practices",
     route: "/practices",
     columnsKey: "practice",
+    secondaryColumnKey: "doctor",
     columns: [
       {
         column: "name",
@@ -264,6 +265,7 @@ const entities: Entity[] = [
     label: "Doctors",
     route: "/doctors",
     columnsKey: "doctor",
+    secondaryColumnKey: "owner",
     columns: [
       {
         column: "firstName",
@@ -383,6 +385,7 @@ const entities: Entity[] = [
     label: "Patients",
     route: "/patients",
     columnsKey: "patient",
+    secondaryColumnKey: "user",
     columns: [
       {
         column: "firstName",
@@ -528,6 +531,7 @@ const entities: Entity[] = [
     label: "Services",
     route: "/services",
     columnsKey: "id",
+    secondaryColumnKey: "type",
     columns: [
       {
         column: "id",

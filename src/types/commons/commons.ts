@@ -48,6 +48,7 @@ export type SelectAutocompleteList =
   | "myDoctors"
   | "tests";
 export type ColumnsKey = "doctor" | "practice" | "patient" | "id";
+export type SecondaryColumnKey = "" | "owner" | "doctor" | "user" | "type";
 export type Center = { lat: number; lng: number };
 export type ValueLabelPair = {
   value: string;

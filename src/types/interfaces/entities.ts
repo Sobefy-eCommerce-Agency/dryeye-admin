@@ -5,6 +5,7 @@ import {
   FieldGroupType,
   SelectAutocompleteList,
   ColumnsKey,
+  SecondaryColumnKey,
 } from "../commons/commons";
 
 export interface Column {
@@ -56,6 +57,7 @@ export interface Entity {
   label: string;
   route: string;
   columnsKey: ColumnsKey;
+  secondaryColumnKey: SecondaryColumnKey;
   columns: Column[];
   fieldSet: FieldSet[];
   fieldSetGroups: FieldSetGroup[];
