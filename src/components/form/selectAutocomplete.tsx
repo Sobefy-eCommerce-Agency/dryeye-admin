@@ -132,12 +132,12 @@ const SelectAutocomplete = ({
     if (dependsOf) {
       switch (list) {
         case "practices":
-          if (values && values.owner) {
+          if (values.owner) {
             FetchEntityData(values.owner);
           }
       }
     }
-  }, [data, list, field.value, dependsOf, values, async]);
+  }, [list, values.owner]);
 
   return (
     <AsyncSelect
