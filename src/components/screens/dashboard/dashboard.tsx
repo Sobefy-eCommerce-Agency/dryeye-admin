@@ -283,7 +283,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
                 background: "brand.secondaryColor.dark",
               }}
             >
-              Deploy practices
+              Publish Practices
             </Button>
             {create ? (
               <Button
