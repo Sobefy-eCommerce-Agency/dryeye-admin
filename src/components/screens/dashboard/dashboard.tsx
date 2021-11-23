@@ -19,6 +19,7 @@ import {
   InputLeftElement,
   Text,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import {
@@ -56,6 +57,7 @@ const Dashboard = ({ entityName }: DashboardProps) => {
   } = useDisclosure();
   const cancelRef = useRef(null);
   const [activeData, setActiveData] = useState<EntityDataType | null>(null);
+  const toast = useToast();
 
   // Get entity configuration
   const filteredEntities = entities.filter(
@@ -214,6 +216,26 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     }
   };
 
+  const handleDeployPractices = async () => {
+    const deployHookResult = await fetch(
+      "https://api.vercel.com/v1/integrations/deploy/prj_ZgBhHwhXaZ7Ky7Y7J8iUldL3Pdww/mTYuWyCjXs?buildCache=false"
+    );
+    const deployHook = await deployHookResult.json();
+    console.log(deployHook);
+    if (deployHook?.job) {
+      const { id, state } = deployHook.job;
+      if (state === "PENDING") {
+        toast({
+          title: "Deployment created.",
+          description: `We've created the deployment with id: ${id}. Please note that this process can take up to 5 minutes to complete.`,
+          status: "success",
+          duration: 20000,
+          isClosable: true,
+        });
+      }
+    }
+  };
+
   // Results label
   const totalDataLenght = entityData ? entityData.length : 0;
   const totalDataFileteredLength = filteredData ? filteredData.length : 0;
@@ -251,21 +273,34 @@ const Dashboard = ({ entityName }: DashboardProps) => {
               </InputGroup>
             </Flex>
           ) : null}
-          {create ? (
+          <Box>
             <Button
-              onClick={() => {
-                setAction("create");
-                onOpen();
-              }}
-              background="brand.primary"
+              onClick={handleDeployPractices}
+              background="brand.secondary"
               color="white"
+              mr={4}
               _hover={{
-                background: "brand.primaryLight",
+                background: "brand.secondaryColor.dark",
               }}
             >
-              {addEntityButton}
+              Deploy practices
             </Button>
-          ) : null}
+            {create ? (
+              <Button
+                onClick={() => {
+                  setAction("create");
+                  onOpen();
+                }}
+                background="brand.primary"
+                color="white"
+                _hover={{
+                  background: "brand.primaryLight",
+                }}
+              >
+                {addEntityButton}
+              </Button>
+            ) : null}
+          </Box>
         </Flex>
         <DashboardTable
           columns={columns}

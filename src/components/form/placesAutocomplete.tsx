@@ -57,79 +57,75 @@ const AddressAutocomplete = ({
     onSelect(null);
   };
 
-  const handleSelect = ({
-    description,
-    place_id,
-  }: {
-    description: string;
-    place_id: string;
-  }) => () => {
-    setValue(description, false);
-    clearSuggestions();
-    getDetails({ placeId: place_id })
-      .then((details) => {
-        if (typeof details !== "string") {
-          const { address_components, geometry } = details;
-          if (address_components) {
-            const addressComponent: AddressComponent = {
-              address: description,
-              street_number: GetAddressComponentValue(
-                address_components,
-                "street_number",
-                "short_name"
-              ),
-              route: GetAddressComponentValue(
-                address_components,
-                "route",
-                "long_name"
-              ),
-              city: GetAddressComponentValue(
-                address_components,
-                "locality",
-                "long_name"
-              ),
-              county: GetAddressComponentValue(
-                address_components,
-                "administrative_area_level_2",
-                "long_name"
-              ),
-              state: GetAddressComponentValue(
-                address_components,
-                "administrative_area_level_1",
-                "long_name"
-              ),
-              state_short: GetAddressComponentValue(
-                address_components,
-                "administrative_area_level_1",
-                "short_name"
-              ),
-              country: GetAddressComponentValue(
-                address_components,
-                "country",
-                "long_name"
-              ),
-              country_short: GetAddressComponentValue(
-                address_components,
-                "country",
-                "short_name"
-              ),
-              zip: GetAddressComponentValue(
-                address_components,
-                "postal_code",
-                "short_name"
-              ),
-              latitude: geometry ? geometry.location.lat() : "",
-              longitude: geometry ? geometry.location.lng() : "",
-            };
-            setFieldTouched(id);
-            setFieldValue(id, description, true);
-            onSelect(addressComponent);
-            validateField(id);
+  const handleSelect =
+    ({ description, place_id }: { description: string; place_id: string }) =>
+    () => {
+      setValue(description, false);
+      clearSuggestions();
+      getDetails({ placeId: place_id })
+        .then((details) => {
+          if (typeof details !== "string") {
+            const { address_components, geometry } = details;
+            if (address_components) {
+              const addressComponent: AddressComponent = {
+                address: description,
+                street_number: GetAddressComponentValue(
+                  address_components,
+                  "street_number",
+                  "short_name"
+                ),
+                route: GetAddressComponentValue(
+                  address_components,
+                  "route",
+                  "long_name"
+                ),
+                city: GetAddressComponentValue(
+                  address_components,
+                  "locality",
+                  "long_name"
+                ),
+                county: GetAddressComponentValue(
+                  address_components,
+                  "administrative_area_level_2",
+                  "long_name"
+                ),
+                state: GetAddressComponentValue(
+                  address_components,
+                  "administrative_area_level_1",
+                  "long_name"
+                ),
+                state_short: GetAddressComponentValue(
+                  address_components,
+                  "administrative_area_level_1",
+                  "short_name"
+                ),
+                country: GetAddressComponentValue(
+                  address_components,
+                  "country",
+                  "long_name"
+                ),
+                country_short: GetAddressComponentValue(
+                  address_components,
+                  "country",
+                  "short_name"
+                ),
+                zip: GetAddressComponentValue(
+                  address_components,
+                  "postal_code",
+                  "short_name"
+                ),
+                latitude: geometry ? geometry?.location?.lat() : "",
+                longitude: geometry ? geometry?.location?.lng() : "",
+              };
+              setFieldTouched(id);
+              setFieldValue(id, description, true);
+              onSelect(addressComponent);
+              validateField(id);
+            }
           }
-        }
-      })
-      .catch((error) => {});
-  };
+        })
+        .catch((error) => {});
+    };
 
   const renderSuggestions = () =>
     data.map((suggestion) => {

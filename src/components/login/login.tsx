@@ -41,8 +41,9 @@ const Login = () => {
       dispatch({ type: "authenticate", value: true });
       history.push("/practices");
     } catch (e) {
+      const error = (e as Error).message;
       dispatch({ type: "loading", value: false });
-      alert(e.message);
+      alert(error);
     }
   }
 
