@@ -85,6 +85,14 @@ const entities: Entity[] = [
         group: "addressInformation",
       },
       {
+        id: "phone_tracking_number",
+        label: "Phone Tracking Number",
+        placeholder: "Phone Tracking Number",
+        type: "tel",
+        mask: "phone",
+        group: "addressInformation",
+      },
+      {
         id: "email",
         label: "Email",
         placeholder: "Email",
