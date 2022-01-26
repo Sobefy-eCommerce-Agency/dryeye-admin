@@ -32,6 +32,7 @@ export const GetInitialValues = (
       return {
         doctor: "",
         name: "",
+        practice_image: "",
         phone: "",
         phone_tracking_number: "",
         email: "",
@@ -110,6 +111,7 @@ export const GetInitialAddressComponents = (
           instagram_url,
           monday_op_hours,
           name,
+          practice_image,
           phone,
           phone_tracking_number,
           saturday_op_hours,

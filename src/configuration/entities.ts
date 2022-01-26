@@ -63,6 +63,13 @@ const entities: Entity[] = [
         group: "addressInformation",
       },
       {
+        id: "practice_image",
+        label: "Practice image",
+        placeholder: "practice image url",
+        type: "text",
+        group: "addressInformation",
+      },
+      {
         id: "address",
         label: "Address",
         placeholder: "Address",

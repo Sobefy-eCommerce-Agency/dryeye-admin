@@ -7,6 +7,7 @@ export type Practice = {
   doctorName?: string;
   doctors?: Doctors[];
   name: string;
+  practice_image: string;
   phone: string;
   phone_tracking_number: string;
   email: string;
