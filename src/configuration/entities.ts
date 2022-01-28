@@ -114,6 +114,12 @@ const entities: Entity[] = [
         group: "addressInformation",
       },
       {
+        id: "imageGallery",
+        label: "Image Gallery",
+        type: "imageGallery",
+        group: "imageGallery",
+      },
+      {
         id: "providerPlus",
         label: "Is provider plus?",
         type: "switch",
@@ -238,6 +244,7 @@ const entities: Entity[] = [
     fieldSetGroups: [
       { id: "addressInformation", label: "Address Information", columns: 3 },
       { id: "practiceCategory", label: "Category", columns: 3 },
+      { id: "imageGallery", label: "Image Gallery", columns: 1 },
       { id: "eyeCareServices", label: "Eye Care Services", columns: 1 },
       { id: "dryEyeTreatments", label: "DryEye Treatments", columns: 1 },
       { id: "tests", label: "Tests", columns: 1 },

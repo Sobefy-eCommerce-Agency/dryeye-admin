@@ -18,7 +18,8 @@ export type InputType =
   | "selectAutocomplete"
   | "checkboxGroup"
   | "switch"
-  | "multiProducts";
+  | "multiProducts"
+  | "imageGallery";
 export type MaskType = "phone" | "date";
 export type FieldGroupType =
   | "general"
@@ -29,7 +30,8 @@ export type FieldGroupType =
   | "dryEyeTreatments"
   | "dryEyeProducts"
   | "practiceCategory"
-  | "tests";
+  | "tests"
+  | "imageGallery";
 export type addressComponentField =
   | "street_number"
   | "route"

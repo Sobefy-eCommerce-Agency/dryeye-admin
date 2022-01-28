@@ -131,6 +131,7 @@ export const GetInitialAddressComponents = (
           provider,
           partner,
           active,
+          imageGallery,
           ...rest
         } = entityData;
         return { ...rest };

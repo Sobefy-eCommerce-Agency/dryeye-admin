@@ -12,6 +12,7 @@ import { FieldProps } from "formik";
 import { FieldSet } from "../../types/interfaces/entities";
 import { AddressComponent } from "../../types/interfaces/practices";
 import CheckBoxGroupField from "./CheckBoxGroup/CheckBoxGroupField";
+import ImageGallery from "./ImageGallery/ImageGallery";
 import MultiProducts from "./MultiProducts/MultiProducts";
 import AddressAutocomplete from "./placesAutocomplete";
 import SelectAutocomplete from "./selectAutocomplete";
@@ -95,6 +96,8 @@ const FieldForm = ({
         return <Textarea mt={3} {...field} id={id} placeholder={placeholder} />;
       case "multiProducts":
         return <MultiProducts id={id} form={form} meta={meta} field={field} />;
+      case "imageGallery":
+        return <ImageGallery id={id} form={form} field={field} meta={meta} />;
       case "text":
       case "tel":
       case "email":
