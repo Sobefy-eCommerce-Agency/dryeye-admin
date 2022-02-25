@@ -17,20 +17,6 @@ interface ImageGalleryProps {
 }
 
 const gallerySize = 6;
-const galleryEmptyArray = Array(gallerySize);
-const galleryArray: Gallery[] = [...galleryEmptyArray].map(() => {
-  const id = uuid();
-  return {
-    id,
-    image: null,
-    base64: "",
-    imageURL: "",
-  };
-});
-
-function checkForCurrentImage(currImg: Gallery, id: string) {
-  return currImg.id === id;
-}
 
 const cleanupGallery = (gallery: Gallery[]) => {
   const filteredGallery = gallery.filter(
@@ -53,59 +39,44 @@ const ImageGallery = ({
   form,
   field,
 }: FieldProps & ImageGalleryProps) => {
-  const [gallery, setGallery] = useState<Gallery[] | []>(galleryArray);
+  const [gallery, setGallery] = useState<Gallery[] | []>([]);
+  const galleryFull = gallery.length === gallerySize;
   const { setFieldValue } = form;
   const { value }: { value: string[] | undefined } = field;
 
   const handleInputChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-    id: string
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const image: FileList | null = event?.target?.files;
     const currentImage = image && image.length === 1 ? image[0] : null;
     if (currentImage) {
-      const currentImageIndex = gallery.findIndex((currentImg) =>
-        checkForCurrentImage(currentImg, id)
-      );
-      const currentGalleryObject = [...gallery];
+      const galleryCopy = [...gallery];
       const base64Image = await toBase64(currentImage);
+      const imageName = currentImage.name.split(".")[0];
 
-      currentGalleryObject[currentImageIndex] = {
-        id,
+      console.log(currentImage);
+
+      galleryCopy.push({
+        id: `${uuid()}_${imageName}`,
         image: currentImage,
         base64: base64Image,
         imageURL: "",
-      };
+      });
 
-      const filteredGallery = cleanupGallery(currentGalleryObject);
-      setFieldValue(fieldID, filteredGallery);
-      setGallery(currentGalleryObject);
+      setFieldValue(fieldID, galleryCopy);
+      setGallery(galleryCopy);
     }
   };
 
   const handleDeleteImage = (id: string) => {
-    const currentImageIndex = gallery.findIndex((currentImg) =>
-      checkForCurrentImage(currentImg, id)
-    );
-    const currentGalleryObject = [...gallery];
-    currentGalleryObject[currentImageIndex] = {
-      id,
-      image: null,
-      base64: "",
-      imageURL: "",
-    };
-
-    const filteredGallery = cleanupGallery(currentGalleryObject);
+    const filteredGallery = gallery.filter((image) => image.id !== id);
     setFieldValue(fieldID, filteredGallery);
-    setGallery(currentGalleryObject);
+    setGallery(filteredGallery);
   };
 
   useEffect(() => {
     if (value) {
-      const imagesLength = value.length;
-      // Remove X number of images from initial array
       const galleryCopy = [...gallery];
-      galleryCopy.length = gallerySize - imagesLength;
 
       for (let index = 0; index < value.length; index++) {
         const key = value[index];
@@ -116,46 +87,50 @@ const ImageGallery = ({
         galleryCopy.push({ id, imageURL, base64: null, image: null });
       }
 
-      const filteredGallery = cleanupGallery(galleryCopy);
-      setFieldValue(fieldID, filteredGallery);
+      setFieldValue(fieldID, galleryCopy);
       setGallery(galleryCopy);
     }
   }, []);
 
   return (
-    <Grid templateColumns="1fr 1fr 1fr" gap={6}>
-      {gallery.map((current) => {
-        const { id, image, imageURL } = current;
-        const currentImage = gallery.filter((image) => image.id === id);
-        const src =
-          currentImage && currentImage.length === 1 && currentImage[0].image
-            ? URL.createObjectURL(currentImage[0].image)
-            : currentImage &&
-              currentImage.length === 1 &&
-              currentImage[0].imageURL
-            ? currentImage[0].imageURL
-            : "";
+    <Box>
+      <Grid templateColumns="1fr 1fr 1fr" gap={6} mb={8}>
+        {gallery.map((current) => {
+          const { id, image, imageURL } = current;
+          const src = image ? URL.createObjectURL(image) : imageURL;
 
-        return (
-          <Box width="full" key={id}>
-            {src ? <img src={src} /> : null}
-            {!image && !imageURL ? (
-              <Input
-                onChange={(e) => handleInputChange(e, id)}
-                width="full"
-                type="file"
-                accept="image/*"
-              />
-            ) : null}
-            {image || imageURL ? (
-              <Button onClick={() => handleDeleteImage(id)}>
-                <DeleteIcon />
-              </Button>
-            ) : null}
-          </Box>
-        );
-      })}
-    </Grid>
+          return (
+            <Box width="full" position="relative" key={id}>
+              {src ? <img src={src} alt={id} /> : null}
+              {image || imageURL ? (
+                <Button
+                  position="absolute"
+                  bottom="10px"
+                  right="10px"
+                  onClick={() => handleDeleteImage(id)}
+                  _hover={{
+                    background: "red",
+                    color: "white",
+                  }}
+                >
+                  <DeleteIcon />
+                </Button>
+              ) : null}
+            </Box>
+          );
+        })}
+      </Grid>
+      {galleryFull ? (
+        <p>Maximum of images reached</p>
+      ) : (
+        <Input
+          disabled={galleryFull}
+          onChange={handleInputChange}
+          type="file"
+          accept="image/*"
+        />
+      )}
+    </Box>
   );
 };
 
