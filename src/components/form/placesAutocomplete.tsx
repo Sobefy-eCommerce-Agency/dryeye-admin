@@ -33,7 +33,6 @@ const AddressAutocomplete = ({
       componentRestrictions: {
         country: ["us", "ca", "pr"],
       },
-      types: ["address"],
       bounds: {
         north: center.lat + 0.1,
         south: center.lat - 0.1,
