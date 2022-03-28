@@ -11,6 +11,7 @@ import {
   Tr,
   Th,
   Td,
+  Box,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Column } from "../../types/interfaces/entities";
@@ -24,14 +25,16 @@ import SkeletonRow from "../skeleton/SkeletonRow";
 
 interface DashboardTableProps {
   columns: Column[];
-  entityData: EntityDataType[] | null;
+  entityData: EntityDataType<any> | null;
   columnsKey: ColumnsKey;
   secondaryColumnKey: SecondaryColumnKey;
   permissions: any;
   onDelete(): void;
   setAction: React.Dispatch<React.SetStateAction<ActionType | null>>;
   onOpen(): void;
-  setActiveData: React.Dispatch<React.SetStateAction<EntityDataType | null>>;
+  setActiveData: React.Dispatch<
+    React.SetStateAction<EntityDataType<any> | null>
+  >;
 }
 
 const DashboardTable = ({
@@ -55,7 +58,7 @@ const DashboardTable = ({
 
   const listRows =
     entityData && entityData.length > 0
-      ? entityData.map((result: EntityDataType) => {
+      ? entityData.map((result: EntityDataType<any>) => {
           const primaryKey = result[columnsKey];
           const secondaryKey = result[secondaryColumnKey];
           const key = `${primaryKey}-${secondaryKey}`;
@@ -66,8 +69,33 @@ const DashboardTable = ({
             return (
               <Tr key={key}>
                 {columns.map((column) => {
-                  const columnKey = column.column;
-                  return <Td key={columnKey}>{result[columnKey]}</Td>;
+                  const { column: columnKey, type: columnType } = column;
+                  const columnContent = result[columnKey];
+
+                  switch (columnType) {
+                    case "image":
+                      if (columnContent && columnContent.length > 0) {
+                        const image = columnContent[0];
+                        const imageURL = `https://dryeyerescue-images.s3.amazonaws.com/${image}`;
+                        return (
+                          <Td key={columnKey}>
+                            <img width="70px" src={imageURL} />
+                          </Td>
+                        );
+                      }
+                      return (
+                        <Td key={columnKey}>
+                          <Box
+                            width="70px"
+                            height="70px"
+                            background="brand.grey.light"
+                          />
+                        </Td>
+                      );
+
+                    default:
+                      return <Td key={columnKey}>{columnContent}</Td>;
+                  }
                 })}
                 <Td>
                   <Menu>

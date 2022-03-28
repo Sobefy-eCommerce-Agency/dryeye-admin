@@ -14,9 +14,8 @@ interface Gallery {
 
 interface ImageGalleryProps {
   id: string;
+  singleImage: boolean;
 }
-
-const gallerySize = 6;
 
 const cleanupGallery = (gallery: Gallery[]) => {
   const filteredGallery = gallery.filter(
@@ -38,8 +37,10 @@ const ImageGallery = ({
   id: fieldID,
   form,
   field,
+  singleImage,
 }: FieldProps & ImageGalleryProps) => {
   const [gallery, setGallery] = useState<Gallery[] | []>([]);
+  const gallerySize = singleImage ? 1 : 6;
   const galleryFull = gallery.length === gallerySize;
   const { setFieldValue } = form;
   const { value }: { value: string[] | undefined } = field;

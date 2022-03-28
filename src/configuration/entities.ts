@@ -290,6 +290,12 @@ const entities: Entity[] = [
     secondaryColumnKey: "owner",
     columns: [
       {
+        column: "profilePicture",
+        label: "Image",
+        type: "image",
+        sort: true,
+      },
+      {
         column: "firstName",
         label: "First Name",
         type: "text",
@@ -368,9 +374,16 @@ const entities: Entity[] = [
         type: "switch",
         group: "general",
       },
+      {
+        id: "profilePicture",
+        label: "Add profile picture",
+        type: "imagePicker",
+        group: "profilePicture",
+      },
     ],
     fieldSetGroups: [
       { id: "general", label: "General information", columns: 3 },
+      { id: "profilePicture", label: "Profile Picture", columns: 1 },
     ],
     lang: {
       dashboard: {

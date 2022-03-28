@@ -8,7 +8,7 @@ import { AddressComponent } from "../types/interfaces/practices";
 export const buildEntityPayload = (
   id: EntityType,
   action: ActionType,
-  data: EntityDataType,
+  data: EntityDataType<any>,
   additionalData: AddressComponent | null
 ) => {
   switch (id) {
@@ -48,6 +48,7 @@ export const buildEntityPayload = (
             email,
             practice,
             createAffiliateAccount,
+            profilePicture,
           } = data;
           return {
             doctor,
@@ -57,6 +58,7 @@ export const buildEntityPayload = (
             email,
             practice,
             createAffiliateAccount,
+            profilePicture,
           };
         }
         const { doctor, owner } = data;

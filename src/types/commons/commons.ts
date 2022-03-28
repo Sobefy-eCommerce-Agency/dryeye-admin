@@ -3,7 +3,8 @@ import { Patients } from "../interfaces/patients";
 import { Practice } from "../interfaces/practices";
 
 export type EntityType = "practices" | "doctors" | "patients" | "services";
-export type EntityDataType = Practice | Doctors | Patients;
+// TODO: Make this type to work as a generic in all application
+export type EntityDataType<Entity> = Entity;
 export type RoleType = "administrator" | "editor" | "viewOnly";
 export type ActionType = "view" | "create" | "edit" | "delete" | null;
 export type InputType =
@@ -19,7 +20,8 @@ export type InputType =
   | "checkboxGroup"
   | "switch"
   | "multiProducts"
-  | "imageGallery";
+  | "imageGallery"
+  | "imagePicker";
 export type MaskType = "phone" | "date";
 export type FieldGroupType =
   | "general"
@@ -31,7 +33,8 @@ export type FieldGroupType =
   | "dryEyeProducts"
   | "practiceCategory"
   | "tests"
-  | "imageGallery";
+  | "imageGallery"
+  | "profilePicture";
 export type addressComponentField =
   | "street_number"
   | "route"

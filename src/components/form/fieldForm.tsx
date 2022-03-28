@@ -97,7 +97,16 @@ const FieldForm = ({
       case "multiProducts":
         return <MultiProducts id={id} form={form} meta={meta} field={field} />;
       case "imageGallery":
-        return <ImageGallery id={id} form={form} field={field} meta={meta} />;
+      case "imagePicker":
+        return (
+          <ImageGallery
+            id={id}
+            form={form}
+            field={field}
+            meta={meta}
+            singleImage={type === "imagePicker"}
+          />
+        );
       case "text":
       case "tel":
       case "email":

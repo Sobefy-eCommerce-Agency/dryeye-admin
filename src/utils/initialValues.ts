@@ -7,7 +7,7 @@ import {
 export const GetInitialValues = (
   entity: EntityType,
   action: ActionType,
-  entityData: EntityDataType | null
+  entityData: EntityDataType<any> | null
 ): Object | {} => {
   switch (entity) {
     case "practices":
@@ -97,7 +97,7 @@ export const GetInitialValues = (
 export const GetInitialAddressComponents = (
   entity: EntityType,
   action: ActionType,
-  entityData: EntityDataType
+  entityData: EntityDataType<any>
 ) => {
   switch (entity) {
     case "practices":

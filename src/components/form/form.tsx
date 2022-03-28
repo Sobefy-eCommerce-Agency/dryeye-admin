@@ -31,7 +31,7 @@ interface FormProps {
   action: ActionType;
   entity: Entity;
   onSubmit(data: object): void;
-  entityData: EntityDataType | null;
+  entityData: EntityDataType<any> | null;
 }
 
 const FormStyled = styled(Form)`

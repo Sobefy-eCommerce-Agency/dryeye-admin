@@ -95,7 +95,7 @@ export const SearchString = (
 
 export const SearchByEntity = (
   entity: EntityType,
-  data: EntityDataType[] | null,
+  data: EntityDataType<any>[] | null,
   searchTerm: string
 ) => {
   if (entity === "practices" && data) {

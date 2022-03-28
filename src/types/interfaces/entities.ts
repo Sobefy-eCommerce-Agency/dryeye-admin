@@ -11,7 +11,7 @@ import {
 export interface Column {
   column: string;
   label: string;
-  type: "text" | "number" | "date" | "boolean";
+  type: "text" | "number" | "date" | "boolean" | "image";
   sort: boolean;
 }
 

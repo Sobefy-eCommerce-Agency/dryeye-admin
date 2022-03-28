@@ -43,10 +43,12 @@ type DashboardProps = {
 const Dashboard = ({ entityName }: DashboardProps) => {
   const cancelTokenSource = axios.CancelToken.source();
   const userRole: RoleType = "administrator";
-  const [entityData, setEntityData] = useState<EntityDataType[] | null>(null);
-  const [filteredData, setFilteredData] = useState<EntityDataType[] | null>(
+  const [entityData, setEntityData] = useState<EntityDataType<any>[] | null>(
     null
   );
+  const [filteredData, setFilteredData] = useState<
+    EntityDataType<any>[] | null
+  >(null);
   const [action, setAction] = useState<ActionType>(null);
   const [searchterm, setSearchTerm] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -56,7 +58,9 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     onClose: onCloseAlert,
   } = useDisclosure();
   const cancelRef = useRef(null);
-  const [activeData, setActiveData] = useState<EntityDataType | null>(null);
+  const [activeData, setActiveData] = useState<EntityDataType<any> | null>(
+    null
+  );
   const toast = useToast();
 
   // Get entity configuration
