@@ -240,6 +240,22 @@ const Dashboard = ({ entityName }: DashboardProps) => {
     }
   };
 
+  const handleUpdateProducts = async () => {
+    const updatedProducts = await fetch(
+      "https://api.dryeyerescue.com/update-products",
+      { method: "post" }
+    );
+    const reponse = await updatedProducts.json();
+    toast({
+      title: "Products updated.",
+      description: ``,
+      status: "success",
+      duration: 20000,
+      isClosable: true,
+    });
+    console.log("updatedProducts", reponse);
+  };
+
   // Results label
   const totalDataLenght = entityData ? entityData.length : 0;
   const totalDataFileteredLength = filteredData ? filteredData.length : 0;
@@ -278,6 +294,17 @@ const Dashboard = ({ entityName }: DashboardProps) => {
             </Flex>
           ) : null}
           <Box>
+            <Button
+              onClick={handleUpdateProducts}
+              background="brand.secondary"
+              color="white"
+              mr={4}
+              _hover={{
+                background: "brand.secondaryColor.dark",
+              }}
+            >
+              Update Products
+            </Button>
             <Button
               onClick={handleDeployPractices}
               background="brand.secondary"
